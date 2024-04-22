@@ -1,36 +1,20 @@
-import { Avatar, Box } from '@mui/material'
-import React, { useEffect } from 'react'
-import Footer from '../component/Footer'
-import Navbar from '../component/Navbar'
-import LockClockOutlined from '@mui/icons-material/LockClockOutlined'
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux'
-import { userSignInAction } from '../redux/actions/userAction'
-import { useNavigate } from 'react-router-dom'
-
-const validationSchema = yup.object({
-    email: yup
-        .string('Enter your email')
-        .email('Enter a valid email')
-        .required('Email is required'),
-    password: yup
-        .string('Enter your password')
-        .min(8, 'Password should be of minimum 8 characters length')
-        .required('Password is required'),
-});
-
-
+import React, { useEffect, useRef } from 'react';
+import Footer from '../component/Footer';
+import Navbar from '../component/Navbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { userSignInAction } from '../redux/actions/userAction';
+import { useNavigate } from 'react-router-dom';
+import bgImage from '../img/bg.svg';
+import avatarImage from '../img/avatar.svg';
+import waveImage from '../img/wave.png';
+ import './Login.css';
 
 const LogIn = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     const { isAuthenticated, userInfo } = useSelector(state => state.signIn);
-    useEffect(() => {
 
+    useEffect(() => {
         if (isAuthenticated) {
             if (userInfo.role === 1) {
                 navigate('/admin/dashboard');
@@ -38,90 +22,78 @@ const LogIn = () => {
                 navigate('/user/dashboard');
             }
         }
+    }, [isAuthenticated, userInfo, navigate]);
 
-        // if (isAuthenticated) {
-        //     navigate('/user/dashboard');
-        // }
-    }, [isAuthenticated])
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
 
-    const formik = useFormik({
-        initialValues: {
-            email: '',
-            password: ''
-        },
-        validationSchema: validationSchema,
-        onSubmit: (values, actions) => {
-            //  alert(JSON.stringify(values, null, 2));
-            dispatch(userSignInAction(values));
-            actions.resetForm();
+    const handleFocus = (event) => {
+        const parent = event.target.parentNode.parentNode;
+        parent.classList.add("focus");
+    };
+
+    const handleBlur = (event) => {
+        const parent = event.target.parentNode.parentNode;
+        if (event.target.value === "") {
+            parent.classList.remove("focus");
         }
+    };
 
-    })
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const email = emailRef.current.value;
+        const password = passwordRef.current.value;
+        dispatch(userSignInAction({ email, password }));
+    };
+
     return (
         <>
-            <Navbar />
-            <Box sx={{ minHeight: 'calc(100vh - 140px)', display: "flex", alignItems: "center", justifyContent: "center", bgcolor: "primary.white" }}>
-
-
-                <Box onSubmit={formik.handleSubmit} component="form" className='form_style border-style' >
-                    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
-                        <Avatar sx={{ m: 1, bgcolor: "primary.main", mb: 3 }}>
-                            <LockClockOutlined sx={{ color: 'white' }} />
-                        </Avatar>
-                        <TextField
-                            sx={{
-                                mb: 3,
-                                "& .MuiInputBase-root": {
-                                    color: 'text.secondary',
-                                },
-                                fieldset: { borderColor: "rgb(231, 235, 240)" }
-                            }}
-                            fullWidth
-                            id="email"
-                            label="E-mail"
-                            name='email'
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-
-                            placeholder="E-mail"
-                            value={formik.values.email}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.email && Boolean(formik.errors.email)}
-                            helperText={formik.touched.email && formik.errors.email}
-                        />
-                        <TextField
-                            sx={{
-                                mb: 3,
-                                "& .MuiInputBase-root": {
-                                    color: 'text.secondary'
-                                },
-                                fieldset: { borderColor: "rgb(231, 235, 240)" }
-                            }}
-                            fullWidth
-                            id="password"
-                            name="password"
-                            label="Password"
-                            type="password"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            placeholder="Password"
-                            value={formik.values.password}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.password && Boolean(formik.errors.password)}
-                            helperText={formik.touched.password && formik.errors.password}
-                        />
-
-                        <Button fullWidth variant="contained" type='submit' >Log In</Button>
-                    </Box>
-                </Box>
-            </Box>
-            <Footer />
+            <Navbar /> <img className="wave" src={waveImage} alt="wave" />
+            <div className="container">
+                <div className="img">
+                    <img src={bgImage} alt="background" />
+                </div>
+                <div className="login-content">
+                    <form onSubmit={handleSubmit}>
+                        <img src={avatarImage} alt="avatar" />
+                        <h2 className="title">Welcome</h2>
+                        <div className="input-div one">
+                            <div className="i">
+                                <i className="fas fa-user"></i>
+                            </div>
+                            <div className="div">
+                                <h5>Username</h5>
+                                <input
+                                    type="text"
+                                    className="input"
+                                    ref={emailRef}
+                                    onFocus={handleFocus}
+                                    onBlur={handleBlur}
+                                />
+                            </div>
+                        </div>
+                        <div className="input-div pass">
+                            <div className="i">
+                                <i className="fas fa-lock"></i>
+                            </div>
+                            <div className="div">
+                                <h5>Password</h5>
+                                <input
+                                    type="password"
+                                    className="input"
+                                    ref={passwordRef}
+                                    onFocus={handleFocus}
+                                    onBlur={handleBlur}
+                                />
+                            </div>
+                        </div>
+                        <input type="submit" className="btn" value="Login" />
+                    </form>
+                </div>
+            </div>
+            <Footer ></Footer>
         </>
-    )
+    );
 }
 
-export default LogIn
+export default LogIn;

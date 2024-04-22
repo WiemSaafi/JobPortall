@@ -59,7 +59,7 @@ const Navbar = () => {
 
 
     return (
-        <AppBar position="static" sx={{ bgcolor: palette.primary.main }}>
+        <AppBar position="static" sx={{ bgcolor: "#0CB080" }}>
             <Container >
                 {/* principal Menu */}
                 <Toolbar disableGutters>

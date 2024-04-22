@@ -12,7 +12,9 @@ import {
     JOB_LOAD_SUCCESS,
     REGISTER_JOB_FAIL,
     REGISTER_JOB_REQUEST,
-    REGISTER_JOB_SUCCESS
+    REGISTER_JOB_SUCCESS,
+ UPDATE_JOB_FAIL, 
+ UPDATE_JOB_REQUEST, UPDATE_JOB_SUCCESS
 } from "../constants/jobconstant"
 
 
@@ -27,7 +29,7 @@ export const jobLoadAction = (pageNumber, keyword = '', cat = '', location = '')
     } catch (error) {
         dispatch({
             type: JOB_LOAD_FAIL,
-            payload: error.response.data.error
+            payload: error.response.data.error      
         });
     }
 }
@@ -89,3 +91,4 @@ export const registerAjobAction = (job) => async (dispatch) => {
         toast.error(error.response.data.error);
     }
 }
+

@@ -131,7 +131,7 @@ const [isHovered, setIsHovered] = useState(false);
                                 </IconButton>
                             </label>
                         </Grid>
-                        <button onClick={uploadedPhoto}> upload ! </button>
+                        <button onClick={uploadedPhoto}> upload ! </button>  
             <img src = {URL}/> 
                         {photo && (
                             <Grid item xs={12} md={6}>
@@ -331,8 +331,7 @@ const [isHovered, setIsHovered] = useState(false);
 //             <input type ="file" value={file}
 //             onChange={(e)=>setFile(e.target.files[0])} />
 //             <br/>
-//             <button onClick={uploadedPhoto}> upload ! </button>
-//             <img src = {URL}/> 
+ 
 //         </div>
 //     );
 
