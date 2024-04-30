@@ -18,13 +18,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userLogoutAction } from '../redux/actions/userAction';
 import { DarkMode, LightMode } from "@mui/icons-material";
 import { toggleActionTheme } from '../redux/actions/themeAction';
-
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import LoginIcon from '@mui/icons-material/Login';
+import { styled } from '@mui/material/styles';
+import avatarImage from '../img/avatar.svg';
 
 const pages = ['Home', 'Log In'];
 
-
 const Navbar = () => {
-    //show / hide button
     const { userInfo } = useSelector(state => state.signIn);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -47,7 +49,6 @@ const Navbar = () => {
         setAnchorElUser(null);
     };
 
-    // log out user
     const logOutUser = () => {
         dispatch(userLogoutAction());
         window.location.reload(true);
@@ -56,12 +57,9 @@ const Navbar = () => {
         }, 500)
     }
 
-
-
     return (
         <AppBar position="static" sx={{ bgcolor: "#0CB080" }}>
-            <Container >
-                {/* principal Menu */}
+            <Container>
                 <Toolbar disableGutters>
                     <WorkIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                     <Typography
@@ -79,7 +77,7 @@ const Navbar = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        JOB PORTAL
+                        DIGITAL MARKET
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -135,11 +133,10 @@ const Navbar = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        JOB PORTAL
+                        DIGITAL MARKET
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {/* menu desktop */}
-
                         <Button
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}>
@@ -147,15 +144,6 @@ const Navbar = () => {
                                 Home
                             </Link>
                         </Button>
-                        <Button
-                            onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block' }}>
-                            <Link to="/register" style={{ color: 'white', textDecoration: "none" }}>
-                                Register
-                            </Link>
-                        </Button>
-
-
                     </Box>
                     <IconButton sx={{ mr: 4 }} onClick={() => dispatch(toggleActionTheme())}>
                         {palette.mode === "dark" ? (
@@ -164,13 +152,13 @@ const Navbar = () => {
                             <LightMode sx={{ color: "#ffffff", fontSize: "25px" }} />
                         )}
                     </IconButton>
-
                     <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar sx={{ color: palette.primary.white }} alt="Remy Sharp" src="" />
-                            </IconButton>
-                        </Tooltip>
+                    <Tooltip title="Open settings">
+        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            {/* Remplace l'Avatar par l'élément img */}
+            <img src={avatarImage} alt="Avatar" style={{ width: '50px', height: '50px', borderRadius: '60%' }} />
+        </IconButton>
+    </Tooltip>
                         <Menu
                             PaperProps={{
                                 sx: {
@@ -180,7 +168,6 @@ const Navbar = () => {
                                     },
                                 }
                             }}
-
                             sx={{ mt: '45px' }}
                             id="menu-appbar"
                             anchorEl={anchorElUser}
@@ -196,28 +183,40 @@ const Navbar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-
-
+                            {/* Modifications du menu select */}
                             <MenuItem onClick={handleCloseUserMenu}>
-                                <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.secondary.main }} to="/admin/dashboard">Admin Dashboard</Link></Typography>
+                                <Typography textAlign="center">
+                                    <Link style={{ textDecoration: "none", color: "#0CB080" }} to="/admin/dashboard">
+                                        <DashboardIcon sx={{ mr: 1 }} />
+                                        Admin Dashboard
+                                    </Link>
+                                </Typography>
                             </MenuItem>
                             <MenuItem onClick={handleCloseUserMenu}>
-                                <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.secondary.main }} to="/user/dashboard">User Dashboard</Link></Typography>
+                                <Typography textAlign="center">
+                                    <Link style={{ textDecoration: "none", color: "#0CB080" }} to="/user/dashboard">
+                                        <DashboardIcon sx={{ mr: 1 }} />
+                                        User Dashboard
+                                    </Link>
+                                </Typography>
                             </MenuItem>
-
                             {
                                 !userInfo ?
-
                                     <MenuItem onClick={()=>{handleCloseUserMenu(); navigate("/login")}}>
-                                        <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.secondary.main }} to="/login">Log In</Link></Typography>
+                                        <Typography textAlign="center">
+                                            <Link style={{ textDecoration: "none", color: "#0CB080"}} to="/login">
+                                                <LoginIcon sx={{ mr: 1 }} />
+                                                Log In
+                                            </Link>
+                                        </Typography>
                                     </MenuItem> :
-
                                     <MenuItem onClick={logOutUser}>
-                                        <Typography style={{ textDecoration: "none", color: palette.secondary.main }} textAlign="center">Log Out</Typography>
+                                        <Typography style={{ textDecoration: "none", color: "#0CB080" }} textAlign="center">
+                                            <ExitToAppIcon sx={{ mr: 1 }} />
+                                            Log Out
+                                        </Typography>
                                     </MenuItem>
                             }
-
-
                         </Menu>
                     </Box>
                 </Toolbar>

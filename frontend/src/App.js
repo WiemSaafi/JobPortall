@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import Home from './Home.js';
 import NotFound from './pages/NotFound';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 //import { theme } from './theme';
@@ -28,8 +28,9 @@ import { createTheme } from '@mui/material/styles';
 import { themeColors } from './theme'
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
+import MyCalendar from './MyCalendar.js';
 
- 
+
 //HOC
 const UserDashboardHOC = Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
@@ -43,7 +44,7 @@ const DashCreateCategoryHOC = Layout(DashCreateCategory)
 
 
 
- 
+
 const App = () => {
     const { mode } = useSelector((state) => state.mode);
     const theme = useMemo(() => createTheme(themeColors(mode)), [mode]);
@@ -71,12 +72,16 @@ const App = () => {
                             <Route path='/user/dashboard' element={<UserRoute>< UserDashboardHOC /></UserRoute>} />
                             <Route path='/user/jobs' element={<UserRoute>< UserJobsHistoryHOC /></UserRoute>} />
                             <Route path='/user/info' element={<UserRoute>< UserInfoDashboardHOC /></UserRoute>} />
+                            <Route path='/user/calendar' element={<UserRoute><MyCalendar /></UserRoute>} />
+
+
                             <Route path='*' element={<NotFound />} />
                         </Routes>
                     </BrowserRouter>
                 </ProSidebarProvider>
             </ThemeProvider>
         </>
+
     )
 }
 
