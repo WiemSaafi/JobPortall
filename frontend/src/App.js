@@ -28,9 +28,10 @@ import { createTheme } from '@mui/material/styles';
 import { themeColors } from './theme'
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
-import MyCalendar from './MyCalendar.js';
-
-
+import MyCalendar from '../src/Calendar/Calendar.js';
+import event from "./Calendar/Event.js";
+import Not from './Notification/Not.js';
+ 
 //HOC
 const UserDashboardHOC = Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
@@ -73,7 +74,7 @@ const App = () => {
                             <Route path='/user/jobs' element={<UserRoute>< UserJobsHistoryHOC /></UserRoute>} />
                             <Route path='/user/info' element={<UserRoute>< UserInfoDashboardHOC /></UserRoute>} />
                             <Route path='/user/calendar' element={<UserRoute><MyCalendar /></UserRoute>} />
-
+                            <Route path='/user/notifications' element={<UserRoute><Not /></UserRoute>} />
 
                             <Route path='*' element={<NotFound />} />
                         </Routes>

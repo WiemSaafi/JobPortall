@@ -58,31 +58,6 @@ const userSchema = new mongoose.Schema({
         required: [true, 'last name is required'],
         maxlength: 32,
     },
-    phone: {
-        type:Number,
-        trim: true,
-        required: [true, 'last phone number is required'],
-        maxlength: 32,
-    },
-    address: {
-        type: String, //lezem s taaa string mjus moch minuscule sinon 8elta
-        trim: true,
-        required: [true, 'last address  is required'],
-        //required lezem e3emer champ heka sinon yet3eda chy
-        maxlength: 32,
-    },
-    image: {
-        public_id:{
-            type: String,
-            required: true
-        },
-        url: {
-            type: String,
-            required: true
-        }
-    },
-
-   
     email: {
         type: String,
         trim: true,
