@@ -1,4 +1,4 @@
-const HeureDépart = require('../models/horairDépartModel');
+const HeureDépart = require('../models/horaireDépartModel');
 const ErrorResponse = require('../utils/errorResponse');
 
 exports.createHeure = async (req, res, next) => {
