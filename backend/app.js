@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 require("dotenv").config();
-var cors = require('cors');
+const cors = require('cors');
 const path = require('path');
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/error");
@@ -14,6 +14,7 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const jobTypeRoute = require('./routes/jobsTypeRoutes');
 const jobRoute = require('./routes/jobsRoutes');
+const horaireRoute = require('./routes/horaireRou'); // Corrigez l'espace supplémentaire ici
 
 // Connexion à la base de données
 mongoose.connect(process.env.DATABASE, {
@@ -29,6 +30,7 @@ mongoose.connect(process.env.DATABASE, {
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
+
 app.use(bodyParser.json({ limit: "5mb" }));
 app.use(bodyParser.urlencoded({
   limit: "5mb",
@@ -42,12 +44,13 @@ app.use('/api', authRoutes);
 app.use('/api', userRoutes);
 app.use('/api', jobTypeRoute);
 app.use('/api', jobRoute);
+app.use('/api', horaireRoute);
 
 // Gestion des erreurs
 app.use(errorHandler);
 
 // Configuration du port
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`Serveur en cours d'exécution sur le port ${port}`);

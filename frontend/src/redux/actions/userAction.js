@@ -21,7 +21,10 @@ import {
     USER_SIGNUP_SUCCESS,
     USER_UPDATE_FAIL,
     USER_UPDATE_REQUEST,
-    USER_UPDATE_SUCCESS
+    USER_UPDATE_SUCCESS,
+    USER_SINGLE_REQUEST,
+    USER_SINGLE_SUCCESS,
+    USER_SINGLE_FAIL,
 } from '../constants/userConstant';
 
 
@@ -159,5 +162,21 @@ export const userUpdateAction = (user, user_id) => async (dispatch) => {
             payload: error.response.data.error
         });
         toast.error(error.response.data.error);
+    }
+}
+export const userSingleAction= (id) => async (dispatch) => {
+    dispatch({ type: USER_SINGLE_REQUEST });
+    try {
+        const { data } = await axios.get("/api/user/${id}");
+        dispatch({
+            type: USER_SINGLE_SUCCESS,
+            payload: data
+        });
+
+    } catch (error) {
+        dispatch({
+            type: USER_SINGLE_FAIL,
+            payload: error.response.data.error
+        });
     }
 }
