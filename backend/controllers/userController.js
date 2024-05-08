@@ -5,66 +5,33 @@ require("dotenv").config();//pour securiser api secure ...
 const Multer = require("multer");//stocker temporairement les fichiers téléchargés en mémoire.
 const express = require("express");
 const cloudinary = require("../utils/cloudinary").v2;
- 
 
 
-// Charger tous les utilisateurs
+//load all users
 exports.allUsers = async (req, res, next) => {
-
-    // Récupération des paramètres de pagination
+    //enable pagination
     const pageSize = 10;
     const page = Number(req.query.pageNumber) || 1;
-
-
-    const {lastName, firstName, email, password, phone, image} = req.body;
+    const count = await User.find({}).estimatedDocumentCount();
 
     try {
-        // Comptage total des utilisateurs
-        const count = await User.estimatedDocumentCount();
-        
-        // Récupération des utilisateurs avec pagination
-        const users = await User.find()
-        .sort({ createdAt: -1 })
-        .select('-password') // Exclure le mot de passe des résultats
-        .skip(pageSize * (page - 1))
-        .limit(pageSize)
-        .lean(); // Ajouter lean() si vous souhaitez retourner des objets JavaScript purs au lieu de documents Mongoose
-       
-        const result = await cloudinary.uploader.upload(image, {
-            folder: 'image_user', // Assurez-vous que 'image_user' est une chaîne de caractères
-        });
-        
-        const {
-            lastName,
-            firstName,
-            address,
-            phone,
-            email,
-            password,
-            category
-        } = req.body;
-        
-        // Créer un objet pour l'image avec les propriétés correctes
-        const imageObject = {
-            public_id: result.public_id,
-            url: result.secure_url
-        };
-        
- 
-    
+        const users = await User.find().sort({ createdAt: -1 }).select('-password')
+            .skip(pageSize * (page - 1))
+            .limit(pageSize)
 
-        // Envoi de la réponse avec les utilisateurs et les informations de pagination
         res.status(200).json({
             success: true,
             users,
             page,
             pages: Math.ceil(count / pageSize),
             count
-        });
+
+        })
+        next();
     } catch (error) {
         return next(error);
     }
-};
+}
 
 // Afficher un utilisateur spécifique
 exports.singleUser = async (req, res, next) => {

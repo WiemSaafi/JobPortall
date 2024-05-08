@@ -30,6 +30,10 @@ import {
     USER_SINGLE_SUCCESS,
     USER_SINGLE_RESET,
     USER_SINGLE_FAIL,
+    DELETE_USER_REQUEST,
+    DELETE_USER_SUCCESS,
+    DELETE_USER_FAIL,
+    DELETE_USER_RESET,
 } from "../constants/userConstant"
 
 
@@ -189,4 +193,25 @@ export const userReducerSingle = (state = { user: null }, action) => {
             return state;
     }
 
+}
+export const deleteUserReducer = (state = {}, action) => {
+    switch (action.type) {
+        case DELETE_USER_REQUEST:
+            return { loading: true }
+        case DELETE_USER_SUCCESS:
+            return {
+                loading: false,
+                success: action.payload.success,
+                message: action.payload.message
+            }
+        case DELETE_USER_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+        case DELETE_USER_RESET:
+            return {}
+        default:
+            return state;
+    }
 }

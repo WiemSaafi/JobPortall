@@ -25,6 +25,9 @@ import {
     USER_SINGLE_REQUEST,
     USER_SINGLE_SUCCESS,
     USER_SINGLE_FAIL,
+    DELETE_USER_REQUEST,
+    DELETE_USER_SUCCESS,
+    DELETE_USER_FAIL,
 } from '../constants/userConstant';
 
 
@@ -167,7 +170,7 @@ export const userUpdateAction = (user, user_id) => async (dispatch) => {
 export const userSingleAction= (id) => async (dispatch) => {
     dispatch({ type: USER_SINGLE_REQUEST });
     try {
-        const { data } = await axios.get("/api/user/${id}");
+        const { data } = await axios.get(`/api/user/${id}`);
         dispatch({
             type: USER_SINGLE_SUCCESS,
             payload: data
@@ -178,5 +181,22 @@ export const userSingleAction= (id) => async (dispatch) => {
             type: USER_SINGLE_FAIL,
             payload: error.response.data.error
         });
+    }
+}
+export const deleteUSERAction = (id) => async (dispatch) => {
+    dispatch({ type: DELETE_USER_REQUEST });
+    try {
+        const { data } = await axios.delete(`/api/job/delete/${id}`);
+        dispatch({
+            type: DELETE_USER_SUCCESS,
+            payload: data
+        });
+        toast.success("Job deleted successfully");
+    } catch (error) {
+        dispatch({
+            type: DELETE_USER_FAIL,
+            payload: error.response.data.error
+        });
+        toast.error(error.response.data.error);
     }
 }

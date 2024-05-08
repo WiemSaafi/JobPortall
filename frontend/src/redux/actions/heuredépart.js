@@ -10,7 +10,7 @@ import {
     HEURE_SINGLE_REQUEST,
     HEURE_SINGLE_SUCCESS,
     HEURE_SINGLE_FAIL,
-} from '../constants/.heuredépartconstant';
+} from '../constants/heuredépartconstant';
 
 export const heuredepartjourAction = (selectedDay, selectedMonth, selectedYear) => async (dispatch) => {
     dispatch({ type: JOUR_DEPART_REQUEST });
@@ -54,15 +54,15 @@ export const heureDépartAction = () => async (dispatch) => {
 export const userSingleHeureAction  = (id) => async (dispatch) => {
     dispatch({ type: HEURE_SINGLE_REQUEST });
     try {
-        const { data } = await axios.get("/api/heure/${id}");
+        const { data } = await axios.get(`/api/heure/${id}`);
         dispatch({
-            type: USER_SINGLE_SUCCESS,
+            type: HEURE_SINGLE_SUCCESS,
             payload: data
         });
 
     } catch (error) {
         dispatch({
-            type: USER_SINGLE_FAIL,
+            type: HEURE_SINGLE_FAIL,
             payload: error.response.data.error
         });
     }

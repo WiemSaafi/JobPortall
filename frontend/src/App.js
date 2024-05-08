@@ -22,7 +22,7 @@ import Register from './pages/Register';
 import DashCategory from './pages/admin/DashCategory';
 import DashCreateJob from './pages/admin/DashCreateJob';
 import DashCreateCategory from './pages/admin/DashCreateCategory';
-import InfoUser from './pages/admin/InfoUser'
+import InfoUser from './pages/admin/InfoUser.js'
 
 import { createTheme } from '@mui/material/styles';
 import { themeColors } from './theme'

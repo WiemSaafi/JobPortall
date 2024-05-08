@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import { Box, Button, Paper, Typography } from '@mui/material'
+import { Box, Button,  Paper, Typography } from '@mui/material'
 import { DataGrid, gridClasses, GridToolbar } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment'
-import { allUserAction } from '../../redux/actions/userAction';
+import { allUserAction, deleteUSERAction } from '../../redux/actions/userAction';
 
 const DashUsers = () => {
 
@@ -13,25 +13,26 @@ const DashUsers = () => {
 
     useEffect(() => {
         dispatch(allUserAction());
-    }, []);
+    }, [dispatch]);
+
+    const { success: deleteSuccess } = useSelector(state => state.deleteUser || {});
 
 
-    const { users, loading } = useSelector(state => state.allUsers);
+    const { users } = useSelector(state => state.allUsers);
+    console.log(users);
     let data = [];
     data = (users !== undefined && users.length > 0) ? users : []
 
     const deleteUserById = (e, id) => {
-        console.log(id);
+        if (window.confirm(`You really want to delete product ID: "${id}" ?`)) {
+            dispatch(deleteUSERAction(id));
+            if (deleteSuccess && deleteSuccess === true) {
+                dispatch(allUserAction())
+            }
+        }
     }
 
     const columns = [
-
-        {
-            field: '_id',
-            headerName: 'User ID',
-            width: 150,
-            editable: true,
-        },
 
         {
             field: 'email',
@@ -77,9 +78,11 @@ const DashUsers = () => {
                     All users
                 </Typography>
                 <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
-                    <Button variant='contained' color="success" startIcon={<AddIcon />}> Create user</Button>
-                </Box>
-                <Paper sx={{ bgcolor: "secondary.midNightBlue" }} >
+                    <Button variant='contained' color="success" startIcon={<AddIcon />}><Link style={{ color: "white", textDecoration: "none" }} to="/admin/user/create">CREATE USER</Link></Button>
+            </Box>
+                
+                <Paper sx={{ bgcolor: "secondary.mediumaquamarine" 
+             }} >
 
                     <Box sx={{ height: 400, width: '100%' }}>
                         <DataGrid
