@@ -25,7 +25,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     dispatch(heureDépartAction());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (heureDépart && heureDépart.Heure) {

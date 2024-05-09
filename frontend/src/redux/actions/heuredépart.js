@@ -10,6 +10,9 @@ import {
     HEURE_SINGLE_REQUEST,
     HEURE_SINGLE_SUCCESS,
     HEURE_SINGLE_FAIL,
+    HEURE_DERNIER_REQUEST,
+    HEURE_DERNIER_SUCCESS,
+    HEURE_DERNIER_FAIL,
 } from '../constants/heuredépartconstant';
 
 export const heuredepartjourAction = (selectedDay, selectedMonth, selectedYear) => async (dispatch) => {
@@ -36,7 +39,7 @@ export const heureDépartAction = () => async (dispatch) => {
         // Par exemple, vous pouvez vérifier si l'utilisateur est connecté et s'il a le statut d'administrateur
 
         // Ensuite, vous pouvez envoyer la requête GET vers "/heuredep"
-        const { data } = await axios.get("/dept");
+        const { data } = await axios.get("/api/dept");
 
         dispatch({
             type: USER_DEPART_SUCCESS,
@@ -63,6 +66,22 @@ export const userSingleHeureAction  = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: HEURE_SINGLE_FAIL,
+            payload: error.response.data.error
+        });
+    }
+}
+export const getDerniereEntreeSortieAction  = (id) => async (dispatch) => {
+    dispatch({ type: HEURE_DERNIER_REQUEST });
+    try {
+        const { data } = await axios.get(`/api/dernierentreesortie`);
+        dispatch({
+            type: HEURE_DERNIER_SUCCESS,
+            payload: data
+        });
+
+    } catch (error) {
+        dispatch({
+            type: HEURE_DERNIER_FAIL,
             payload: error.response.data.error
         });
     }

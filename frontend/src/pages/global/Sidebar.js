@@ -81,6 +81,8 @@ const SidebarAdm = () => {
                                 <MenuItem component={<Link to="/admin/users" />} icon={<GroupAddIcon />}> Users </MenuItem>
                                 <MenuItem component={<Link to="/admin/jobs" />} icon={<WorkIcon />}> Jobs </MenuItem>
                                 <MenuItem component={<Link to="/admin/category" />} icon={<CategoryIcon />}> Category </MenuItem>
+                                <MenuItem component={<Link to="/admin/calendrier" />} icon={<CategoryIcon />}> calendrier </MenuItem>
+
                             </> :
                             <>
                                 <MenuItem component={<Link to="/user/info" />} icon={<PersonIcon />}> Informations personnelles </MenuItem>

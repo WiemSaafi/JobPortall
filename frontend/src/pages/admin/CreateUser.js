@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux'
-import { allUserAction, createuserAction } from '../../redux/actions/userAction';
+import { allUserAction, userSignUpAction } from '../../redux/actions/userAction';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Password } from '@mui/icons-material';
@@ -58,7 +58,7 @@ const DashCreateUser = () => {
         },
         validationSchema: validationSchema,
         onSubmit: (values, actions) => {
-            dispatch(createuserAction(values))
+            dispatch(userSignUpAction(values))
             // alert(JSON.stringify(values, null, 2));
             actions.resetForm();
         },

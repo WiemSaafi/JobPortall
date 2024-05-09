@@ -105,12 +105,38 @@ exports.singleHeure = async (req, res, next) => {
         next(error);
     }
 }
-exports.heureDépart = async (req, res, next) => {
+exports.getDerniereEntreeSortie = async (req, res, next) => {
+    try {
+        // Recherche de la dernière entrée de l'utilisateur
+        const derniereEntree = await HeureDépart.findOne({ user: req.params._id, typeHeure: 'entrée' })
+            .sort({ "Heure": -1 }) // Trie par ordre décroissant de la date/heure
+            .limit(1);
 
-    const data = await HeureDépart.findById(req.body);
-    console.log('data',data)
-    res.status(200).json({
-        success: true,
-        data
-    })
-}
+        // Recherche de la dernière sortie de l'utilisateur
+        const derniereSortie = await HeureDépart.findOne({ user: req.params._id, typeHeure: 'sortie' })
+            .sort({ "Heure": -1 }) // Trie par ordre décroissant de la date/heure
+            .limit(1);
+
+        res.status(200).json({
+            success: true,
+            derniereEntree,
+            derniereSortie
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.heureDépart = async (req, res) => {
+    try {
+        const heures = await HeureDépart.find(req.body);
+        console.log("Toutes les heures de départ :", heures);
+        if (!heures) {
+            return res.status(404).json({ success: false, error: "Heures de départ non trouvées" });
+        }
+        res.status(200).json({ success: true, data: heures });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, error: "Erreur serveur lors de la récupération des heures de départ" });
+    }
+};
