@@ -74,6 +74,12 @@ const userSchema = new mongoose.Schema({
         required: [true, 'password is required'],
         minlength: [6, 'password must have at least (6) caracters'],
     },
+    empreinte_id: {
+        type: String,
+        trim: true,
+      
+        
+    },
 
     jobsHistory: [jobsHistorySchema],
 

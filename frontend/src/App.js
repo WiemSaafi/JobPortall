@@ -68,12 +68,7 @@ const App = () => {
         socket.on('message', (data) => {
             setMessage(data);
         });
-        socket.on('notification', (data) => {
-            // Vérifier si l'utilisateur existe et n'a pas le rôle 1 (ou tout autre rôle qui devrait recevoir des notifications)
-            if (user && user.role !== 1) {
-                setNotification(data);
-            }
-        });
+        socket.emit('notification', "test");
 
     return (
         <>

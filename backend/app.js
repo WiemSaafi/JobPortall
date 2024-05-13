@@ -13,9 +13,13 @@ const socketIo = require('socket.io');
 
 // Créer le serveur HTTP avec Express
 const server = http.createServer(app);
-
 // Créer une instance de socket.io en écoutant le serveur HTTP
-const io = socketIo(server);
+const io = socketIo(server,{
+  cors: {
+    origin: "http://localhost:3001",
+    methods: ["GET", "POST"]
+  }
+});
 
 // Importation des routes
 const authRoutes = require('./routes/authRoutes');
@@ -23,6 +27,7 @@ const userRoutes = require('./routes/userRoutes');
 const jobTypeRoute = require('./routes/jobsTypeRoutes');
 const jobRoute = require('./routes/jobsRoutes');
 const horaireRoute = require('./routes/horaireRoute'); // Corrigez l'espace supplémentaire ici
+const { singleUserByEmpreintId } = require("./controllers/userController");
 
 // Connexion à la base de données
 mongoose.connect(process.env.DATABASE, {
@@ -74,20 +79,20 @@ io.on('connection', (socket) => {
       const currentMinute = currentDate.getMinutes();
 
       // Récupérer tous les employés depuis la base de données
-      const allEmployees = await User.find({});
+      // const allEmployees = await User.find({});
 
-      // Parcourir tous les employés pour vérifier les retards
-      allEmployees.forEach(async (employee) => {
-        const employeeHour = employee.startTime.getHours();
-        const employeeMinute = employee.startTime.getMinutes();
+      // // Parcourir tous les employés pour vérifier les retards
+      // allEmployees.forEach(async (employee) => {
+      //   const employeeHour = employee.startTime.getHours();
+      //   const employeeMinute = employee.startTime.getMinutes();
 
-        // Comparer les heures pour détecter les retards
-        if (currentHour > employeeHour || (currentHour === employeeHour && currentMinute > employeeMinute)) {
-          // Il y a un retard pour cet employé, émettre une notification
-          io.emit('notification', `L'employé ${employee.name} est en retard !`);
-          console.log(`L'employé ${employee.name} est en retard`);
-        }
-      });
+      //   // Comparer les heures pour détecter les retards
+      //   if (currentHour > employeeHour || (currentHour === employeeHour && currentMinute > employeeMinute)) {
+      //     // Il y a un retard pour cet employé, émettre une notification
+      //     io.emit('notification', `L'employé ${employee.name} est en retard !`);
+      //     console.log(`L'employé ${employee.name} est en retard`);
+      //   }
+      // });
     } catch (error) {
       console.error('Erreur lors de la vérification des retards :', error);
     }
@@ -95,12 +100,26 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     console.log('Client déconnecté');
-    clearInterval(interval);
+   
   });
+
+  socket.on("notification",(msg) => {
+  //  const message = JSON.parse(msg)
+    console.log("msg",msg)
+   // if(!!message?.id){
+      // search user by empreinte_id
+      // const user = singleUserByEmpreintId(empreinte_id);
+      // console.log("user",user)
+   // }
+  })
 });
+
+// Désormais, vous n'avez plus besoin d'écouter les connexions Express ici
+// Supprimez cette partie
 // Configuration du port
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
+// Désormais, utilisez votre serveur Socket.IO pour écouter les connexions
+server.listen(port, () => {
   console.log(`Serveur en cours d'exécution sur le port ${port}`);
 });
