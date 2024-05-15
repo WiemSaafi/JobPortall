@@ -35,7 +35,8 @@ import Not from './Notification/Not.js';
 import DashCreateUser from './pages/admin/CreateUser.js';
 import UserUpdateDashboard from './pages/admin/UpdateUser.js';
  
- 
+import io from 'socket.io-client';
+const socket = io('http://localhost:3000');
 //HOC
 const UserDashboardHOC = Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
@@ -65,10 +66,10 @@ const App = () => {
 
     
         // Écouter les messages du serveur
-        socket.on('message', (data) => {
+       socket.on('message', (data) => {
             setMessage(data);
         });
-        socket.emit('notification', "test");
+        socket.emit('notification', "test"); 
 
     return (
         <>
