@@ -58,6 +58,18 @@ const userSchema = new mongoose.Schema({
         required: [true, 'last name is required'],
         maxlength: 32,
     },
+    dateOfBirth: {
+        type: Date,
+        required: true // Ou false selon votre logique d'application
+    },
+    address: {
+        type: String, // Pour l'adresse, utilisez le type String
+        trim: true,
+    },
+    phone:{
+        type: String, 
+    },
+
     email: {
         type: String,
         trim: true,

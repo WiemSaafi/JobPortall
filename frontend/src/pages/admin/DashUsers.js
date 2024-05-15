@@ -102,7 +102,7 @@ const DashUsers = () => {
                                         theme.palette.secondary.main
                                 },
                                 button: {
-                                    color: '#ffffff'
+                                    color: 'red'
                                 }
                             }}
                             getRowId={(row) => row._id}

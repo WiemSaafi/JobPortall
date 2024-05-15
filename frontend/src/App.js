@@ -34,8 +34,8 @@ import event from "./Calendar/Event.js";
 import Not from './Notification/Not.js';
 import DashCreateUser from './pages/admin/CreateUser.js';
 import UserUpdateDashboard from './pages/admin/UpdateUser.js';
-import io from 'socket.io-client';
-const socket = io('http://localhost:3000');
+ 
+ 
 //HOC
 const UserDashboardHOC = Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
@@ -64,16 +64,7 @@ const App = () => {
     }, [userProfile.user]);
 
     
-        // Écouter les messages du serveur
-        socket.on('message', (data) => {
-            setMessage(data);
-        });
-        socket.on('notification', (data) => {
-            // Vérifier si l'utilisateur existe et n'a pas le rôle 1 (ou tout autre rôle qui devrait recevoir des notifications)
-            if (user && user.role !== 1) {
-                setNotification(data);
-            }
-        });
+ 
 
     return (
         <>

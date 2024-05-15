@@ -44,87 +44,14 @@ const Home = () => {
 
     return (
         <>
-            <Box sx={{ bgcolor: "#fafaf8", minHeight: "100vh" }}>
+            <Box sx={{ bgcolor: "white", minHeight: "100vh" }}>
 
                 <Navbar />
                 <Header />
-                <Container>
-                    <Stack
-                        direction={{ xs: 'column', sm: 'row' }}
-                        spacing={{ xs: 1, sm: 2, md: 4 }}
-                    >
-                        <Box sx={{ flex: 2, p: 2 }}>
-                            <Card sx={{ minWidth: 150, mb: 3, mt: 3, p: 2, bgcolor: palette.primary.white }}>
-                                <Box sx={{ pb: 2 }}>
-                                    <Typography component="h4" sx={{ color: palette.secondary.main, fontWeight: 600 }}>
-                                        Filter job by category
-                                    </Typography>
-                                </Box>
-                                <SelectComponent handleChangeCategory={handleChangeCategory} cat={cat} />
-
-                            </Card>
-
-                            {/* jobs by location */}
-                            <Card sx={{ minWidth: 150, mb: 3, mt: 3, p: 2, bgcolor: palette.primary.white }}>
-                                <Box sx={{ pb: 2 }}>
-                                    {/* <h4>Filter by category</h4> */}
-                                    <Typography component="h4" sx={{ color: palette.secondary.main, fontWeight: 600 }}>
-                                        Filter job by location
-                                    </Typography>
-                                    <MenuList>
-                                        {
-                                            setUniqueLocation && setUniqueLocation.map((location, i) => (
-                                                <MenuItem key={i}>
-                                                    <ListItemIcon>
-                                                        <LocationOnIcon sx={{ color: palette.secondary.main, fontSize: 18 }} />
-                                                    </ListItemIcon>
-                                                    <Link style={{ color: palette.secondary.main }} to={`/search/location/${location}`}>{location}</Link>
-                                                </MenuItem>
-
-                                            ))
-                                        }
-
-                                    </MenuList>
-
-                                </Box>
-                            </Card>
-                        </Box>
-                        <Box sx={{ flex: 5, p: 2 }}>
-                            {
-                                loading ?
-                                    <LoadingBox /> :
-                                    jobs && jobs.length === 0 ?
-                                        <>
-                                            <Box
-                                                sx={{
-                                                    minHeight: '350px',
-                                                    display: 'flex',
-                                                    justifyContent: 'center',
-                                                    alignItems: 'center'
-                                                }}>
-
-                                                <h2>No result found!</h2>
-                                            </Box>
-                                        </> :
 
 
-                                        jobs && jobs.map((job, i) => (
-                                            <CardElement
-                                                key={i}
-                                                id={job._id}
-                                                jobTitle={job.title}
-                                                description={job.description}
-                                                category={job.jobType ? job.jobType.jobTypeName : "No category"}
-                                                location={job.location}
-                                            />
-                                        ))
-                            }
-                            <Stack spacing={2} >
-                                <Pagination color="primary" variant="outlined" page={page} count={pages === 0 ? 1 : pages} onChange={(event, value) => setPage(value)} />
-                            </Stack>
-                        </Box>
-                    </Stack>
-                </Container>
+                //hedha koul zayed chiweli 
+                
             </Box>
     
 

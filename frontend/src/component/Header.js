@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Box, styled, keyframes } from '@mui/material';
 import KeyboardArrowIcon from '@mui/icons-material/KeyboardArrowUp';
+import oo from '../img/oo.jpg';
+import waveImage from '../img/wave.png';
 
 // Importez votre vidéo
 import Video from '../videos/1.mp4';
@@ -52,24 +54,67 @@ const Header = () => {
         }
     ));
 
-    const VideoContainer = styled('div')(({ theme }) => ({
+    const moveUp = keyframes`
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-20px);
+  }
+`;
+
+    const ImageContainer = styled('div')(({ theme }) => ({
         position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        overflow: 'hidden',
+        top: 75,
+        right: "33px",
+        width: '871px', // Ajustez la largeur de l'image selon vos besoins
+        height: 'auto',
+        animation: `${moveUp} 2s infinite alternate`, 
+       
     }));
 
-    const VideoElement = styled('video')(({ theme }) => ({
+    const Image = styled('img')(({ theme }) => ({
         width: '100%',
-        height: '100%',
-        objectFit: 'cover',
+        height: 'auto',
+        
+       // animation: `${moveUp} 2s infinite alternate`,
+    }));
+
+
+    const WaveImageContainer = styled('div')(({ theme }) => ({
+        position: 'absolute',
+        top: '-14%',
+        left: '-78%',
+        width: '562px', // Ajustez la largeur de l'image selon vos besoins
+        height: 'auto',
+        
+    }));
+
+    const WaveImage = styled('img')(({ theme }) => ({
+        width: '100%',
+        height: 'auto',
     }));
 
     
-
+    const TextContainer = styled('div')(({ theme }) => ({
+        position: 'absolute',
+        top: '75%',
+        left: '1%',
+        transform: 'translateY(-50%)',
+        textAlign: 'left',
+        color: 'black',
+        fontFamily: 'Roboto, sans-serif',
+        fontSize: '18px',
     
+        
+    }));
+
+    const NormalText = styled('div')(({ theme }) => ({
+        textAlign: 'left',
+        color: 'black',
+        fontFamily: 'Roboto, sans-serif',
+        fontSize: '20px',
+    }));
 
     const ScrollButton = styled('div')(({ theme }) => ({
         position: 'fixed',
@@ -90,14 +135,24 @@ const Header = () => {
     return (
         <>
             <StyleHeader>
-                <VideoContainer>
-                    <VideoElement autoPlay loop muted src={Video} type='video/mp4' />
-                </VideoContainer>
-                
+            <ImageContainer>
+                    <Image src={oo} alt="Tenje7" />
+                    <WaveImageContainer>
+                    <WaveImage src={waveImage} alt="Wave" />
+                </WaveImageContainer>
+                </ImageContainer>
+                <TextContainer>
+                    <div style={{ fontWeight: 'bold', fontSize: '28px' }}>
+                        La gestion du 
+                        personnel  <br />simple et  automatisée 
+                    </div>
+                    <NormalText>
+                        <br/>Gagnez du temps au quotidien en utilisant<br/> notre plateforme avec  <span >Digital Market</span>
+                    </NormalText>
+                </TextContainer>
+               
             </StyleHeader>
-            <ScrollButton onClick={() => { scrollTo(isScrolledToTop ? 0 : document.documentElement.scrollHeight); setIsScrolledToTop(!isScrolledToTop); }}>
-                <KeyboardArrowIcon style={{ transform: isScrolledToTop ? 'rotate(0deg)' : 'rotate(180deg)', transition: 'transform 9.s' }} />
-            </ScrollButton>
+            
         </>
     );
 }

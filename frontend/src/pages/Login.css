@@ -27,10 +27,28 @@ body {
     padding: 0 2rem;
 }
 
+@keyframes moveUpAndDown {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.img img {
+    width: 500px;
+    animation: moveUpAndDown 4s infinite;
+}
+
 .img {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+     
 }
 
 .login-content {

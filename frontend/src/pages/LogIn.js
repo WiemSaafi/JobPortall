@@ -56,7 +56,7 @@ const LogIn = () => {
                 <div className="login-content">
                     <form onSubmit={handleSubmit}>
                         <img src={avatarImage} alt="avatar" />
-                        <h2 className="title">Welcome</h2>
+                        <h2 className="title">BIENVENUE</h2>
                         <div className="input-div one">
                             <div className="i">
                                 <i className="fas fa-user"></i>

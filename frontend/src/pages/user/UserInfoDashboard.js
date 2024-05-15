@@ -132,6 +132,7 @@ const UserInfoDashboard = () => {
                                 </IconButton>
                             )}
                         </Grid>
+                        
                         <Grid item xs={12} md={6}>
                             <TextField
                                 id="email"
@@ -207,6 +208,60 @@ const UserInfoDashboard = () => {
                                 disabled
                             />
                         </Grid>
+                        <Grid item xs={12} md={6}>
+    <TextField
+        id="dateOfBirth"
+        label="Date de naissance"
+        type="date"
+        variant="outlined"
+        fullWidth
+        value={user ? user.dateOfBirth : ""}
+        InputLabelProps={{
+            shrink: true,
+        }}
+        InputProps={{
+            sx: {
+                borderRadius: '8px',
+                '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#666',
+                },
+                '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#666',
+                },
+            },
+            disableUnderline: true,
+            focused: {
+                borderColor: '#666'
+            }
+        }}
+        disabled
+    />
+</Grid>
+<Grid item xs={12} md={6}>
+    <TextField
+        id="address"
+        label="Adresse"
+        variant="outlined"
+        fullWidth
+        value={user ? user.address : ""}
+        InputProps={{
+            sx: {
+                borderRadius: '8px',
+                '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#666',
+                },
+                '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#666',
+                },
+            },
+            disableUnderline: true,
+            focused: {
+                borderColor: '#666'
+            }
+        }}
+        disabled
+    />
+</Grid>
                         <Grid item xs={12} md={6}>
                             <TextField
                                 id="phone"
