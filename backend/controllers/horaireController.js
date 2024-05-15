@@ -1,9 +1,10 @@
 const HeureDépart = require('../models/horaireDépartModel');
+const User = require('../models/userModel');
 const ErrorResponse = require('../utils/errorResponse');
 
 exports.createHeure = async (req, res, next) => {
     try {
-        const heureStr = req.body.heure;
+        const heureStr = req.body.Heure;
         const typeHeureStr = req.body.typeHeure;
         
         if (typeHeureStr === "entrée") {
@@ -51,7 +52,6 @@ exports.createHeure = async (req, res, next) => {
         next(error);
     }
 };
-
 exports.heuredepartjourmois = async (req, res, next) => {
     const selectedDay = req.query.day;
     const selectedMonth = req.query.month; // Supposons que le mois soit passé sous forme de numéro (1 pour janvier, 2 pour février, etc.)

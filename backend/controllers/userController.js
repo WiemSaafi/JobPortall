@@ -151,3 +151,20 @@ exports.createUserJobsHistory = async (req, res, next) => {
         return next(error);
     }
 };
+
+exports.singleUserByEmpreintId = async (empreinte_id) => {
+    try {
+        const user = await User.findOne({ empreinte_id });
+        // Vérification si l'utilisateur existe
+        if (!user) {
+            return next(new ErrorResponse("Utilisateur non trouvé", 404));
+        }
+        // Envoi de la réponse avec l'utilisateur trouvé
+        res.status(200).json({
+            success: true,
+            user
+        });
+    } catch (error) {
+        return next(error);
+    }
+};
