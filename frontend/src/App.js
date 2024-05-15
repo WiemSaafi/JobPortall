@@ -64,11 +64,11 @@ const App = () => {
     }, [userProfile.user]);
 
     
-        // Écouter les messages du serveur
+       /*  // Écouter les messages du serveur
         socket.on('message', (data) => {
             setMessage(data);
         });
-        socket.emit('notification', "test");
+        socket.emit('notification', "test"); */
 
     return (
         <>

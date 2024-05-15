@@ -1,5 +1,5 @@
 // import { createTheme } from '@mui/material/styles';
-import { blue, grey, lightBlue } from '@mui/material/colors';
+import {lime,blue, grey, lightBlue ,purple} from '@mui/material/colors';
 
 // export const theme = createTheme({
 //     palette: {
@@ -8,7 +8,7 @@ import { blue, grey, lightBlue } from '@mui/material/colors';
 //         },
 //         secondary: {
 //             main: lightBlue[800],
-//             midNightBlue: "#003366"
+//             midNightBlue: "black"
 //         }
 //     }
 // });
@@ -20,30 +20,30 @@ export const themeColors = (mode) => ({
             ? {
                 // palette values for light mode
                 primary: {
-                    main: blue[500],
-                    white: "#fff"
+                    main: purple[400],
+                    white: "#black"
                 },
                 secondary: {
-                    main: lightBlue[800],
-                    midNightBlue: "#003366"
+                    main: 	"#eeeeee",
+                    midNightBlue:  			"#eeeeee "//jaw lina
                 },
             }
             : {
                 // palette values for dark mode
                 primary: {
-                    main: "#003366",
-                    white: "#003366"
+                    main: "green",
+                    white: "black"
                 },
                 secondary: {
-                    main: blue[500],
-                    midNightBlue: "#2196f3"
+                    main: "purple",
+                    midNightBlue: "black"
                 },
                 background: {
-                    default: "#1e1e1e",
+                    default: "black",
                 },
                 text: {
-                    primary: '#fff',
-                    secondary: grey[500],
+                    primary: 'black',
+                    secondary: 'black',
                 },
             }),
     },

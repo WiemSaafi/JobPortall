@@ -86,37 +86,97 @@ const AdminDashboard = () => {
 
   return (
     <>
-      <Box sx={{ textAlign: "right" }}>
-        <Button
-          sx={{ padding: "6px 8px", textTransform: "capitalize" }}
-          variant="contained"
-          color="primary"
-        >
-          <DownloadOutlined />
-          Download Reports
-        </Button>
-      </Box>
+      <Box sx={{ textAlign: "left"   ,position: "absolute",right: 50, top: 336}}> 
+  <Button 
+    sx={{
+      padding: "3px 4px",
+      textTransform: "capitalize",
+      color: "#FFF", // Couleur du texte
+      backgroundColor: "#FFC4CA", // Couleur de fond du bouton
+      '&:hover': {
+        backgroundColor: "#FFCAD0", // Couleur de fond au survol
+      },
+      '& .MuiButton-iconSizeMedium > *:first-child': {
+        fontSize: "2rem", // Taille de l'icône
+      }
+    }}
+    variant="contained"
+  >
+    <DownloadOutlined />
+    Télécharger
+  </Button>
+</Box>
+
+
       <Box>
-        <Typography variant='h4' sx={{ color: "white", pb: 3 }}>
-          Dashboard
-        </Typography>
-        <Stack
-          direction={{ xs: 'column', sm: 'row' }}
-          spacing={{ xs: 1, sm: 2, md: 4 }}
-        >
-          <StatComponent
-            value={user && moment(user.createdAt).format('YYYY/MM/DD')}
-            icon={<CalendarMonthIcon sx={{ color: "#fafafa", fontSize: 30 }} />}
-            description="Adminstrators"
-            money=''
-          />
-          <StatComponent
-            value={lateEmployeesPercentage.toFixed(2)}
-            icon={<WorkIcon sx={{ color: "palette.primary.main", fontSize: 30 }} />}
-            description="Les employés en retard"
-            money=''
-          />
-          <CircularProgressbar
+ 
+
+
+      <Box sx={{ marginBottom: 7}}>
+  <Typography variant='h8' sx={{ color: "black", pb: 0.5, borderBottom: '2px solid black', display: 'block', position: 'absolute', top: 80, left: 290, zIndex: 1000 }}>
+    Tableau du bord
+  </Typography>
+</Box>
+
+
+<Stack
+  direction={{ xs: 'column', sm: 'row' }}
+  spacing={{ xs: 1, sm: 2, md: 4 }}
+  sx={{ marginBottom: 10 }} // Ajoute une marge inférieure de 20 unités à la Stack
+>
+
+
+
+
+        
+
+
+          <Stack direction="row" spacing={4}>
+
+{/*** Premier Cadre ***/}
+<Box sx={{ p: 5, borderRadius: 12, border: '2px solid #FFC107', bgcolor: '#FFEB3B', minWidth: 280, width: '100%' }}>
+  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <WorkIcon sx={{ color: '#FFC107', fontSize: 30 }} />
+    <Typography variant="body1" sx={{ ml: 2 }}>Présences</Typography>
+  </Box>
+  <Typography variant="body1" sx={{ mt: 2 }}>75%</Typography>
+</Box>
+
+{/*** Deuxième Cadre ***/}
+<Box sx={{ p: 5, borderRadius: 12, border: '2px solid #4CAF50', bgcolor: '#C8E6C9', minWidth: 280, width: '100%' }}>
+  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <CategoryIcon sx={{ color: '#4CAF50', fontSize: 30 }} />
+    <Typography variant="body1" sx={{ ml: 2 }}>Absences</Typography>
+  </Box>
+  <Typography variant="body1" sx={{ mt: 2 }}>25%</Typography>
+</Box>
+
+{/*** Troisième Cadre ***/}
+<Box sx={{ p: 5, borderRadius: 12, border: '2px solid #FF5722', bgcolor: '#FFCCBC', minWidth: 280, width: '100%' }}>
+  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <WorkIcon sx={{ color: '#FF5722', fontSize: 30 }} />
+    <Typography variant="body1" sx={{ ml: 2 }}>Heures supplémentaires</Typography>
+  </Box>
+  <Typography variant="body1" sx={{ mt: 2 }}>50%</Typography>
+</Box>
+
+{/*** Quatrième Cadre ***/}
+<Box sx={{ p: 5, borderRadius: 12, border: '2px solid #9C27B0', bgcolor: '#E1BEE7', minWidth: 280, width: '100%' }}>
+  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <CategoryIcon sx={{ color: '#9C27B0', fontSize: 30 }} />
+    <Typography variant="body1" sx={{ ml: 2 }}>Nombre d'employés</Typography>
+  </Box>
+  <Typography variant="body1" sx={{ mt: 2 }}>100%</Typography>
+</Box>
+
+</Stack>
+
+
+
+
+
+
+    {/* <CircularProgressbar
             value={lateEmployeesPercentage}
             text={`${lateEmployeesPercentage.toFixed(2)}%`}
             strokeWidth={10}
@@ -125,14 +185,9 @@ const AdminDashboard = () => {
               path: { stroke: '#3e98c7' },
               text: { fill: '#3e98c7' }
             }}
-          />
-          <StatComponent
-            value={totalEmployés}
-            icon={<CategoryIcon sx={{ color: "palette.primary.main", fontSize: 30 }} />}
-            description="Nombre des employés "
-            money=''
-          />
-          <CircularProgressbar
+          /> */}
+
+          {/* <CircularProgressbar
             value={totalEmployés}
             text={`${(totalEmployés) || 0} Les employés `}
             strokeWidth={10}
@@ -141,24 +196,28 @@ const AdminDashboard = () => {
               path: { stroke: '#3e98c7' },
               text: { fill: '#3e98c7' }
             }}
-          />
+          /> */}
           
         </Stack>
       </Box>
-      <Box>
-        <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ mt: 3 }}
-          spacing={{ xs: 1, sm: 2, md: 4, p: 5 }}>
+     <Box sx={{ bgcolor: '#fff', mt: 6, borderRadius: 8, boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
+        <Stack direction={{ xs: 'column', sm: 'row' }}>
           <ChartComponent>
             <Chart
               options={options}
               series={dataa}
               type="area"
               width="100%"
-              height="300px"
+              height="230px"
             />
           </ChartComponent>
         </Stack>
       </Box>
+
+
+
+
+
     </>
   );
 };

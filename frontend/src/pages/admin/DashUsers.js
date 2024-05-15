@@ -38,7 +38,7 @@ const DashUsers = () => {
             renderCell: (params) => {
                 if (params.row.role !== 1) { // Vérifie si l'utilisateur n'est pas un admin
                     return (
-                        <Link to={`/employee/details/${params.row._id}`} style={{ color: 'white', textDecoration: 'none' }}>
+                        <Link to={`/employee/details/${params.row._id}`} style={{ color: 'black', textDecoration: 'none' }}>
                             {params.value}
                         </Link>
                     );
@@ -73,7 +73,7 @@ const DashUsers = () => {
             width: 200,
             renderCell: (values) => (
                 <Box sx={{ display: "flex", justifyContent: "space-between", width: "170px" }}>
-                    <Button variant="contained"><Link style={{ color: "white", textDecoration: "none" }} to={`/admin/edit/user/${values.row._id}`}>Edit</Link></Button>
+                    <Button variant="contained"><Link style={{ color: "black", textDecoration: "none" }} to={`/admin/edit/user/${values.row._id}`}>Edit</Link></Button>
                     <Button onClick={(e) => deleteUserById(e, values.row._id)} variant="contained" color="error">Delete</Button>
                 </Box>
             )
@@ -83,26 +83,26 @@ const DashUsers = () => {
     return (
         <>
             <Box>
-                <Typography variant="h4" sx={{ color: "white", pb: 3 }}>
+                <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
                     All users
                 </Typography>
                 <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
-                    <Button variant='contained' color="success" startIcon={<AddIcon />}><Link style={{ color: "white", textDecoration: "none" }} to="/admin/user/create">CREATE USER</Link></Button>
+                    <Button variant='contained' color="success" startIcon={<AddIcon />}><Link style={{ color: "black", textDecoration: "none" }} to="/admin/user/create">CREATE USER</Link></Button>
                 </Box>
                 <Paper sx={{ bgcolor: "secondary.midNightBlue" }}>
                     <Box sx={{ height: 400, width: '100%' }}>
                         <DataGrid
                             sx={{
                                 '& .MuiTablePagination-displayedRows': {
-                                    color: 'white',
+                                    color: 'black',
                                 },
-                                color: 'white',
+                                color: 'black',
                                 [`& .${gridClasses.row}`]: {
                                     bgcolor: (theme) =>
-                                        theme.palette.secondary.main
+                                        theme.palette. text.main
                                 },
                                 button: {
-                                    color: 'red'
+                                    color: 'black' //haha
                                 }
                             }}
                             getRowId={(row) => row._id}

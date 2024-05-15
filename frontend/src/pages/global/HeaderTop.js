@@ -122,16 +122,7 @@ const HeaderTop = () => {
                         <NotificationsIcon />
                     </IconButton>
 
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                            sx={{ color: "white", borderRadius: '50px' }} // Adjust the color and shape of the search field
-                        />
-                    </Search>
+                    
                 </Toolbar>
             </AppBar>
             {/* Display notifications as alerts if state is true */}
