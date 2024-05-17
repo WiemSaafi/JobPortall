@@ -1,13 +1,14 @@
-// DashUsers.js
-
 import React, { useEffect } from 'react';
 import { Box, Button, Paper, Typography } from '@mui/material';
-import { DataGrid, gridClasses, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { allUserAction, deleteUSERAction } from '../../redux/actions/userAction';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const DashUsers = () => {
     const dispatch = useDispatch();
@@ -21,8 +22,8 @@ const DashUsers = () => {
     const { users } = useSelector(state => state.allUsers);
     const data = users || [];
 
-    const deleteUserById = (e, id) => {
-        if (window.confirm(`You really want to delete product ID: "${id}" ?`)) {
+    const deleteUserById = (id) => {
+        if (window.confirm(`Are you sure you want to delete user ID: "${id}"?`)) {
             dispatch(deleteUSERAction(id));
             if (deleteSuccess && deleteSuccess === true) {
                 dispatch(allUserAction());
@@ -33,90 +34,154 @@ const DashUsers = () => {
     const columns = [
         {
             field: 'firstName',
-            headerName: 'First',
+            headerName: 'Prénom',
             width: 150,
-            renderCell: (params) => {
-                if (params.row.role !== 1) { // Vérifie si l'utilisateur n'est pas un admin
-                    return (
-                        <Link to={`/employee/details/${params.row._id}`} style={{ color: 'black', textDecoration: 'none' }}>
-                            {params.value}
-                        </Link>
-                    );
-                } else {
-                    return params.value; // Retourne simplement le prénom sans lien pour les admins
-                }
-            }
+            renderCell: (params) => (
+                <Link
+                to={`/employee/details/${params.row._id}`}
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: '	#107dac',
+                    textDecoration: 'none',
+                    fontWeight: 'bold',
+                    '&:hover': {
+                        color: '#1565c0',
+                        textDecoration: 'underline',
+                    },
+                }}
+            >
+                {params.value}
+                <VisibilityIcon sx={{ marginLeft: 2, fontSize: 'large' }} />
+            </Link>
+            
+            )
         },
         {
             field: 'email',
-            headerName: 'E_mail',
-            width: 150,
+            headerName: 'E-mail',
+            width: 270,
         },
         {
             field: 'role',
-            headerName: 'User status',
-            width: 150,
+            headerName: "Statut de l'utilisateur",
+            width: 230,
             renderCell: (params) => (
-                params.row.role === 1 ? "Admin" : "Regular user"
+                params.row.role === 1 ? "Admin" : "Regular User"
             )
         },
         {
             field: 'createdAt',
-            headerName: 'Creation date',
-            width: 150,
+            headerName: 'Date de création',
+            width: 220,
             renderCell: (params) => (
                 moment(params.row.createdAt).format('YYYY-MM-DD HH:MM:SS')
             )
         },
         {
             field: "Actions",
-            width: 200,
+            headerName: "Actions",
+            width: 300,
             renderCell: (values) => (
-                <Box sx={{ display: "flex", justifyContent: "space-between", width: "170px" }}>
-                    <Button variant="contained"><Link style={{ color: "black", textDecoration: "none" }} to={`/admin/edit/user/${values.row._id}`}>Edit</Link></Button>
-                    <Button onClick={(e) => deleteUserById(e, values.row._id)} variant="contained" color="error">Delete</Button>
-                </Box>
+                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <Button
+                    variant="contained"
+                    startIcon={<EditIcon />}
+                    sx={{
+                        bgcolor: '#4caf50',
+                        color: 'white',
+                        '&:hover': {
+                            bgcolor: '#388e3c',
+                        },
+                        '&:active': {
+                            bgcolor: '#317331',
+                        },
+                        '& .MuiButton-label': {
+                            textTransform: 'none',
+                            fontWeight: 'bold',
+                        },
+                        minWidth: '100px',
+                        mr: 1,
+                    }}
+                >
+                    <Link style={{ color: "white", textDecoration: "none" }} to={`/admin/edit/user/${values.row._id}`}>Modifier</Link>
+                </Button>
+                <Button
+                    onClick={() => deleteUserById(values.row._id)}
+                    variant="contained"
+                    startIcon={<DeleteIcon />}
+                    sx={{
+                        bgcolor: '#f44336',
+                        color: 'white',
+                        '&:hover': {
+                            bgcolor: '#d32f2f',
+                        },
+                        '&:active': {
+                            bgcolor: '#b71c1c',
+                        },
+                        '& .MuiButton-label': {
+                            textTransform: 'none',
+                            fontWeight: 'bold',
+                        },
+                        minWidth: '100px',
+                        mr: 1,
+                    }}
+                >
+                    Supprimer
+                </Button>
+            </Box>
+            
             )
         }
     ];
-
+ 
+ 
+ 
     return (
-        <>
-            <Box>
-                <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
-                    All users
-                </Typography>
-                <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
-                    <Button variant='contained' color="success" startIcon={<AddIcon />}><Link style={{ color: "black", textDecoration: "none" }} to="/admin/user/create">CREATE USER</Link></Button>
-                </Box>
-                <Paper sx={{ bgcolor: "secondary.midNightBlue" }}>
-                    <Box sx={{ height: 400, width: '100%' }}>
-                        <DataGrid
-                            sx={{
-                                '& .MuiTablePagination-displayedRows': {
-                                    color: 'black',
-                                },
-                                color: 'black',
-                                [`& .${gridClasses.row}`]: {
-                                    bgcolor: (theme) =>
-                                        theme.palette. text.main
-                                },
-                                button: {
-                                    color: 'black' //haha
-                                }
-                            }}
-                            getRowId={(row) => row._id}
-                            rows={data}
-                            columns={columns}
-                            pageSize={4}
-                            rowsPerPageOptions={[4]}
-                            checkboxSelection
-                            slots={{ toolbar: GridToolbar }}
-                        />
-                    </Box>
-                </Paper>
+        <Box>
+   <Typography variant='h7' sx={{ color: "black", pb: 0.5, borderBottom: '2px solid black', display: 'block', position: 'absolute', top: 80, left: 290, zIndex: 1000 }}>
+          Listes des employés
+          </Typography>
+           
+            <Box sx={{ pb: 5, display: "flex", justifyContent: "flex-end" }}>
+            <Button
+    variant="contained"
+    startIcon={<AddIcon />}
+    sx={{
+        bgcolor: '#5099b9',
+        color: 'white',
+        '&:hover': {
+            bgcolor: '#3d7f9e',
+        },
+        '&:active': {
+            bgcolor: '#306580',
+        },
+        '& .MuiButton-label': {
+            textTransform: 'none',
+            fontWeight: 'bold',
+        },
+        marginTop: '50px', // Ajout de la marge en haut
+    }}
+>
+    <Link style={{ color: "white", textDecoration: "none" }} to="/admin/user/create">Créer un utilisateur</Link>
+</Button>
+
+
             </Box>
-        </>
+            <Paper sx={{ bgcolor: "#f5f5f5", borderRadius: 8 }}>
+                <Box sx={{ height: 400, width: '100%' }}>
+                    <DataGrid
+                        getRowId={(row) => row._id}
+                        rows={data}
+                        columns={columns}
+                        pageSize={5}
+                        rowsPerPageOptions={[5]}
+                        checkboxSelection
+                        components={{ Toolbar: GridToolbar }}
+                    />
+                </Box>
+            </Paper>
+        </Box>
     );
 }
 

@@ -14,6 +14,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { userSingleAction } from '../../redux/actions/userAction';
 import { heuredepartjourAction, userSingleHeureAction } from '../../redux/actions/heuredépart';
+ 
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneIcon from '@mui/icons-material/Phone';
+import HomeIcon from '@mui/icons-material/Home';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+ 
+
+
+
+
+
+
+
+
+
 
 const InfoUser = () => {
     const { id } = useParams();
@@ -78,18 +93,32 @@ const InfoUser = () => {
     }, [dispatch, selectedJour, selectedMonth, selectedYear]);
     const currentYear = new Date().getFullYear();
 
+
+
+
+
+
+
+
+
+
+
+
+
+// jw card
     return (
-        <Box sx={{ maxWidth: "92%", margin: "6.25%", pt: 0 }} component="form" className='form_style border-style'>
+        <Box sx={{ maxWidth: "100%", margin: "1%", pt: 0 ,left:"20%"}} component="form" className='form_style border-style'>
             {user && (
                 <Card
                     style={{
                         borderRadius: '15px',
                         overflow: 'hidden',
-                        boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.1)',
+                        boxShadow: 'px 8px 15px rgba(0, 0, 0, 0.1)',
                         border: `2px solid ${isHovered ? '#0b3948' : 'transparent'}`,
                         transition: 'border-color 0.3s ease'
                     }}
                 >
+                    
                     <CardContent>
                         <Grid container spacing={1} alignItems="center">
                             <Grid item xs={12} md={6}>
@@ -112,6 +141,7 @@ const InfoUser = () => {
                                         <MenuItem value={'mercredi'}>Mercredi</MenuItem>
                                         <MenuItem value={'jeudi'}>Jeudi</MenuItem>
                                         <MenuItem value={'vendredi'}>Vendredi</MenuItem>
+                                        <MenuItem value={'samedi'}>Samedi</MenuItem>
                                     </Select>
                                 </FormControl>
                                 <FormControl sx={{ m: 1 }} variant="standard">
@@ -141,19 +171,25 @@ const InfoUser = () => {
                                         <MenuItem value="">
                                             <em>Aucun</em>
                                         </MenuItem>
-                                        <MenuItem value={'janvier'}>janvier</MenuItem>
-                                        <MenuItem value={'février'}>février</MenuItem>
-                                        <MenuItem value={'mars'}>mars</MenuItem>
-                                        <MenuItem value={'avril'}>avril</MenuItem>
-                                        <MenuItem value={'mai'}>mai</MenuItem>
-                                        <MenuItem value={'juin'}>juin</MenuItem>
-                                        <MenuItem value={'juillet'}>juillet</MenuItem>
-                                        <MenuItem value={'août'}>août</MenuItem>
-                                        <MenuItem value={'septembre'}>septembre</MenuItem>
-                                        <MenuItem value={'octobre'}>octobre</MenuItem>
-                                        <MenuItem value={'décembre'}>décembre</MenuItem>
+                                        <MenuItem value={'janvier'}>Janvier</MenuItem>
+                                        <MenuItem value={'février'}>Février</MenuItem>
+                                        <MenuItem value={'mars'}>Mars</MenuItem>
+                                        <MenuItem value={'avril'}>Avril</MenuItem>
+                                        <MenuItem value={'mai'}>Mai</MenuItem>
+                                        <MenuItem value={'juin'}>Juin</MenuItem>
+                                        <MenuItem value={'juillet'}>Juillet</MenuItem>
+                                        <MenuItem value={'août'}>Août</MenuItem>
+                                        <MenuItem value={'septembre'}>Septembre</MenuItem>
+                                        <MenuItem value={'octobre'}>Octobre</MenuItem>
+                                        <MenuItem value={'décembre'}>Décembre</MenuItem>
                                     </Select>
                                 </FormControl>
+
+
+
+
+
+
                             </Grid>
                             { setheuresDépartJourMois && (
                                 <Grid item xs={12} md={6}>
@@ -267,6 +303,10 @@ const InfoUser = () => {
                                     />
                                 </Grid>
                             )}
+
+
+
+                            
                              {  setheuresDépartJourMois && (
                                 <Grid item xs={12} md={6}>
                                     <TextField
@@ -294,11 +334,7 @@ const InfoUser = () => {
                                         disabled
                                     />
                                 </Grid>
-                            )}
-                               
-                               
-                          
-                            <Grid item xs={12} md={7}>
+                            )} <Grid item xs={12} md={7}>
                                 <TextField
                                     id="email"
                                     label="Email"
@@ -327,7 +363,7 @@ const InfoUser = () => {
                             <Grid item xs={12} md={6}>
                                 <TextField
                                     id="firstName"
-                                    label="First Name"
+                                    label="Nom"
                                     variant="outlined"
                                     fullWidth
                                     value={user.firstName}
@@ -353,7 +389,7 @@ const InfoUser = () => {
                             <Grid item xs={12} md={7}>
                                 <TextField
                                     id="lastName"
-                                    label="Last Name"
+                                    label="Prénom"
                                     variant="outlined"
                                     fullWidth
                                     value={user.lastName}
@@ -379,7 +415,7 @@ const InfoUser = () => {
                             <Grid item xs={12} md={7}>
                                 <TextField
                                     id="phone"
-                                    label="Phone"
+                                    label="Téléphone"
                                     variant="outlined"
                                     fullWidth
                                     value={user.phone}
@@ -405,7 +441,7 @@ const InfoUser = () => {
                             <Grid item xs={12} md={7}>
                                 <TextField
                                     id="address"
-                                    label="Address"
+                                    label="Adresse"
                                     variant="outlined"
                                     fullWidth
                                     value={user.address}
@@ -485,6 +521,18 @@ const InfoUser = () => {
                             
                         </Grid>
                     </CardContent>
+//hahah
+
+
+
+
+
+
+
+
+
+
+
 
                 </Card>
             )}

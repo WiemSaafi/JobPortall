@@ -1,5 +1,5 @@
 // import { createTheme } from '@mui/material/styles';
-import {lime,blue, grey, lightBlue ,purple} from '@mui/material/colors';
+import {lime,blue, grey, lightBlue ,purple, amber} from '@mui/material/colors';
 
 // export const theme = createTheme({
 //     palette: {
@@ -20,8 +20,8 @@ export const themeColors = (mode) => ({
             ? {
                 // palette values for light mode
                 primary: {
-                    main: purple[400],
-                    white: "#black"
+                    main: "#005073",
+                    white: "white" //bag login menu
                 },
                 secondary: {
                     main: 	"#eeeeee",
@@ -35,7 +35,7 @@ export const themeColors = (mode) => ({
                     white: "black"
                 },
                 secondary: {
-                    main: "purple",
+                    main: "black",
                     midNightBlue: "black"
                 },
                 background: {

@@ -35,7 +35,8 @@ import Not from './Notification/Not.js';
 import DashCreateUser from './pages/admin/CreateUser.js';
 import UserUpdateDashboard from './pages/admin/UpdateUser.js';
  
- 
+import io from 'socket.io-client';
+const socket = io('http://localhost:3000');
 //HOC
 const UserDashboardHOC = Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
@@ -69,6 +70,11 @@ const App = () => {
             setMessage(data);
         });
         socket.emit('notification', "test"); */
+        // Écouter les messages du serveur
+       socket.on('message', (data) => {
+            setMessage(data);
+        });
+        socket.emit('notification', "test"); 
 
     return (
         <>
@@ -95,7 +101,6 @@ const App = () => {
                             <Route path='/user/dashboard' element={<UserRoute>< UserDashboardHOC /></UserRoute>} />
                             <Route path='/user/jobs' element={<UserRoute>< UserJobsHistoryHOC /></UserRoute>} />
                             <Route path='/user/info' element={<UserRoute>< UserInfoDashboardHOC /></UserRoute>} />
-                          
                             <Route path='/user/notifications' element={<UserRoute><Not /></UserRoute>} />
                             <Route path='/employee/details/:id' element={<UserRoute>< InfoUserHOC/></UserRoute>} />
                             <Route path='/admin/user/create' element={<AdminRoute><DashCreateUserHOC /></AdminRoute>} />

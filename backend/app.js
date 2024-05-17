@@ -9,7 +9,7 @@ const path = require('path');
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/error");
 const http = require('http');
-//const socketIo = require('socket.io');
+  const socketIo = require('socket.io');
 
 // Créer le serveur HTTP avec Express
 const server = http.createServer(app);
@@ -63,61 +63,63 @@ app.use('/api', horaireRoute);
 
 // Gestion des erreurs
 app.use(errorHandler);
-
-// Écouter les connexions entrantes
+/* // Écouter les connexions entrantes
 io.on('connection', (socket) => {
-  console.log('New client connected');
+  console.log('New client connected'); */
 
-  // Définir l'heure de départ fixe
+/*   // Définir l'heure de départ fixe
   const fixedHour = 14; // Heure fixe pour la comparaison
-  const fixedMinute = 0; // Minute fixe pour la comparaison
+  const fixedMinute = 0; // Minute fixe pour la comparaison */
 
-  // Vérifier les retards toutes les minutes
-  const interval = setInterval(async () => {
-    try {
-      const currentDate = new Date();
-      const currentHour = currentDate.getHours();
-      const currentMinute = currentDate.getMinutes();
+ // Vérifier les retards toutes les minutes
+const interval = setInterval(async () => {
+  try {
+    const currentDate = new Date();
+    const currentHour = currentDate.getHours();
+    const currentMinute = currentDate.getMinutes();
 
-      // Récupérer tous les employés depuis la base de données
-      // const allEmployees = await User.find({});
+    // Récupérer tous les employés depuis la base de données
+    // const allEmployees = await User.find({});
 
-      // // Parcourir tous les employés pour vérifier les retards
-      // allEmployees.forEach(async (employee) => {
-      //   const employeeHour = employee.startTime.getHours();
-      //   const employeeMinute = employee.startTime.getMinutes();
+    // // Parcourir tous les employés pour vérifier les retards
+    // allEmployees.forEach(async (employee) => {
+    //   const employeeHour = employee.startTime.getHours();
+    //   const employeeMinute = employee.startTime.getMinutes();
 
-      //   // Comparer les heures pour détecter les retards
-      //   if (currentHour > employeeHour || (currentHour === employeeHour && currentMinute > employeeMinute)) {
-      //     // Il y a un retard pour cet employé, émettre une notification
-      //     io.emit('notification', `L'employé ${employee.name} est en retard !`);
-      //     console.log(`L'employé ${employee.name} est en retard`);
-      //   }
-      // });
-    } catch (error) {
-      console.error('Erreur lors de la vérification des retards :', error);
-    }
-  }, 60000); // Vérification toutes les minutes
+    //   // Comparer les heures pour détecter les retards
+    //   if (currentHour > employeeHour || (currentHour === employeeHour && currentMinute > employeeMinute)) {
+    //     // Il y a un retard pour cet employé, émettre une notification
+    //     io.emit('notification', `L'employé ${employee.name} est en retard !`);
+    //     console.log(`L'employé ${employee.name} est en retard`);
+    //   }
+    // });
+  } catch (error) {
+    console.error('Erreur lors de la vérification des retards :', error);
+  }
+}, 60000); // Vérification toutes les minutes
 
-  socket.on('disconnect', () => {
-    console.log('Client déconnecté');
-  });
+// Déplacer le code ci-dessous à l'intérieur du bloc io.on('connection', (socket) => { ... })
 
-  socket.on("notification",(msg) => {
-    //  const message = JSON.parse(msg)
-    console.log("msg",msg)
-    // if(!!message?.id){
-    // search user by empreinte_id
-    // const user = singleUserByEmpreintId(empreinte_id);
-    // console.log("user",user)
-    // }
-  });
-});
+// socket.on('disconnect', () => {
+//   console.log('Client déconnecté');
+// });
 
+// socket.on("notification",(msg) => {
+//  const message = JSON.parse(msg)
+//  console.log("msg",msg)
+//  if(!!message?.id){
+//    search user by empreinte_id
+//    const user = singleUserByEmpreintId(empreinte_id);
+//    console.log("user",user)
+//  }
+// });
+
+// Désormais, vous n'avez plus besoin d'écouter les connexions Express ici
+// Supprimez cette partie
 // Configuration du port
 const port = process.env.PORT || 3000;
 
-// Utiliser votre serveur Socket.IO pour écouter les connexions
+// Désormais, utilisez votre serveur Socket.IO pour écouter les connexions
 server.listen(port, () => {
   console.log(`Serveur en cours d'exécution sur le port ${port}`);
 });
