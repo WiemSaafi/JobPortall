@@ -104,9 +104,9 @@ const AdminDashboard = () => {
             padding: "3px 4px",
             textTransform: "capitalize",
             color: "white",
-            backgroundColor: "  #3F51B5",
+            backgroundColor: "#39999f",
             '&:hover': {
-              backgroundColor: "#606fc7",
+              backgroundColor: "#39999f",
             },
             '& .MuiButton-iconSizeMedium > *:first-child': {
               fontSize: "0rem",
@@ -128,9 +128,9 @@ const AdminDashboard = () => {
 
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }} sx={{ marginBottom: 10 }}>
           {/* Premier Cadre */}
-          <Box sx={{ p: 5, borderRadius: 12, border: '2px solid #e9e9ee', bgcolor: '#e9e9ee', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
+          <Box sx={{ p: 5, borderRadius: 12, border: '2px solid #fff', bgcolor: '#fff', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <CheckCircleIcon sx={{ color: '#3F51B5', fontSize: 30 }} />
+              <CheckCircleIcon sx={{ color: "#39999f", fontSize: 30 }} />
               <Typography variant="body1" sx={{ ml: 2 }}>Présences</Typography>
             </Box>
             <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
@@ -140,8 +140,8 @@ const AdminDashboard = () => {
                 strokeWidth={10}
                 styles={{
                   root: { width: '50px', marginRight: '16px' },
-                  path: { stroke: '#3F51B5' },
-                  text: { fill: '#3F51B5' }
+                  path: { stroke: "#39999f" },
+                  text: { fill: "#39999f"}
                 }}
               />
               <Typography variant="body1">{presencesPercentage}%</Typography>
@@ -149,9 +149,9 @@ const AdminDashboard = () => {
           </Box>
 
           {/* Deuxième Cadre */}
-          <Box sx={{ p: 5, borderRadius: 12, border: '2px solid #E9e9e9', bgcolor: '#E9e9e9', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
+          <Box sx={{ p: 5, borderRadius: 12, border: '2px solid #fff', bgcolor: '#fff', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <CancelIcon sx={{ color: '#596fd9', fontSize: 30 }} />
+              <CancelIcon sx={{ color: "#39999f", fontSize: 30 }} />
               <Typography variant="body1" sx={{ ml: 2 }}>Absences</Typography>
             </Box>
             <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
@@ -161,8 +161,8 @@ const AdminDashboard = () => {
                 strokeWidth={10}
                 styles={{
                   root: { width: '50px', marginRight: '16px' },
-                  path: { stroke: '#596fd9' },
-                  text: { fill: '#596fd9' }
+                  path: { stroke: "#39999f"},
+                  text: { fill: "#39999f" }
                 }}
               />
               <Typography variant="body1">{absencesPercentage}%</Typography>
@@ -170,9 +170,9 @@ const AdminDashboard = () => {
           </Box>
 
           {/* Troisième Cadre */}
-          <Box sx={{ p: 5, borderRadius: 12, border: '2px solid #ede9e9', bgcolor: '#ede9e9', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
+          <Box sx={{ p: 5, borderRadius: 12, border: '2px solid #fff', bgcolor: '#fff', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <ScheduleIcon sx={{ color: '#5976D2', fontSize: 30 }} />
+              <ScheduleIcon sx={{ color: "#39999f" ,fontSize: 30 }} />
               <Typography variant="body1" sx={{ ml: 2 }}>Heures supplémentaires</Typography>
             </Box>
             <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
@@ -182,8 +182,8 @@ const AdminDashboard = () => {
                 strokeWidth={10}
                 styles={{
                   root: { width: '50px', marginRight: '16px' },
-                  path: { stroke: '#5976D2' },
-                  text: { fill: '#5976D2' }
+                  path: { stroke: "#39999f" },
+                  text: { fill: "#39999f" }
                 }}
               />
               <Typography variant="body1">{hoursExtraPercentage}%</Typography>
@@ -191,9 +191,9 @@ const AdminDashboard = () => {
           </Box>
 
           {/* Quatrième Cadre */}
-          <Box sx={{ p: 5, borderRadius: 12, border: '2px solid #e9e9ee', bgcolor: '#e9e9ee', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
+          <Box sx={{ p: 5, borderRadius: 12, border: '2px solid #fff', bgcolor: '#fff', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <PeopleIcon sx={{ color: '#5575CD', fontSize: 30 }} />
+              <PeopleIcon sx={{ color: "#39999f", fontSize: 30 }} />
               <Typography variant="body1" sx={{ ml: 2 }}>Nombre d'employés</Typography>
             </Box>
             <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
@@ -203,8 +203,8 @@ const AdminDashboard = () => {
                 strokeWidth={10}
                 styles={{
                   root: { width: '50px', marginRight: '16px' },
-                  path: { stroke: '#5575CD' },
-                  text: { fill: '#5575CD' }
+                  path: { stroke: "#39999f"},
+                  text: { fill: "#39999f"}
                 }}
               />
               <Typography variant="body1">{totalEmployéss}%</Typography>
@@ -216,7 +216,7 @@ const AdminDashboard = () => {
 
      <Box
   sx={{
-    bgcolor: '#e9e9ef',
+    bgcolor: '#fff',
     mt: 6,
     borderRadius: 6,
     boxShadow: '10px 30px 10px rgba(0, 0, 0, 0.1)',

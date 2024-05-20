@@ -7,7 +7,12 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import { userUpdateAction } from '../../redux/actions/userAction';
-import { Button } from '@mui/material';
+import { Button, InputAdornment } from '@mui/material';
+import EmailIcon from '@mui/icons-material/Email';
+import PersonIcon from '@mui/icons-material/Person';
+import PhoneIcon from '@mui/icons-material/Phone';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import HomeIcon from '@mui/icons-material/Home';
 
 const UserUpdateDashboard = () => {
     const { user } = useSelector(state => state.userProfile);
@@ -32,13 +37,13 @@ const UserUpdateDashboard = () => {
     };
 
     return (
-        <Box sx={{ maxWidth: "100%", margin: "3%", pt: -80 }}>
-            <Card>
-                <CardContent>
+        <Box sx={{ maxWidth: "100%", margin: "3%", pt: -80, animation: 'fadeIn 2s' }}>
+            <Card sx={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: '16px', overflow: 'hidden' }}>
+                <CardContent sx={{ background: 'linear-gradient(to right, #f8f9fa, #e9ecef)' }}>
                     <Grid container spacing={2} alignItems="center">
                         <Grid item xs={12}>
-                            <Typography variant="h5">
-                                Informations Personnelles
+                            <Typography variant="h5" sx={{ fontWeight: 'bold', color: '"#39999f"' }}>
+                                Informations Personnelles 
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -49,6 +54,14 @@ const UserUpdateDashboard = () => {
                                 fullWidth
                                 value={updatedUser.email}
                                 onChange={handleInputChange}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <EmailIcon sx={{ color: "#39999f"}} />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
                             />
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -59,6 +72,14 @@ const UserUpdateDashboard = () => {
                                 fullWidth
                                 value={updatedUser.firstName}
                                 onChange={handleInputChange}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <PersonIcon sx={{ color: "#39999f" }} />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
                             />
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -69,6 +90,14 @@ const UserUpdateDashboard = () => {
                                 fullWidth
                                 value={updatedUser.lastName}
                                 onChange={handleInputChange}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <PersonIcon sx={{ color: "#39999f" }} />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
                             />
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -79,15 +108,80 @@ const UserUpdateDashboard = () => {
                                 fullWidth
                                 value={updatedUser.phone}
                                 onChange={handleInputChange}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <PhoneIcon sx={{ color: "#39999f" }} />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="dateOfBirth"
+                                label="Date de Naissance"
+                                type="date"
+                                variant="outlined"
+                                fullWidth
+                                value={updatedUser.dateOfBirth}
+                                onChange={handleInputChange}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <CalendarTodayIcon sx={{ color: "#39999f" }} />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="address"
+                                label="Adresse"
+                                variant="outlined"
+                                fullWidth
+                                value={updatedUser.address}
+                                onChange={handleInputChange}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <HomeIcon sx={{ color: "#39999f"}} />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
                             />
                         </Grid>
                     </Grid>
-                 
-                    <Typography style={{ marginTop: '16px', color: "#666" }}>
-                         Statut: {user ? (user.role === 0 ? "Utilisateur régulier" : "Administrateur") : ""}
-                         </Typography>
 
-                    <Button onClick={handleSubmit} disabled={!file}>Soumettre</Button> {/* Bouton désactivé si aucun fichier n'est sélectionné */}
+                    
+
+                    <Button
+                        onClick={handleSubmit}
+                        disabled={!file}
+                        sx={{
+                            marginTop: '16px',
+                            background: 'linear-gradient(to right, #39999f, #39999f)',
+                            color: '#fff',
+                            '&:hover': {
+                                background: 'linear-gradient(to right, #39999f, #39999f)',
+                            },
+                            borderRadius: '12px',
+                            transition: 'transform 0.3s ease',
+                            '&:disabled': {
+                                background: "#39999f",
+                                color: '#e9ecef'
+                            }
+                        }}
+                    >
+                        Soumettre
+                    </Button>
                 </CardContent>
             </Card>
         </Box>

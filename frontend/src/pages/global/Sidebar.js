@@ -39,9 +39,9 @@ const SidebarAdm = () => {
     }
 
     return (
-        <Sidebar backgroundColor="#303f9f" style={{ borderRightStyle: "none" }}>
+        <Sidebar backgroundColor= "white" style={{ borderRightStyle: "none" }}>
             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: "column", height: "100%" }}>
-                <Box sx={{ bgcolor: "#1a237e", pb: 2 }}> {/* Couleur jolie pour la partie Head */}
+                <Box sx={{ bgcolor: "#white", pb: 2 }}> {/* Couleur jolie pour la partie Head */}
                     <Box sx={{ pt: 3, pb: 5, display: "flex", justifyContent: "center" }}>
                         {collapsed ?
                             <Avatar alt="logo dashboard" src={logoDashboard} /> :
@@ -55,22 +55,22 @@ const SidebarAdm = () => {
                         menuItemStyles={{
                             button: {
                                 [`&.${menuClasses.button}`]: {
-                                    color: "white",
+                                    color: "black",
                                     fontFamily: "Arial, sans-serif",
                                     fontSize: "16px",
                                     fontWeight: "bold",
                                 },
                                 [`&.${menuClasses.disabled}`]: {
-                                    color: "green",
+                                    color: "#39999f",
                                 },
                                 '&:hover': {
-                                    backgroundColor: "#1a237e",
-                                    color: "#ffc107",
+                                    backgroundColor: "#white",
+                                    color: "#39999f",
                                 },
                             },
                             icon: {
                                 [`&.${menuClasses.icon}`]: {
-                                    color: "#ffc107",
+                                    color: "#39999f",
                                 }
                             },
                         }}
@@ -100,19 +100,19 @@ const SidebarAdm = () => {
                         menuItemStyles={{
                             button: {
                                 [`&.${menuClasses.button}`]: {
-                                    color: "#ffc107",
+                                    color: "black",
                                     fontFamily: "Arial, sans-serif",
                                     fontSize: "16px",
                                     fontWeight: "bold",
                                 },
                                 '&:hover': {
-                                    backgroundColor: "#1a237e",
-                                    color: "#ffc107",
+                                    backgroundColor: "#black",
+                                    color: "black",
                                 },
                             },
                             icon: {
                                 [`&.${menuClasses.icon}`]: {
-                                    color: "#ffc107",
+                                    color: "#39999f",
                                 }
                             },
                         }}

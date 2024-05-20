@@ -20,12 +20,12 @@ export const themeColors = (mode) => ({
             ? {
                 // palette values for light mode
                 primary: {
-                    main: "#005073",
+                    main: "#39999f",
                     white: "white" //bag login menu
                 },
                 secondary: {
-                    main: 	"#eeeeee",
-                    midNightBlue:  			"#eeeeee "//jaw lina
+                    main: 	"#ffffff",
+                    midNightBlue:  			"#fffffffe "//jaw lina
                 },
             }
             : {

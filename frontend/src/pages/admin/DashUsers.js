@@ -42,11 +42,11 @@ const DashUsers = () => {
                 style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: '	#107dac',
+                    color: "#39999f",
                     textDecoration: 'none',
                     fontWeight: 'bold',
                     '&:hover': {
-                        color: '#1565c0',
+                        color: "#39999f",
                         textDecoration: 'underline',
                     },
                 }}
@@ -88,13 +88,13 @@ const DashUsers = () => {
                     variant="contained"
                     startIcon={<EditIcon />}
                     sx={{
-                        bgcolor: '#4caf50',
+                        bgcolor: "#39999f",
                         color: 'white',
                         '&:hover': {
-                            bgcolor: '#388e3c',
+                            bgcolor: "#39999f",
                         },
                         '&:active': {
-                            bgcolor: '#317331',
+                            bgcolor: "#39999f",
                         },
                         '& .MuiButton-label': {
                             textTransform: 'none',
@@ -111,13 +111,13 @@ const DashUsers = () => {
                     variant="contained"
                     startIcon={<DeleteIcon />}
                     sx={{
-                        bgcolor: '#f44336',
+                        bgcolor: "#39999f",
                         color: 'white',
                         '&:hover': {
-                            bgcolor: '#d32f2f',
+                            bgcolor: "#39999f",
                         },
                         '&:active': {
-                            bgcolor: '#b71c1c',
+                            bgcolor: "#39999f",
                         },
                         '& .MuiButton-label': {
                             textTransform: 'none',
@@ -148,13 +148,13 @@ const DashUsers = () => {
     variant="contained"
     startIcon={<AddIcon />}
     sx={{
-        bgcolor: '#5099b9',
+        bgcolor: "#39999f",
         color: 'white',
         '&:hover': {
-            bgcolor: '#3d7f9e',
+            bgcolor: "#39999f",
         },
         '&:active': {
-            bgcolor: '#306580',
+            bgcolor: "#39999f",
         },
         '& .MuiButton-label': {
             textTransform: 'none',
@@ -168,7 +168,7 @@ const DashUsers = () => {
 
 
             </Box>
-            <Paper sx={{ bgcolor: "#f5f5f5", borderRadius: 8 }}>
+            <Paper sx={{ bgcolor: "#fff", borderRadius: 8 }}>
                 <Box sx={{ height: 400, width: '100%' }}>
                     <DataGrid
                         getRowId={(row) => row._id}

@@ -89,7 +89,7 @@ const HeaderTop = () => {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{ boxShadow: 0, bgcolor: "#303f9f" }}>
+            <AppBar position="static" sx={{ boxShadow: 0, bgcolor: "#39999f" }}>
                 <Toolbar>
                     <IconButton onClick={() => collapseSidebar()}
                         size="large"
