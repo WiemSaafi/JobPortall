@@ -130,7 +130,7 @@ const UserInfoDashboard = () => {
                     <Grid container spacing={2} alignItems="center">
                         <Grid item xs={12}>
                             <Typography variant="h5" style={{ fontSize: '24px', fontWeight: 'bold', color: '#333' }}>
-                                Informations Personnelles
+                                Informations Personnelles 
                             </Typography>
                             <IconButton component="label" htmlFor="photo-upload">
                                 <PhotoCameraIcon />

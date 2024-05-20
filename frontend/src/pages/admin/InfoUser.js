@@ -14,12 +14,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { userSingleAction } from '../../redux/actions/userAction';
 import { heuredepartjourAction, userSingleHeureAction } from '../../redux/actions/heuredépart';
- 
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import HomeIcon from '@mui/icons-material/Home';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
- 
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 
 
@@ -106,438 +107,226 @@ const InfoUser = () => {
 
 
 // jw card
-    return (
-        <Box sx={{ maxWidth: "100%", margin: "1%", pt: 0 ,left:"20%"}} component="form" className='form_style border-style'>
-            {user && (
-                <Card
-                    style={{
-                        borderRadius: '15px',
-                        overflow: 'hidden',
-                        boxShadow: 'px 8px 15px rgba(0, 0, 0, 0.1)',
-                        border: `2px solid ${isHovered ? '#0b3948' : 'transparent'}`,
-                        transition: 'border-color 0.3s ease'
-                    }}
-                >
-                    
-                    <CardContent>
-                        <Grid container spacing={1} alignItems="center">
-                            <Grid item xs={12} md={6}>
-                                <Typography variant="h5" style={{ fontSize: '29px', fontWeight: 'bold', color: '#0b3948', marginBottom: '-12px' }}>
-                                    Infos Personnelles
-                                </Typography>
-                                <FormControl sx={{ m: 1 }} variant="standard">
-                                    <InputLabel id="demo-customized-select-label">Jour</InputLabel>
-                                    <Select
-                                        labelId="demo-customized-select-label"
-                                        id="demo-customized-select"
-                                        value={selectedJour}
-                                        onChange={handleChangeJour}
-                                    >
-                                        <MenuItem value="">
-                                            <em>Aucun</em>
-                                        </MenuItem>
-                                        <MenuItem value={'lundi'}>Lundi</MenuItem>
-                                        <MenuItem value={'mardi'}>Mardi</MenuItem>
-                                        <MenuItem value={'mercredi'}>Mercredi</MenuItem>
-                                        <MenuItem value={'jeudi'}>Jeudi</MenuItem>
-                                        <MenuItem value={'vendredi'}>Vendredi</MenuItem>
-                                        <MenuItem value={'samedi'}>Samedi</MenuItem>
-                                    </Select>
-                                </FormControl>
-                                <FormControl sx={{ m: 1 }} variant="standard">
-                                    <InputLabel id="demo-customized-select-label">Année</InputLabel>
-                                    <Select
-                                        labelId="demo-customized-select-label"
-                                        id="demo-customized-select"
-                                        value={selectedYear}
-                                        onChange={handleChangeYear}
-                                    >
-                                         <MenuItem value="">Aucun</MenuItem>
-                                    {/* Insérez ici la liste des années */}
-                                    {Array.from({length: 21}, (_, i) => currentYear - 10 + i).map((year) => (
+return (
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '75vh', backgroundColor: '#f0f2f5' }}>
+        {user && (
+            <Card
+                style={{
+                    borderRadius: '15px',
+                    overflow: 'hidden',
+                    boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.1)',
+                    border: '2px solid transparent',
+                    transition: 'border-color 0.3s ease'
+                }}
+            >
+                <CardContent>
+                    <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, color: '#0b3948' }}>
+                        Infos Personnelles
+                    </Typography>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="firstName"
+                                label="Nom"
+                                variant="outlined"
+                                fullWidth
+                                value={user.firstName}
+                                InputProps={{ readOnly: true }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="lastName"
+                                label="Prénom"
+                                variant="outlined"
+                                fullWidth
+                                value={user.lastName}
+                                InputProps={{ readOnly: true }}
+                            />
+                        </Grid>
+                       
+                         
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="firstName"
+                                label="Date de Naissance"
+                                variant="outlined"
+                                fullWidth
+                                value={user.firstName}
+                                InputProps={{ readOnly: true }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="email"
+                                label="Email"
+                                variant="outlined"
+                                fullWidth
+                                value={user.email}
+                                InputProps={{ readOnly: true }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="phone"
+                                label="Téléphone"
+                                variant="outlined"
+                                fullWidth
+                                value={user.phone}
+                                InputProps={{ readOnly: true }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="address"
+                                label="Adresse"
+                                variant="outlined"
+                                fullWidth
+                                value={user.address}
+                                InputProps={{ readOnly: true }}
+                            />
+                        </Grid>
+                       
+                    </Grid>
+
+                    <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 4, mb: 2, color: '#0b3948' }}>
+                        Sélectionnez une date
+                    </Typography>
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item xs={12} md={4}>
+                            <ToggleButtonGroup
+                                value={selectedJour}
+                                exclusive
+                                onChange={handleChangeJour}
+                                aria-label="Jour"
+                                fullWidth
+                            >
+                                <ToggleButton value="lundi">Lundi</ToggleButton>
+                                <ToggleButton value="mardi">Mardi</ToggleButton>
+                                <ToggleButton value="mercredi">Mercredi</ToggleButton>
+                                <ToggleButton value="jeudi">Jeudi</ToggleButton>
+                                <ToggleButton value="vendredi">Vendredi</ToggleButton>
+                                <ToggleButton value="samedi">Samedi</ToggleButton>
+                            </ToggleButtonGroup>
+                        </Grid>
+                        <Grid item xs={12} md={4}>
+                            <ToggleButtonGroup
+                                value={selectedMonth}
+                                exclusive
+                                onChange={handleChangeMonth}
+                                aria-label="Mois"
+                                fullWidth
+                            >
+                                <ToggleButton value="janvier">Janvier</ToggleButton>
+                                <ToggleButton value="février">Février</ToggleButton>
+                                <ToggleButton value="mars">Mars</ToggleButton>
+                                <ToggleButton value="avril">Avril</ToggleButton>
+                                <ToggleButton value="mai">Mai</ToggleButton>
+                                <ToggleButton value="juin">Juin</ToggleButton>
+                                <ToggleButton value="juillet">Juillet</ToggleButton>
+                                <ToggleButton value="août">Août</ToggleButton>
+                                <ToggleButton value="septembre">Septembre</ToggleButton>
+                                <ToggleButton value="octobre">Octobre</ToggleButton>
+                                <ToggleButton value="novembre">Novembre</ToggleButton>
+                                <ToggleButton value="décembre">Décembre</ToggleButton>
+                            </ToggleButtonGroup>
+                        </Grid>
+                        <Grid item xs={12} md={4}>
+                            <FormControl fullWidth variant="outlined">
+                                <InputLabel id="select-annee-label">Année</InputLabel>
+                                <Select
+                                    labelId="select-annee-label"
+                                    id="select-annee"
+                                    value={selectedYear}
+                                    onChange={handleChangeYear}
+                                    label="Année"
+                                >
+                                    <MenuItem value=""><em>Aucun</em></MenuItem>
+                                    {Array.from({ length: 21 }, (_, i) => currentYear - 10 + i).map(year => (
                                         <MenuItem key={year} value={year}>{year}</MenuItem>
                                     ))}
-                                    </Select>
-                                </FormControl>
-
-                                <FormControl sx={{ m: 1 }} variant="standard">
-                                    <InputLabel id="demo-customized-select-label">Mois</InputLabel>
-                                    <Select
-                                        labelId="demo-customized-select-label"
-                                        id="demo-customized-select"
-                                        value={selectedMonth}
-                                        onChange={handleChangeMonth}
-                                    >
-                                        <MenuItem value="">
-                                            <em>Aucun</em>
-                                        </MenuItem>
-                                        <MenuItem value={'janvier'}>Janvier</MenuItem>
-                                        <MenuItem value={'février'}>Février</MenuItem>
-                                        <MenuItem value={'mars'}>Mars</MenuItem>
-                                        <MenuItem value={'avril'}>Avril</MenuItem>
-                                        <MenuItem value={'mai'}>Mai</MenuItem>
-                                        <MenuItem value={'juin'}>Juin</MenuItem>
-                                        <MenuItem value={'juillet'}>Juillet</MenuItem>
-                                        <MenuItem value={'août'}>Août</MenuItem>
-                                        <MenuItem value={'septembre'}>Septembre</MenuItem>
-                                        <MenuItem value={'octobre'}>Octobre</MenuItem>
-                                        <MenuItem value={'décembre'}>Décembre</MenuItem>
-                                    </Select>
-                                </FormControl>
-
-
-
-
-
-
-                            </Grid>
-                            { setheuresDépartJourMois && (
-                                <Grid item xs={12} md={6}>
-                                    <TextField
-                                        id="heureDepartJourEntree"
-                                        label={`Heures d'Entrée (${selectedJour} ${selectedMonth} ${selectedYear})`}
-                                        variant="outlined"
-                                        fullWidth
-                                        value={heuresDépartJourMois.filter(heure => heure.typeHeure === 'entrée').map(heure => moment(heure.Heure).format('HH:mm')).join(', ')}
-                                        InputProps={{
-                                            sx: {
-                                                color: isHovered ? '#0b3948' : 'black',
-                                                borderRadius: '8px',
-                                                '& .MuiOutlinedInput-notchedOutline': {
-                                                    borderColor: isHovered ? '#0b3948' : 'transparent',
-                                                },
-                                                '&:hover .MuiOutlinedInput-notchedOutline': {
-                                                    borderColor: '#0b3948',
-                                                },
-                                            },
-                                            disableUnderline: true,
-                                            focused: {
-                                                borderColor: 'blue'
-                                            }
-                                        }}
-                                        disabled
-                                    />
-                                </Grid>
-                            )}
-                             {  setheuresDépartJourMois && (
-                                <Grid item xs={12} md={6}>
-                                    <TextField
-                                        id="heureDepartJourEntree"
-                                        label={`Date d'Entrée (${selectedJour} ${selectedMonth})`}
-                                        variant="outlined"
-                                        fullWidth
-                                        value={heuresDépartJourMois.filter(heure => heure.typeHeure === 'entrée').map(heure => moment(heure.Heure).format('YYYY-MM-DD')).join(', ')}
-                                        InputProps={{
-                                            sx: {
-                                                color: isHovered ? '#0b3948' : 'black',
-                                                borderRadius: '8px',
-                                                '& .MuiOutlinedInput-notchedOutline': {
-                                                    borderColor: isHovered ? '#0b3948' : 'transparent',
-                                                },
-                                                '&:hover .MuiOutlinedInput-notchedOutline': {
-                                                    borderColor: '#0b3948',
-                                                },
-                                            },
-                                            disableUnderline: true,
-                                            focused: {
-                                                borderColor: 'blue'
-                                            }
-                                        }}
-                                        disabled
-                                    />
-                                </Grid>
-                            )}
-                             {  setheuresDépartJourMois && (
-                                <Grid item xs={12} md={6}>
-                                    <TextField
-                                        id="heureDepartJourEntree"
-                                        label={`Heures de sortie (${selectedJour}) ${selectedMonth})`}
-                                        variant="outlined"
-                                        fullWidth
-                                        value={heuresDépartJourMois.filter(heure => heure.typeHeure === 'sortie').map(heure => moment(heure.Heure).format('HH:mm')).join(', ')}
-                                        InputProps={{
-                                            sx: {
-                                                color: isHovered ? '#0b3948' : 'black',
-                                                borderRadius: '8px',
-                                                '& .MuiOutlinedInput-notchedOutline': {
-                                                    borderColor: isHovered ? '#0b3948' : 'transparent',
-                                                },
-                                                '&:hover .MuiOutlinedInput-notchedOutline': {
-                                                    borderColor: '#0b3948',
-                                                },
-                                            },
-                                            disableUnderline: true,
-                                            focused: {
-                                                borderColor: 'blue'
-                                            }
-                                        }}
-                                        disabled
-                                    />
-                                </Grid>
-                            )}
-                            {  setheuresDépartJourMois && (
-                                <Grid item xs={12} md={6}>
-                                    <TextField
-                                        id="heureDepartJourEntree"
-                                        label={`Date d'Entrée (${selectedJour} ${selectedMonth})`}
-                                        variant="outlined"
-                                        fullWidth
-                                        value={heuresDépartJourMois.filter(heure => heure.typeHeure === 'entrée').map(heure => moment(heure.Heure).format('YYYY-MM-DD')).join(', ')}
-                                        InputProps={{
-                                            sx: {
-                                                color: isHovered ? '#0b3948' : 'black',
-                                                borderRadius: '8px',
-                                                '& .MuiOutlinedInput-notchedOutline': {
-                                                    borderColor: isHovered ? '#0b3948' : 'transparent',
-                                                },
-                                                '&:hover .MuiOutlinedInput-notchedOutline': {
-                                                    borderColor: '#0b3948',
-                                                },
-                                            },
-                                            disableUnderline: true,
-                                            focused: {
-                                                borderColor: 'blue'
-                                            }
-                                        }}
-                                        disabled
-                                    />
-                                </Grid>
-                            )}
-
-
-
-                            
-                             {  setheuresDépartJourMois && (
-                                <Grid item xs={12} md={6}>
-                                    <TextField
-                                        id="heureDepartJourEntree"
-                                        label={`date de sortie (${selectedJour}) ${selectedMonth})`}
-                                        variant="outlined"
-                                        fullWidth
-                                        value={heuresDépartJourMois.filter(heure => heure.typeHeure === 'sortie').map(heure => moment(heure.Heure).format('YYYY-MM-DD')).join(', ')}
-                                        InputProps={{
-                                            sx: {
-                                                color: isHovered ? '#0b3948' : 'black',
-                                                borderRadius: '8px',
-                                                '& .MuiOutlinedInput-notchedOutline': {
-                                                    borderColor: isHovered ? '#0b3948' : 'transparent',
-                                                },
-                                                '&:hover .MuiOutlinedInput-notchedOutline': {
-                                                    borderColor: '#0b3948',
-                                                },
-                                            },
-                                            disableUnderline: true,
-                                            focused: {
-                                                borderColor: 'blue'
-                                            }
-                                        }}
-                                        disabled
-                                    />
-                                </Grid>
-                            )} <Grid item xs={12} md={7}>
-                                <TextField
-                                    id="email"
-                                    label="Email"
-                                    variant="outlined"
-                                    fullWidth
-                                    value={user.email}
-                                    InputProps={{
-                                        sx: {
-                                            color: isHovered ? '#0b3948' : 'black',
-                                            borderRadius: '8px',
-                                            '& .MuiOutlinedInput-notchedOutline': {
-                                                borderColor: isHovered ? '#0b3948' : 'transparent',
-                                            },
-                                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                                                borderColor: '#0b3948',
-                                            },
-                                        },
-                                        disableUnderline: true,
-                                        focused: {
-                                            borderColor: 'blue'
-                                        }
-                                    }}
-                                    disabled
-                                />
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <TextField
-                                    id="firstName"
-                                    label="Nom"
-                                    variant="outlined"
-                                    fullWidth
-                                    value={user.firstName}
-                                    InputProps={{
-                                        sx: {
-                                            color: isHovered ? '#0b3948' : 'black',
-                                            borderRadius: '8px',
-                                            '& .MuiOutlinedInput-notchedOutline': {
-                                                borderColor: isHovered ? '#0b3948' : 'transparent',
-                                            },
-                                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                                                borderColor: '#0b3948',
-                                            },
-                                        },
-                                        disableUnderline: true,
-                                        focused: {
-                                            borderColor: 'blue'
-                                        }
-                                    }}
-                                    disabled
-                                />
-                            </Grid>
-                            <Grid item xs={12} md={7}>
-                                <TextField
-                                    id="lastName"
-                                    label="Prénom"
-                                    variant="outlined"
-                                    fullWidth
-                                    value={user.lastName}
-                                    InputProps={{
-                                        sx: {
-                                            color: isHovered ? '#0b3948' : 'black',
-                                            borderRadius: '8px',
-                                            '& .MuiOutlinedInput-notchedOutline': {
-                                                borderColor: isHovered ? '#0b3948' : 'transparent',
-                                            },
-                                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                                                borderColor: '#0b3948',
-                                            },
-                                        },
-                                        disableUnderline: true,
-                                        focused: {
-                                            borderColor: 'blue'
-                                        }
-                                    }}
-                                    disabled
-                                />
-                            </Grid>
-                            <Grid item xs={12} md={7}>
-                                <TextField
-                                    id="phone"
-                                    label="Téléphone"
-                                    variant="outlined"
-                                    fullWidth
-                                    value={user.phone}
-                                    InputProps={{
-                                        sx: {
-                                            color: isHovered ? '#0b3948' : 'black',
-                                            borderRadius: '8px',
-                                            '& .MuiOutlinedInput-notchedOutline': {
-                                                borderColor: isHovered ? '#0b3948' : 'transparent',
-                                            },
-                                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                                                borderColor: '#0b3948',
-                                            },
-                                        },
-                                        disableUnderline: true,
-                                        focused: {
-                                            borderColor: 'blue'
-                                        }
-                                    }}
-                                    disabled
-                                />
-                            </Grid>
-                            <Grid item xs={12} md={7}>
-                                <TextField
-                                    id="address"
-                                    label="Adresse"
-                                    variant="outlined"
-                                    fullWidth
-                                    value={user.address}
-                                    InputProps={{
-                                        sx: {
-                                            color: isHovered ? '#0b3948' : 'black',
-                                            borderRadius: '8px',
-                                            '& .MuiOutlinedInput-notchedOutline': {
-                                                borderColor: isHovered ? '#0b3948' : 'transparent',
-                                            },
-                                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                                                borderColor: '#0b3948',
-                                            },
-                                        },
-                                        disableUnderline: true,
-                                        focused: {
-                                            borderColor: 'blue'
-                                        }
-                                    }}
-                                    disabled
-                                />
-                            </Grid>
-                         
-                            <Grid item xs={12} md={7} >
-                                <TextField
-                                    id="Heure"
-                                    label="Dernière heure de sortie"
-                                    variant="outlined"
-                                    fullWidth
-                                    value={ derniereEntree ? moment(derniereEntree?.Heure).format('HH:mm') : ''}
-                                    InputProps={{
-                                        sx: {
-                                            color: isHovered ? '#0b3948' : 'black',
-                                            borderRadius: '8px',
-                                            '& .MuiOutlinedInput-notchedOutline': {
-                                                borderColor: isHovered ? '#0b3948' : 'transparent',
-                                            },
-                                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                                                borderColor: '#0b3948',
-                                            },
-                                        },
-                                        disableUnderline: true,
-                                        focused: {
-                                            borderColor: 'blue'
-                                        }
-                                    }}
-                                    disabled
-                                />
-                            </Grid>
-                            <Grid item xs={12} md={7} >
-                                <TextField
-                                    id="Heure"
-                                    label="Dernière heure d'entrée"
-                                    variant="outlined"
-                                    fullWidth
-                                    value={ derniereSortie ? moment(derniereSortie?.Heure).format('HH:mm') : ''}
-                                    InputProps={{
-                                        sx: {
-                                            color: isHovered ? '#0b3948' : 'black',
-                                            borderRadius: '8px',
-                                            '& .MuiOutlinedInput-notchedOutline': {
-                                                borderColor: isHovered ? '#0b3948' : 'transparent',
-                                            },
-                                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                                                borderColor: '#0b3948',
-                                            },
-                                        },
-                                        disableUnderline: true,
-                                        focused: {
-                                            borderColor: 'blue'
-                                        }
-                                    }}
-                                    disabled
-                                />
-                            </Grid>
-
-                            
+                                </Select>
+                            </FormControl>
                         </Grid>
-                    </CardContent>
-//hahah
+                    </Grid>
 
+                    <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 4, mb: 2, color: '#0b3948' }}>
+                        Heures de départ et de sortie
+                    </Typography>
+                    <Grid container spacing={2}>
+                    <Grid item xs={12} md={6}>
+                            <TextField
+                                id="heureDerniereEntree"
+                                label="Dernière heure d'entrée"
+                                variant="outlined"
+                                fullWidth
+                                value={derniereEntree ? moment(derniereEntree.Heure).format('HH:mm') : ''}
+                                InputProps={{ readOnly: true }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="heureDerniereSortie"
+                                label="Dernière heure de sortie"
+                                variant="outlined"
+                                fullWidth
+                                value={derniereSortie ? moment(derniereSortie.Heure).format('HH:mm') : ''}
+                                InputProps={{ readOnly: true }}
+                            />
+                        </Grid>
 
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="dateEntree"
+                                label={`Date (s) d'Entrée (s) (${selectedJour} ${selectedMonth})`}
+                                variant="outlined"
+                                fullWidth
+                                value={heuresDépartJourMois.filter(heure => heure.typeHeure === 'entrée').map(heure => moment(heure.Heure).format('YYYY-MM-DD')).join(', ')}
+                                InputProps={{ readOnly: true }}
+                            />
+                        </Grid>
 
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="heureDepartJourEntree"
+                                label={`Heure (s) d'Entrée (s)(${selectedJour} ${selectedMonth} ${selectedYear})`}
+                                variant="outlined"
+                                fullWidth
+                                value={heuresDépartJourMois.filter(heure => heure.typeHeure === 'entrée').map(heure => moment(heure.Heure).format('HH:mm')).join(', ')}
+                                InputProps={{ readOnly: true }}
+                            />
+                        </Grid>
 
-
-
-
-
-
-
-
-
-                </Card>
-            )}
-        </Box>
-    );
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="dateSortie"
+                                label={`Date (s) de Sortie (s) (${selectedJour} ${selectedMonth})`}
+                                variant="outlined"
+                                fullWidth
+                                value={heuresDépartJourMois.filter(heure => heure.typeHeure === 'sortie').map(heure => moment(heure.Heure).format('YYYY-MM-DD')).join(', ')}
+                                InputProps={{ readOnly: true }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                id="heureDepartJourSortie"
+                                label={`Heure (s) de Sortie (s)(${selectedJour} ${selectedMonth} ${selectedYear})`}
+                                variant="outlined"
+                                fullWidth
+                                value={heuresDépartJourMois.filter(heure => heure.typeHeure === 'sortie').map(heure => moment(heure.Heure).format('HH:mm')).join(', ')}
+                                InputProps={{ readOnly: true }}
+                            />
+                        </Grid>
+                       
+                       
+                    
+                    
+                    </Grid>
+                </CardContent>
+            </Card>
+        )}
+    </Box>
+);
 };
 
 export default InfoUser;
