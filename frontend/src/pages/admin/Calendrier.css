@@ -14,7 +14,7 @@
     width: 100%;
     text-align: center;
     font-size: 24px;
-    font-weight: bold;
+     
     border-bottom: 2px solid #388e3c; /* Bordure inférieure */
     border-radius: 10px 10px 0 0; /* Coins arrondis en haut */
   }

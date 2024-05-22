@@ -20,7 +20,7 @@ export const themeColors = (mode) => ({
             ? {
                 // palette values for light mode
                 primary: {
-                    main: "#39999f",
+                    main: "#3A0CA3",
                     white: "white" //bag login menu
                 },
                 secondary: {
@@ -31,7 +31,7 @@ export const themeColors = (mode) => ({
             : {
                 // palette values for dark mode
                 primary: {
-                    main: "green",
+                    main: "#7209B7",
                     white: "black"
                 },
                 secondary: {

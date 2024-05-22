@@ -13,7 +13,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import PeopleIcon from '@mui/icons-material/People';
-
+import freeImage from '../../img/small3.png';
 const AdminDashboard = () => {
   const dispatch = useDispatch();
   const { user } = useSelector(state => state.userProfile);
@@ -99,39 +99,36 @@ const AdminDashboard = () => {
   return (
     <>
       <Box sx={{ textAlign: "left", position: "absolute", right: 52, top: 364 }}>
-        <Button
-          sx={{
-            padding: "3px 4px",
-            textTransform: "capitalize",
-            color: "white",
-            backgroundColor: "#39999f",
-            '&:hover': {
-              backgroundColor: "#39999f",
-            },
-            '& .MuiButton-iconSizeMedium > *:first-child': {
-              fontSize: "0rem",
-            }
-          }}
-          variant="contained"
-        >
-          <DownloadOutlined />
-          Télécharger
-        </Button>
-      </Box>
+        
+          </Box>
 
       <Box>
         <Box sx={{ marginBottom: 7 }}>
-          <Typography variant='h8' sx={{ color: "black", pb: 0.5, borderBottom: '2px solid black', display: 'block', position: 'absolute', top: 80, left: 290, zIndex: 1000 }}>
+        <Typography
+            variant="h8"
+            sx={{
+                color: "#3A0CA3", // Change the text color to white
+                pb: 0.5,
+                borderBottom: '2px solid #3A0CA3',
+                display: 'block',
+                position: 'absolute',
+                top: 80,
+                left: 290,
+                zIndex: 1000
+            }}
+        >
             Tableau du bord
-          </Typography>
+        </Typography>
         </Box>
-
+ 
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }} sx={{ marginBottom: 10 }}>
           {/* Premier Cadre */}
-          <Box sx={{ p: 5, borderRadius: 12, border: '2px solid #fff', bgcolor: '#fff', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
+          <Box sx={{ p: 5, borderRadius: 12 , background: 'linear-gradient(to right,#F72585 ,#F72585)', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <CheckCircleIcon sx={{ color: "#39999f", fontSize: 30 }} />
-              <Typography variant="body1" sx={{ ml: 2 }}>Présences</Typography>
+              <CheckCircleIcon sx={{ color: "#fff", fontSize: 30 }} />
+              <Typography variant="body1" sx={{ ml: 2, color: 'white' }}>
+            Présences
+        </Typography>
             </Box>
             <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
               <CircularProgressbar
@@ -140,19 +137,19 @@ const AdminDashboard = () => {
                 strokeWidth={10}
                 styles={{
                   root: { width: '50px', marginRight: '16px' },
-                  path: { stroke: "#39999f" },
-                  text: { fill: "#39999f"}
+                  path: { stroke: "#Fff" },
+                  text: { fill: "#Fff"}
                 }}
               />
-              <Typography variant="body1">{presencesPercentage}%</Typography>
+              <Typography variant="body1"></Typography>
             </Box>
           </Box>
 
           {/* Deuxième Cadre */}
-          <Box sx={{ p: 5, borderRadius: 12, border: '2px solid #fff', bgcolor: '#fff', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
+          <Box sx={{ p: 5, borderRadius: 12, background: 'linear-gradient(to right ,#7209B7,  #7209B7)', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <CancelIcon sx={{ color: "#39999f", fontSize: 30 }} />
-              <Typography variant="body1" sx={{ ml: 2 }}>Absences</Typography>
+              <CancelIcon sx={{ color: "#fff", fontSize: 30 }} />
+              <Typography variant="body1" sx={{ ml: 2 ,color: 'white' }}>Absences</Typography>
             </Box>
             <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
               <CircularProgressbar
@@ -161,19 +158,19 @@ const AdminDashboard = () => {
                 strokeWidth={10}
                 styles={{
                   root: { width: '50px', marginRight: '16px' },
-                  path: { stroke: "#39999f"},
-                  text: { fill: "#39999f" }
+                  path: { stroke: "#fff"},
+                  text: { fill: "#fff" }
                 }}
               />
-              <Typography variant="body1">{absencesPercentage}%</Typography>
+              <Typography variant="body1"> </Typography>
             </Box>
           </Box>
 
           {/* Troisième Cadre */}
-          <Box sx={{ p: 5, borderRadius: 12, border: '2px solid #fff', bgcolor: '#fff', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
+          <Box sx={{ p: 5, borderRadius: 12, background: 'linear-gradient(to right,#3A0CA3 , #3A0CA3)', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <ScheduleIcon sx={{ color: "#39999f" ,fontSize: 30 }} />
-              <Typography variant="body1" sx={{ ml: 2 }}>Heures supplémentaires</Typography>
+              <ScheduleIcon sx={{ color: "#fff" ,fontSize: 30 }} />
+              <Typography variant="body1" sx={{ ml: 2 ,color: 'white'}}>Heures supplémentaires</Typography>
             </Box>
             <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
               <CircularProgressbar
@@ -182,19 +179,19 @@ const AdminDashboard = () => {
                 strokeWidth={10}
                 styles={{
                   root: { width: '50px', marginRight: '16px' },
-                  path: { stroke: "#39999f" },
-                  text: { fill: "#39999f" }
+                  path: { stroke: "#fff" },
+                  text: { fill: "#fff" }
                 }}
               />
-              <Typography variant="body1">{hoursExtraPercentage}%</Typography>
+              <Typography variant="body1"> </Typography>
             </Box>
           </Box>
 
           {/* Quatrième Cadre */}
-          <Box sx={{ p: 5, borderRadius: 12, border: '2px solid #fff', bgcolor: '#fff', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
+          <Box sx={{ p: 5, borderRadius: 12, background: 'linear-gradient(to right , #4361EE,#4361EE)', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <PeopleIcon sx={{ color: "#39999f", fontSize: 30 }} />
-              <Typography variant="body1" sx={{ ml: 2 }}>Nombre d'employés</Typography>
+              <PeopleIcon sx={{ color: "#fff", fontSize: 30 }} />
+              <Typography variant="body1" sx={{ ml: 2,color: 'white' }}>Nombre d'employés</Typography>
             </Box>
             <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
               <CircularProgressbar
@@ -203,11 +200,11 @@ const AdminDashboard = () => {
                 strokeWidth={10}
                 styles={{
                   root: { width: '50px', marginRight: '16px' },
-                  path: { stroke: "#39999f"},
-                  text: { fill: "#39999f"}
+                  path: { stroke: "#ffff"},
+                  text: { fill: "#fff"}
                 }}
               />
-              <Typography variant="body1">{totalEmployéss}%</Typography>
+              <Typography variant="body1"> </Typography>
             </Box>
           </Box>
 
@@ -215,16 +212,39 @@ const AdminDashboard = () => {
       </Box>
 
      <Box
+   
+>
+<Box
   sx={{
-    bgcolor: '#fff',
-    mt: 6,
+    background: 'linear-gradient(to right , #fff,#fff)',
+    mt: 4,
     borderRadius: 6,
-    boxShadow: '10px 30px 10px rgba(0, 0, 0, 0.1)',
+    boxShadow: '5 14px 18pxrgba(0, 0, 0, 0.1)',
     overflow: 'hidden',
     transition: 'transform 0.2s ease-in-out',
-    '&:hover': { transform: 'scale(1.02)' }
+    '&:hover': { transform: 'scale(1.02)' },
+    position: 'relative',  // Ensure the button is positioned correctly
+    padding: 0  // Add padding for spacing inside the box
   }}
 >
+  <Button
+    sx={{
+      padding: "0.6px 0.6px",
+      textTransform: "capitalize",
+       color:"#F72585",
+       
+      position: 'absolute',
+      top: 10,
+      right: 15,
+      
+    }}
+  >
+
+
+
+    <DownloadOutlined />
+     
+  </Button>
   <Stack direction={{ xs: 'column', sm: 'row' }}>
     <Chart
       options={chartOptions}
@@ -232,11 +252,24 @@ const AdminDashboard = () => {
       type="area"
       width="100%"
       height="230px"
+      
+
     />
   </Stack>
+  <img
+  src={freeImage}
+  alt="Free Image"
+  className="moving-image"
+  style={{ 
+    maxWidth: '100%', 
+    objectFit: 'cover',
+    marginTop: '-115px' // Ajustez cette valeur pour déplacer l'image plus haut
+  }}
+/>
 </Box>
 
 
+</Box>
 
     </>
   );

@@ -29,7 +29,7 @@ import { Fade } from '@mui/material';
 import {   CalendarToday as CalendarIcon, Event as EventIcon, FlightLand as FlightLandIcon } from '@mui/icons-material';
 import FaceIcon from '@mui/icons-material/Face';
 import { motion } from 'framer-motion';
-
+ 
 
 
 
@@ -98,26 +98,27 @@ const InfoUser = () => {
 
 // jw card
 return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '85vh', backgroundColor: '#f0f2f5' }}>
+    <Box sx={{  marginTop: '-20px',height: '95vh', backgroundColor: '#f0f2f5' }}>
         {user && (
             <Card
                 style={{
                     borderRadius: '15px',
                     overflow: 'hidden',
-                    boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.1)',
+                     
                     border: '2px solid transparent',
                     transition: 'border-color 0.3s ease'
                 }}
             >
                 <CardContent>
-                        <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, color: '#0b3948' }}>
-                            Infos Personnelles
-                        </Typography>
+                <Typography variant="h8" sx={{ color: '#3A0CA3' }}>
+    Informations Personnelles
+</Typography>
+<div style={{ height: '20px' }}></div>
 
 
 
 
-                    <Grid container spacing={2}>
+                    <Grid container spacing={4}>
                             <Grid item xs={12} md={6}>
                                 <TextField
                                     id="firstName"
@@ -128,7 +129,7 @@ return (
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">
-                                                <PersonIcon style={{ color: '#3f51b5' }} />
+                                                <PersonIcon style={{ color: '#F72585' }} />
                                             </InputAdornment>
                                         ),
                                         readOnly: true
@@ -145,7 +146,7 @@ return (
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">
-                                                <PersonIcon style={{ color: '#f50057' }} />
+                                                <PersonIcon style={{ color: '#F72585' }} />
                                             </InputAdornment>
                                         ),
                                         readOnly: true
@@ -162,7 +163,7 @@ return (
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">
-                                                <CalendarTodayIcon style={{ color: '#ff9800' }} />
+                                                <CalendarTodayIcon style={{ color: '#F72585' }} />
                                             </InputAdornment>
                                         ),
                                         readOnly: true
@@ -179,7 +180,7 @@ return (
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">
-                                                <EmailIcon style={{ color: '#4caf50' }} />
+                                                <EmailIcon style={{ color: '#F72585' }} />
                                             </InputAdornment>
                                         ),
                                         readOnly: true
@@ -196,7 +197,7 @@ return (
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">
-                                                <PhoneIcon style={{ color: '#ff5722' }} />
+                                                <PhoneIcon style={{ color: '#F72585' }} />
                                             </InputAdornment>
                                         ),
                                         readOnly: true
@@ -213,7 +214,7 @@ return (
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">
-                                                <HomeIcon style={{ color: '#795548' }} />
+                                                <HomeIcon style={{ color: '#F72585' }} />
                                             </InputAdornment>
                                         ),
                                         readOnly: true
@@ -225,10 +226,14 @@ return (
 
 
                         <CardContent>
-    <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, color: '#0b3948' }}>
-        Sélectionner une date
-    </Typography>
-    <Grid container spacing={2} alignItems="center">
+
+                        <Typography variant="h8" sx={{ color: '#3A0CA3' }}>
+                        Sélectionner une date
+</Typography>
+<div style={{ height: '20px' }}></div>
+
+ 
+    <Grid container spacing={4} alignItems="center">
         <Grid item xs={12} sm={4}>
             <Fade in={true} timeout={1000}>
                
@@ -240,8 +245,8 @@ return (
         value={selectedJour}
         onChange={handleChangeJour}
         label="Jour"
-        style={{ backgroundColor: '#FFECB3' }}
-        startAdornment={<EventIcon />}
+        style={{ backgroundColor: '#FFf' }}
+        startAdornment={<EventIcon style={{ color: '#F72585' }}/>}
     >
                         <MenuItem value="lundi">Lundi</MenuItem>
                         <MenuItem value="mardi">Mardi</MenuItem>
@@ -263,8 +268,13 @@ return (
                         value={selectedMonth}
                         onChange={handleChangeMonth}
                         label="Mois"
-                        style={{ backgroundColor: '#FFCCBC' }}
-                        startAdornment={<CalendarTodayIcon />}
+                        style={{ backgroundColor: '#FFf' }}
+                        startAdornment={<CalendarTodayIcon style={{ color: '#F72585' }} />}
+
+
+
+
+                        
                     >
                         <MenuItem value="janvier">Janvier</MenuItem>
                         <MenuItem value="février">Février</MenuItem>
@@ -292,8 +302,8 @@ return (
                         value={selectedYear}
                         onChange={handleChangeYear}
                         label="Année"
-                        style={{ backgroundColor: '#FFCDD2' }}
-                        startAdornment={<EventIcon />}
+                        style={{ backgroundColor: '#FFf' }}
+                        startAdornment={<EventIcon style={{ color: '#F72585' }} />}
                     >
                         <MenuItem value=""><em>Aucun</em></MenuItem>
                         {Array.from({ length: 21 }, (_, i) => currentYear - 10 + i).map(year => (
@@ -317,13 +327,13 @@ return (
 
 
 
-
+<Typography variant="h8" sx={{ color: '#3A0CA3' }}>
+Heures de départ et de sortie
+</Typography>
+<div style={{ height: '20px' }}></div>
  
- 
-    <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 4, mb: 2, color: '#0b3948' }}>
-        Heures de départ et de sortie
-    </Typography>
-    <Grid container spacing={2}>
+  
+    <Grid container spacing={4}>
         <Grid item xs={12} md={6}>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
                 <TextField
@@ -334,7 +344,7 @@ return (
                     value={derniereEntree ? moment(derniereEntree.Heure).format('HH:mm') : ''}
                     InputProps={{
                         readOnly: true,
-                        startAdornment: <AccessTimeIcon sx={{ color: '#FFD54F', marginRight: '10px' }} />
+                        startAdornment: <AccessTimeIcon sx={{ color: '#F72585', marginRight: '10px' }} />
                     }}
                 />
             </motion.div>
@@ -349,7 +359,7 @@ return (
                     value={derniereSortie ? moment(derniereSortie.Heure).format('HH:mm') : ''}
                     InputProps={{
                         readOnly: true,
-                        startAdornment: <AccessTimeIcon sx={{ color: '#FFD54F', marginRight: '10px' }} />
+                        startAdornment: <AccessTimeIcon sx={{ color: '#F72585', marginRight: '10px' }} />
                     }}
                 />
             </motion.div>
@@ -368,7 +378,7 @@ return (
                     }
                     InputProps={{
                         readOnly: true,
-                        startAdornment: <EventIcon sx={{ color: '#FFAB91', marginRight: '10px' }} />
+                        startAdornment: <EventIcon sx={{ color: '#F72585', marginRight: '10px' }} />
                     }}
                 />         
             </motion.div>
@@ -387,7 +397,7 @@ return (
                     }
                     InputProps={{
                         readOnly: true,
-                        startAdornment: <EventIcon sx={{ color: '#FFAB91', marginRight: '10px' }} />
+                        startAdornment: <EventIcon sx={{ color: '#F72585', marginRight: '10px' }} />
                     }}
                 />
             </motion.div>
@@ -395,6 +405,7 @@ return (
     </Grid>
 </CardContent>
 
+ 
 
 
 

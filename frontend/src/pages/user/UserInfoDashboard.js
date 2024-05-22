@@ -13,6 +13,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import PhoneIcon from '@mui/icons-material/Phone';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import HomeIcon from '@mui/icons-material/Home';
+import freeImage from '../../img/wave7.png';
 
 const UserUpdateDashboard = () => {
     const { user } = useSelector(state => state.userProfile);
@@ -37,13 +38,13 @@ const UserUpdateDashboard = () => {
     };
 
     return (
-        <Box sx={{ maxWidth: "100%", margin: "3%", pt: -80, animation: 'fadeIn 2s' }}>
-            <Card sx={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: '16px', overflow: 'hidden' }}>
-                <CardContent sx={{ background: 'linear-gradient(to right, #fff, #fff)' }}>
+        <Box sx={{ maxWidth: "100%", margin: "0%", pt: -200 }}>
+            <Card sx={{ boxShadow: '5 14px 18px rgba(0, 0, 0, 0.2)', borderRadius: '15px', overflow: 'hidden' }}>
+                <CardContent sx={{ background: 'linear-gradient(to right, #Fff)' }}>
                     <Grid container spacing={2} alignItems="center">
                         <Grid item xs={12}>
-                            <Typography variant="h5" sx={{ fontWeight: 'bold', color: "#39999f" }}>
-                                Informations Personnelles  
+                            <Typography variant="h8" sx={{  color: "#3A0CA3" }}>
+                                Informations Personnelles oo
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -57,7 +58,7 @@ const UserUpdateDashboard = () => {
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
-                                            <EmailIcon sx={{ color: "#39999f" }} />
+                                            <EmailIcon sx={{ color: "#F72585" }} />
                                         </InputAdornment>
                                     ),
                                 }}
@@ -75,7 +76,7 @@ const UserUpdateDashboard = () => {
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
-                                            <PersonIcon sx={{ color: "#39999f" }} />
+                                            <PersonIcon sx={{ color: "#F72585" }} />
                                         </InputAdornment>
                                     ),
                                 }}
@@ -93,7 +94,7 @@ const UserUpdateDashboard = () => {
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
-                                            <PersonIcon sx={{ color:"#39999f"}} />
+                                            <PersonIcon sx={{ color:"#F72585"}} />
                                         </InputAdornment>
                                     ),
                                 }}
@@ -111,7 +112,7 @@ const UserUpdateDashboard = () => {
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
-                                            <PhoneIcon sx={{ color: "#39999f" }} />
+                                            <PhoneIcon sx={{ color: "#F72585" }} />
                                         </InputAdornment>
                                     ),
                                 }}
@@ -133,7 +134,7 @@ const UserUpdateDashboard = () => {
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
-                                            <CalendarTodayIcon sx={{ color:"#39999f" }} />
+                                            <CalendarTodayIcon sx={{ color:"#F72585" }} />
                                         </InputAdornment>
                                     ),
                                 }}
@@ -151,7 +152,7 @@ const UserUpdateDashboard = () => {
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
-                                            <HomeIcon sx={{ color: "#39999f"}} />
+                                            <HomeIcon sx={{ color: "#F72585"}} />
                                         </InputAdornment>
                                     ),
                                 }}
@@ -167,22 +168,32 @@ const UserUpdateDashboard = () => {
                         disabled={!file}
                         sx={{
                             marginTop: '16px',
-                            background: 'linear-gradient(to right, #39999f, #39999f)',
+                            background: 'linear-gradient(to right, #F72585, #39999f)',
                             color: '#fff',
                             '&:hover': {
-                                background: 'linear-gradient(to right, #39999f, #39999f)',
+                                background: 'linear-gradient(to right, #F72585, #39999f)',
                             },
                             borderRadius: '12px',
                             transition: 'transform 0.3s ease',
                             '&:disabled': {
-                                background: "#39999f",
-                                color: '#fff'
+                                background: "#F72585",
+                                color: '#e9ecef'
                             }
                         }}
                     >
-                        Soumettre
+                        Soumettre 
                     </Button>
                 </CardContent>
+                <img
+  src={freeImage}
+  alt="Free Image"
+  className="moving-image"
+  style={{ 
+    maxWidth: '100%', 
+    objectFit: 'cover',
+    marginTop: '-150px' // Ajustez cette valeur pour déplacer l'image plus haut
+  }}
+/>
             </Card>
         </Box>
     );
