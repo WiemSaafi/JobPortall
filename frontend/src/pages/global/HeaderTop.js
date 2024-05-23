@@ -104,12 +104,12 @@ const HeaderTop = () => {
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, color: "#3A0CA3", fontWeight: 600 }}
+                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, color: "#3A0CA3", fontWeight: 350 }}
                     >
                         Digital Market
                     </Typography>
 
-                    <IconButton sx={{ mr: 2, color: "#F72585" }} onClick={() => dispatch(toggleActionTheme())}>
+                    <IconButton sx={{ mr: 2, color: "#FCDC12" }} onClick={() => dispatch(toggleActionTheme())}>
                         {palette.mode === "dark" ? (
                             <DarkMode sx={{ fontSize: "25px" }} />
                         ) : (
@@ -118,7 +118,7 @@ const HeaderTop = () => {
                     </IconButton>
 
                     {/* Notification icon with click handling */}
-                    <IconButton sx={{ color: "#F72585" }} onClick={handleNotificationClick}>
+                    <IconButton sx={{ color: "#9b9b9b" }} onClick={handleNotificationClick}>
                         <NotificationsIcon />
                     </IconButton>
 
@@ -130,7 +130,7 @@ const HeaderTop = () => {
                 <Box sx={{ position: 'fixed', top: '56px', right: 0, zIndex: 999 }}>
                     {/* Display notifications */}
                     {notifications.map((notification, index) => (
-                        <NotificationAlert key={index} severity="info" color={notification.color} icon={notification.icon}>
+                        <NotificationAlert key={index} severity="info" color="{notification.color}" icon={notification.icon}>
                             {notification.message}
                         </NotificationAlert>
                     ))}

@@ -90,20 +90,36 @@ const SidebarAdm = () => {
 <MenuItem style={{ display: 'inline-flex', alignItems: 'center' ,color:"#F72585"}} component={<Link to="/admin/dashboard" />}> 
 <DashboardIcon style={{ marginRight: '31px' }} /> Dashboard </MenuItem>
 
+
+
+
+
 <MenuItem style={{ display: 'inline-flex', alignItems: 'center' }}  component={<Link to="/admin/users" />}>
     <GroupAddIcon style={{ marginRight: '31px' }}/> Employés </MenuItem>
                           
+
+
+
+
                  
 <MenuItem style={{ display: 'inline-flex', alignItems: 'center' }}  component={<Link to="/admin/calendrier" />}>
 <CategoryIcon style={{ marginRight: '31px' }}/> Calendrier </MenuItem  >
 
                        </> :
                        <>
-                          <MenuItem style={{ display: 'inline-flex', alignItems: 'center' }}component={<Link to="/user/info" />} > <PersonIcon style={{ marginRight: '4px' }} /> Compte </MenuItem>
-                          <MenuItem style={{ display: 'inline-flex', alignItems: 'center' }} component={<Link to="/user/dashboard" />} >
+                          <MenuItem style={{ display: 'inline-flex', alignItems: 'center' }}component={<Link to="/user/info" />} >  
+                           <PersonIcon style={{ marginRight: '31px' }} /> Compte </MenuItem>
+                          
+                          
+
+
+
+
+                          
+                          <MenuItem style={{ display: 'inline-flex', alignItems: 'center',color:"#F72585" }} component={<Link to="/user/dashboard" />} >
 <WorkHistoryIcon  style={{ marginRight: '31px' }} /> Fiche du pointage  </MenuItem>
-<MenuItem style={{ display: 'inline-flex', alignItems: 'center' }} component={<Link to="/user/notifications" />}>  <NotificationsIcon style={{ marginRight: '3px' }} />Notifications </MenuItem>
-<MenuItem style={{ display: 'inline-flex', alignItems: 'center' }}  component={<Link to="/user/calendar" />}>  <CalendarTodayIcon style={{ marginRight: '3px' }}  /> Calendrier </MenuItem>
+<MenuItem style={{ display: 'inline-flex', alignItems: 'center' }} component={<Link to="/user/notifications" />}>  <NotificationsIcon style={{ marginRight: '35px' }} />Notifications </MenuItem>
+{/* <MenuItem style={{ display: 'inline-flex', alignItems: 'center' }}  component={<Link to="/user/calendar" />}>  <CalendarTodayIcon style={{ marginRight: '13px' }}  /> Calendrier </MenuItem> */}
                        </>
                         }
                     </Menu>

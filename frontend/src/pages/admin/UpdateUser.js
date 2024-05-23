@@ -13,7 +13,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import PhoneIcon from '@mui/icons-material/Phone';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import HomeIcon from '@mui/icons-material/Home';
-import freeImage from '../../img/wave7.png';
+import freeImage from '../../img/wave8.png';
 
 const UserUpdateDashboard = () => {
     const { user } = useSelector(state => state.userProfile);
@@ -36,6 +36,19 @@ const UserUpdateDashboard = () => {
         formData.append('file', file);
         dispatch(userUpdateAction(formData, user._id));
     };
+
+
+
+
+
+    const handleButtonClick = () => {
+        // Changer la couleur du bouton lorsqu'un utilisateur fait une sélection
+        setButtonColor('linear-gradient(to right, #7209B7, #3A0CA3  )');
+      };
+    const [buttonColor, setButtonColor] = useState('linear-gradient(to right, #F72585, #7209B7)');
+
+
+    
 
     return (
         <Box sx={{
@@ -169,39 +182,41 @@ const UserUpdateDashboard = () => {
                     </Grid>
 
                     
-
+                    
                     <Button
-                        onClick={handleSubmit}
-                        disabled={!file}
-                        sx={{
-                            marginTop: '16px',
-                            background: 'linear-gradient(to right, #F72585, #39999f)',
-                            color: '#fff',
-                            '&:hover': {
-                                background: 'linear-gradient(to right, #F72585, #39999f)',
-                            },
-                            borderRadius: '12px',
-                            transition: 'transform 0.3s ease',
-                            '&:disabled': {
-                                background: "#F72585",
-                                color: '#e9ecef'
-                            }
-                        }}
-                    >
+        variant="contained"
+        sx={{
+          marginTop: '10px',
+          background: buttonColor,
+          color: '#fff',
+          '&:hover': {
+            background: buttonColor,
+          },
+          borderRadius: '10px',
+          transition: 'transform 0.3s ease',
+          '&:disabled': {
+            background: "#F72585",
+            color: '#e9ecef'
+          }
+        }}
+        onClick={handleButtonClick}
+      >
                         Soumettre 
                     </Button>
-                </CardContent>
-                <img
-  src={freeImage}
-  alt="Free Image"
-  className="moving-image"
-  style={{ 
-    maxWidth: '100%', 
-    objectFit: 'cover',
-    marginTop: '-140px' // Ajustez cette valeur pour déplacer l'image plus haut
-  }}
-/>
-
+                     
+                    <img
+        src={freeImage}
+        alt="Free Image"
+        className="moving-image"
+        style={{
+          maxWidth: '125%',
+          objectFit: 'cover',
+          margin: '55',
+          marginTop: '-305px',
+          
+        }}
+      />
+</CardContent>
             </Card>
            
         </Box>

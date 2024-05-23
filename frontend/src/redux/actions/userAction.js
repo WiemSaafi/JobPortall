@@ -186,12 +186,12 @@ export const userSingleAction= (id) => async (dispatch) => {
 export const deleteUSERAction = (id) => async (dispatch) => {
     dispatch({ type: DELETE_USER_REQUEST });
     try {
-        const { data } = await axios.delete(`/api/job/delete/${id}`);
+        const { data } = await axios.delete(`api/admin/user/delete/${id}`);
         dispatch({
             type: DELETE_USER_SUCCESS,
             payload: data
         });
-        toast.success("Job deleted successfully");
+        toast.success("user deleted successfully");
     } catch (error) {
         dispatch({
             type: DELETE_USER_FAIL,

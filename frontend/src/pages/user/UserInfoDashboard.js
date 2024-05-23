@@ -37,6 +37,17 @@ const UserUpdateDashboard = () => {
         dispatch(userUpdateAction(formData, user._id));
     };
 
+
+
+
+
+    const handleButtonClick = () => {
+        // Changer la couleur du bouton lorsqu'un utilisateur fait une sélection
+        setButtonColor('linear-gradient(to right, #7209B7, #3A0CA3  )');
+      };
+    const [buttonColor, setButtonColor] = useState('linear-gradient(to right, #F72585, #7209B7)');
+
+
     return (
         <Box sx={{ maxWidth: "100%", margin: "0%", pt: -200 }}>
             <Card sx={{ boxShadow: '5 14px 18px rgba(0, 0, 0, 0.2)', borderRadius: '15px', overflow: 'hidden' }}>
@@ -44,7 +55,7 @@ const UserUpdateDashboard = () => {
                     <Grid container spacing={2} alignItems="center">
                         <Grid item xs={12}>
                             <Typography variant="h8" sx={{  color: "#3A0CA3" }}>
-                                Informations Personnelles oo
+                                Informations Personnelles (s)
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -164,23 +175,23 @@ const UserUpdateDashboard = () => {
                     
 
                     <Button
-                        onClick={handleSubmit}
-                        disabled={!file}
-                        sx={{
-                            marginTop: '16px',
-                            background: 'linear-gradient(to right, #F72585, #39999f)',
-                            color: '#fff',
-                            '&:hover': {
-                                background: 'linear-gradient(to right, #F72585, #39999f)',
-                            },
-                            borderRadius: '12px',
-                            transition: 'transform 0.3s ease',
-                            '&:disabled': {
-                                background: "#F72585",
-                                color: '#e9ecef'
-                            }
-                        }}
-                    >
+        variant="contained"
+        sx={{
+          marginTop: '10px',
+          background: buttonColor,
+          color: '#fff',
+          '&:hover': {
+            background: buttonColor,
+          },
+          borderRadius: '10px',
+          transition: 'transform 0.3s ease',
+          '&:disabled': {
+            background: "#F72585",
+            color: '#e9ecef'
+          }
+        }}
+        onClick={handleButtonClick}
+      >
                         Soumettre 
                     </Button>
                 </CardContent>
@@ -191,7 +202,7 @@ const UserUpdateDashboard = () => {
   style={{ 
     maxWidth: '100%', 
     objectFit: 'cover',
-    marginTop: '-150px' // Ajustez cette valeur pour déplacer l'image plus haut
+    marginTop: '-140px' // Ajustez cette valeur pour déplacer l'image plus haut
   }}
 />
             </Card>

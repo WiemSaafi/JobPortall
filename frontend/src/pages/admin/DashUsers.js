@@ -31,36 +31,87 @@ const DashUsers = () => {
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     const columns = [
         {
             field: 'firstName',
             headerName: 'Prénom',
-            width: 150,
+            width: 120,
+           
+        },
+        {
+             
+        
+            width: 120,
             renderCell: (params) => (
-                <Link
-                to={`/employee/details/${params.row._id}`}
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: "#3A0CA3",
-                    textDecoration: 'none',
-                     
-                    '&:hover': {
-                        color: "#fff",
-                        textDecoration: 'underline',
-                    },
-                }}
-            >
-                {params.value}
-                <VisibilityIcon sx={{ marginLeft: 2, fontSize: 'large' }} />
-            </Link>
+                <Link to={`/employee/details/${params.row._id}`}>
+                    <Button
+                        variant="contained"
+                        startIcon={<VisibilityIcon sx={{ marginLeft: '8px' }}/>}
+                        sx={{
+                            bgcolor: "#F20089",
+                            color: 'white',
+                            borderRadius: '10px',
+                            '&:hover': {
+                                bgcolor: "#E500A4",
+                            },
+                            '&:active': {
+                                bgcolor: "#E500A4",
+                            },
+                            '& .MuiButton-label': {
+                                textTransform: 'none',
+                            },
+                            minWidth: '40px',
+                            mr: 3,
+                             
+                        }}
+                    >
+                        
+                    </Button>
+                </Link>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
             )
         },
         {
             field: 'email',
             headerName: 'E-mail',
-            width: 230,
+            width: 250,
         },
         {
             field: 'role',
@@ -81,54 +132,80 @@ const DashUsers = () => {
         {
             field: "Actions",
             headerName: "Actions",
-            width: 300,
+            width: 200,
             renderCell: (values) => (
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <Button
-                    variant="contained"
-                    startIcon={<EditIcon />}
+
+
+
+
+<Link   to={`/admin/edit/user/${values.row._id}`}> 
+                <Button variant="contained" startIcon={<EditIcon sx={{ marginLeft: '8px' }}/>}
+                
                     sx={{
-                        bgcolor: "#F72585",
+                        bgcolor: "#7209B7",
                         color: 'white',
+                        borderRadius: '10px',
                         '&:hover': {
-                            bgcolor: "#7209B7",
+                            bgcolor: "#9a21e9",
                         },
                         '&:active': {
-                            bgcolor: "#39999f",
+                            bgcolor: "#9a21e9",
                         },
                         '& .MuiButton-label': {
                             textTransform: 'none',
                             
                         },
-                        minWidth: '100px',
-                        mr: 1,
+                        minWidth: '40px',
+                        mr: 3,
                     }}
                 >
-                    <Link style={{ color: "white", textDecoration: "none" }} to={`/admin/edit/user/${values.row._id}`}>Modifier</Link>
+                  
                 </Button>
+                </Link>
+    
                 <Button
                     onClick={() => deleteUserById(values.row._id)}
                     variant="contained"
-                    startIcon={<DeleteIcon />}
+                    startIcon={<DeleteIcon sx={{ marginLeft: '8px' }} />}
                     sx={{
-                        bgcolor: "#7209B7",
+                        bgcolor: " #b3105b    ",
                         color: 'white',
+                        borderRadius: '10px',
                         '&:hover': {
-                            bgcolor: "#3A0CA3",
+                            bgcolor: "#F72585 ",
                         },
                         '&:active': {
-                            bgcolor: "#39999f",
+                            bgcolor: "#F72585",
                         },
                         '& .MuiButton-label': {
                             textTransform: 'none',
                              
                         },
-                        minWidth: '100px',
-                        mr: 1,
+                        minWidth: '40px',
+                        mr: 3,
+
                     }}
                 >
-                    Supprimer
+                 
                 </Button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               
+ 
             </Box>
             
             )
@@ -138,33 +215,50 @@ const DashUsers = () => {
  
  
     return (
+
+
+
+
+
+
+
+        
         <Box>
-   <Typography variant='h8' sx={{ color: "#3A0CA3", pb: 0.5, borderBottom: '2px solid #3A0CA3', display: 'block', position: 'absolute', top: 80, left: 290, zIndex: 1000 }}>
-          Listes des employés
-          </Typography>
-           
-            <Box sx={{ pb: 8, display: "flex", justifyContent: "flex-end" }}>
-            <Button
-    variant="contained"
-    startIcon={<AddIcon />}
+ <Link  to="/admin/user/create">
+                <Button  
+    variant="contained" 
+    startIcon={<AddIcon sx={{ marginLeft: '8px' }} />}
     sx={{
         bgcolor: "#3A0CA3",
         color: 'white',
+        borderRadius: '10px',  // Ajout de la propriété border-radius
         '&:hover': {
             bgcolor: "#4361EE",
         },
         '&:active': {
-            bgcolor: "#39999f",
+            bgcolor: "#4361EE",
         },
         '& .MuiButton-label': {
             textTransform: 'none',
-            
         },
-        marginTop: '5px', // Ajout de la marge en haut
+        marginTop: '-8px', // Ajout de la marge en haut
+        minWidth: '40px',
+        mr: 1,
     }}
 >
-    <Link style={{ color: "white", textDecoration: "none" }} to="/admin/user/create">Créer un utilisateur</Link>
+      
 </Button>
+
+</Link>
+
+
+
+   <Typography variant='h8' sx={{ color: "#3A0CA3", pb: 0.5, borderBottom: '2px solid #3A0CA3', display: 'block', position: 'absolute', top: 65, left: 290, zIndex: 1000 }}>
+          Listes des employés
+          </Typography>
+           
+            <Box sx={{ pb: 6.75, display: "flex", justifyContent: "flex-end" }}>
+    
 
 
             </Box>

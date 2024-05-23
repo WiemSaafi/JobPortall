@@ -22,7 +22,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import LoginIcon from '@mui/icons-material/Login';
 import { styled } from '@mui/material/styles';
-import avatarImage from '../img/bleu.jpg';
+ 
  
 
 
@@ -140,27 +140,18 @@ const Navbar = () => {
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {/* menu desktop */}
-                        <Button
-                            onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: '#3A0CA3', display: 'block' }}>
-                            <Link to="/" style={{ color: '#3A0CA3', textDecoration: "none" }}>
-                                Home
-                            </Link>
-                        </Button>
+                        
                     </Box>
                     <IconButton sx={{ mr: 4 }} onClick={() => dispatch(toggleActionTheme())}>
                         {palette.mode === "dark" ? (
-                            <DarkMode sx={{ color: " #F72585", fontSize: "25px" }} />
+                            <DarkMode sx={{ color: " #E9E7E1", fontSize: "25px" }} />
                         ) : (
-                            <LightMode sx={{ color: " #F72585", fontSize: "25px" }} />
+                            <LightMode sx={{ color: " #FCDC12  ", fontSize: "25px" }} />
                         )}
                     </IconButton>
                     <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            {/* Remplace l'Avatar par l'élément img */}
-            <img src={avatarImage} alt="Avatar" style={{ width: '50px', height: '50px', borderRadius: '60%' }} />
-        </IconButton>
+       
     </Tooltip>
                         <Menu
                             PaperProps={{
