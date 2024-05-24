@@ -1,11 +1,14 @@
 const HeureDépart = require('../models/horaireDépartModel');
 const User = require('../models/userModel');
 const ErrorResponse = require('../utils/errorResponse');
+const { singleUserByEmpreintId } = require('./userController');
 
-exports.createHeure = async (req, res, next) => {
+/*exports.createHeure = async (req, res, next) => {
     try {
         const heureStr = req.body.Heure;
         const typeHeureStr = req.body.typeHeure;
+        // Appeler la fonction pour récupérer l'utilisateur par empreinte_id
+        const user = await exports.singleUserByEmpreintId(req.user.id);
         
         if (typeHeureStr === "entrée") {
             const currentDate = new Date();
@@ -14,7 +17,6 @@ exports.createHeure = async (req, res, next) => {
             if (isNaN(heureDépartDate.getTime())) {
                 return res.status(400).json({ success: false, error: "Format de date invalide pour heureDépart" });
             }
-    
             const heureDepart = await HeureDepart.create({
                 Heure:  heureDépartDate,
                 typeHeure: "entrée",
@@ -52,6 +54,59 @@ exports.createHeure = async (req, res, next) => {
         next(error);
     }
 };
+*/
+
+exports.createHeure = async (id,heureStr) => {
+    try {
+      
+       // const user = singleUserByEmpreintId(id);
+        // Recherche de la dernière entrée de l'utilisateur
+        const derniereEntree = await HeureDépart.findOne({ user: id })
+            .sort({ "Heure": -1 }) // Trie par ordre décroissant de la date/heure
+            .limit(1);
+
+
+        if (!!derniereEntree?.id) {
+            // Vérifier si la dernière entrée est d'aujourd'hui
+            const lastEntryDate = new Date(derniereEntree.Heure);
+            const today = new Date();
+            const heureDate = new Date(today.toDateString() + ' ' + heureStr);
+            if (isNaN(heureDate.getTime())) {
+                return res.status(400).json({ success: false, error: "Format de date invalide pour heureDépart" });
+            }
+            if (lastEntryDate.toDateString() === today.toDateString()) {
+                if (derniereEntree?.typeHeure == "sortie") {
+                    // Si c'est la première entrée de la journée, créez une entrée de départ
+                    const heureDepart = await HeureDépart.create({
+                        Heure:  heureDate,
+                        typeHeure: "entrée",
+                        user: id
+                    });
+                    return (heureDepart);
+                } else {
+                    // Si ce n'est pas la première entrée de la journée, créez une entrée de sortie
+                    const heureSortie = await HeureDépart.create({
+                        Heure: heureDate,
+                        typeHeure: "sortie",
+                        user: id
+                    });
+                    return(heureSortie);
+                }
+            }
+        } else {
+           // // création entrée
+            const heureDepart = await HeureDépart.create({
+                Heure:  heureDate,
+                typeHeure: "entrée",
+                user: id
+            });
+            return (heureDepart);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 exports.heuredepartjourmois = async (req, res, next) => {
     const selectedDay = req.query.day;
     const selectedMonth = req.query.month; // Supposons que le mois soit passé sous forme de numéro (1 pour janvier, 2 pour février, etc.)

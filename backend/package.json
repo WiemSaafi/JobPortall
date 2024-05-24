@@ -33,6 +33,8 @@
     "react-icons": "^5.1.0",
     "react-toastify": "^10.0.5",
     "socket.io": "^4.7.5",
+    "websocket": "^1.0.35",
+    "ws": "^8.17.0",
     "yn": "^5.0.0"
   },
   "devDependencies": {

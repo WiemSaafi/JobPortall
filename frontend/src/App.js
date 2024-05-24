@@ -30,13 +30,13 @@ import { createTheme } from '@mui/material/styles';
 import { themeColors } from './theme'
 import { useMemo } from 'react';
 import MyCalendar from './pages/admin/Calendrier.js'
-import event from "./Calendar/Event.js";
+//import event from "./Calendar/Event.js";
 import Not from './Notification/Not.js';
 import DashCreateUser from './pages/admin/CreateUser.js';
 import UserUpdateDashboard from './pages/admin/UpdateUser.js';
  
-import io from 'socket.io-client';
-const socket = io('http://localhost:3000');
+//import io from 'socket.io-client';
+//const socket = io('http://localhost:3000');
 //HOC
 const UserDashboardHOC = Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
@@ -48,9 +48,12 @@ const DashCategoryHOC = Layout(DashCategory)
 const DashCreateJobHOC = Layout(DashCreateJob)
 const DashCreateCategoryHOC = Layout(DashCreateCategory)
 const InfoUserHOC = Layout(InfoUser)
+//const WebSocket = require('ws');
 const DashCreateUserHOC = Layout(DashCreateUser)
 const UserUpdateDashboardHOC = Layout(UserUpdateDashboard)
+const gateway = 'ws://192.168.3.81:81/';
 
+let websocket;
 const MyCalendarHOC = Layout(MyCalendar)
 const App = () => {
     const { mode } = useSelector((state) => state.mode);
@@ -62,6 +65,7 @@ const App = () => {
 
     useEffect(() => {
         setUser(userProfile.user);
+        initWebSocket();
     }, [userProfile.user]);
 
     
@@ -71,11 +75,38 @@ const App = () => {
         });
         socket.emit('notification', "test"); */
         // Écouter les messages du serveur
-       socket.on('message', (data) => {
+      /* socket.on('message', (data) => {
             setMessage(data);
         });
         socket.emit('notification', "test"); 
+        */
+        function initWebSocket() {
+            console.log('Trying to open a WebSocket connection...');
+            websocket = new WebSocket(gateway);
+            websocket.onopen = onOpen; // Utilisez onopen pour écouter l'événement d'ouverture de la connexion WebSocket
+        websocket.onclose = onClose; // Utilisez onclose pour écouter l'événement de fermeture de la connexion WebSocket
+        websocket.onmessage = onMessage; // Utilisez onmessage pour écouter les messages reçus via WebSocket
+          }
+          
+          function onOpen(event) {
+            console.log('Connection DONE', event);
+          }
+          
+          function onClose() {
+            console.log('Connection closed');
+            setTimeout(initWebSocket, 2000);
+          }
+          
+          function onMessage(event) {
+            console.log('Message received vv: ', event?.data);
+            // Insert your message handling logic here
+          }
+          
+         
+       
 
+ 
+  
     return (
         <>
         
