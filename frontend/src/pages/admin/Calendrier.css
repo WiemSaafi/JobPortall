@@ -3,18 +3,18 @@
     flex-direction: column;
     align-items: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5; /* Couleur de fond */
+    background-color: white; /* Couleur de fond */
   }
   
   /* Styles pour l'en-tête du calendrier */
   .calendar-header {
     background-color: #4caf50; /* Couleur de l'en-tête */
-    color: #fff; /* Couleur du texte */
+    color: #ffff; /* Couleur du texte */
     padding: 20px;
     width: 100%;
     text-align: center;
     font-size: 24px;
-    font-weight: bold;
+     
     border-bottom: 2px solid #388e3c; /* Bordure inférieure */
     border-radius: 10px 10px 0 0; /* Coins arrondis en haut */
   }
@@ -68,7 +68,7 @@
     animation: fadeInDown 0.5s ease-in-out;
   }
   .custom-event-class {
-    background-color: rosybrown; /* Couleur de fond des événements */
+    background-color: "white"; /* Couleur de fond des événements */
     border: 1px solid #00ff26; /* Bordure des événements */
     border-radius: 4px; /* Coins arrondis des événements */
     color: #060000; /* Couleur du texte des événements */

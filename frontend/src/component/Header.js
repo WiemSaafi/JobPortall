@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { Box, styled, keyframes } from '@mui/material';
 import KeyboardArrowIcon from '@mui/icons-material/KeyboardArrowUp';
-import oo from '../img/oo.jpg';
-import waveImage from '../img/wave.png';
-
-// Importez votre vidéo
-import Video from '../videos/1.mp4';
+import freeImage from '../img/wave7.png';
+import degitalImage from '../images/digital.png';
 
 // Animation keyframes
 const fadeIn = keyframes`
@@ -14,8 +11,8 @@ const fadeIn = keyframes`
     transform: translateY(-2px);
   }
   to {
-    opacity: 0;
-    transform: translateY();
+    opacity: 1;
+    transform: translateY(0);
   }
 `;
 
@@ -34,27 +31,7 @@ const lineAnimation = keyframes`
   100% { width: 0%; }
 `;
 
-const Header = () => {
-    const [isScrolledToTop, setIsScrolledToTop] = useState(true);
-
-    const scrollTo = (position) => {
-        window.scrollTo({ top: position, behavior: 'smooth' });
-    };
-
-    const StyleHeader = styled(Box)(({ theme }) => (
-        {
-            position: 'relative',
-            minHeight: 700,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            overflow: 'hidden', // Assurez-vous que le contenu ne dépasse pas de l'en-tête
-            animation: `${fadeIn} 1s ease-in-out`, // Ajoutez une animation de fondu
-        }
-    ));
-
-    const moveUp = keyframes`
+const moveUp = keyframes`
   from {
     transform: translateY(0px);
   }
@@ -63,31 +40,44 @@ const Header = () => {
   }
 `;
 
+const Header = () => {
+    const [isScrolledToTop, setIsScrolledToTop] = useState(true);
+
+    const scrollTo = (position) => {
+        window.scrollTo({ top: position, behavior: 'smooth' });
+    };
+
+    const StyleHeader = styled(Box)(({ theme }) => ({
+        position: 'relative',
+        minHeight: 700,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'hidden',
+        animation: `${fadeIn} 1s ease-in-out`,
+    }));
+
     const ImageContainer = styled('div')(({ theme }) => ({
         position: 'absolute',
         top: 75,
-        right: "33px",
-        width: '871px', // Ajustez la largeur de l'image selon vos besoins
+        right: '33px',
+        width: '50%', // Adjusted width to fit video alongside
         height: 'auto',
-        animation: `${moveUp} 2s infinite alternate`, 
-       
+        animation: `${moveUp} 2s infinite alternate`,
     }));
 
     const Image = styled('img')(({ theme }) => ({
         width: '100%',
         height: 'auto',
-        
-       // animation: `${moveUp} 2s infinite alternate`,
     }));
-
 
     const WaveImageContainer = styled('div')(({ theme }) => ({
         position: 'absolute',
         top: '-14%',
         left: '-78%',
-        width: '562px', // Ajustez la largeur de l'image selon vos besoins
+        width: '562px',
         height: 'auto',
-        
     }));
 
     const WaveImage = styled('img')(({ theme }) => ({
@@ -95,23 +85,20 @@ const Header = () => {
         height: 'auto',
     }));
 
-    
     const TextContainer = styled('div')(({ theme }) => ({
         position: 'absolute',
-        top: '75%',
+        top: '35%',
         left: '1%',
-        transform: 'translateY(-50%)',
+        transform: 'translateY(-54%)',
         textAlign: 'left',
-        color: 'black',
+        color: '#F72585',
         fontFamily: 'Roboto, sans-serif',
         fontSize: '18px',
-    
-        
     }));
 
     const NormalText = styled('div')(({ theme }) => ({
         textAlign: 'left',
-        color: 'black',
+        color: '#3A0CA3',
         fontFamily: 'Roboto, sans-serif',
         fontSize: '20px',
     }));
@@ -132,29 +119,55 @@ const Header = () => {
         }
     }));
 
+    const VideoContainer = styled('div')(({ theme }) => ({
+        position: 'absolute',
+        top: '0px',
+        right: '0',
+        width: '60%',
+        height: 'auto',
+        padding: '0px',
+    }));
+
     return (
         <>
             <StyleHeader>
-            <ImageContainer>
-                    <Image src={oo} alt="Tenje7" />
-                    <WaveImageContainer>
-                    <WaveImage src={waveImage} alt="Wave" />
-                </WaveImageContainer>
-                </ImageContainer>
                 <TextContainer>
-                    <div style={{ fontWeight: 'bold', fontSize: '28px' }}>
-                        La gestion du 
-                        personnel  <br />simple et  automatisée 
+                    <div style={{  fontSize: '28px' }}>
+                        Bienvenue dans DIGITAL MARKET
                     </div>
                     <NormalText>
-                        <br/>Gagnez du temps au quotidien en utilisant<br/> notre plateforme avec  <span >Digital Market</span>
+                        <br />
+                        DIGITAL MARKET, votre destination incontournable <br />pour
+                        la gestion du
+                        personnel simple et automatisée
                     </NormalText>
                 </TextContainer>
-               
+                <img
+                    src={freeImage}
+                    alt="Free Image"
+                    className="moving-image"
+                    style={{
+                        maxWidth: '102%',
+                        objectFit: 'cover',
+                        marginTop: '75px' // Ajustez cette valeur pour déplacer l'image plus haut
+                    }}
+                />
+                 
+                 <ImageContainer>
+      <img
+        src={degitalImage}
+        alt="Degital Market"
+        style={{
+            marginTop: '-0px',
+          maxWidth: '18%',
+          marginLeft:"-90%", 
+        }}
+      />
+    </ImageContainer>
+                 
             </StyleHeader>
-            
         </>
     );
-}
-// Entrez dans l'univers de la gestion du temps avec Digital Market !
+};
+
 export default Header;

@@ -9,7 +9,8 @@ import  '../admin/Calendrier';
 import { heureDépartAction } from '../../redux/actions/heuredépart';
 import HeaderTop from '../global/HeaderTop';
 import { Sidebar } from 'react-pro-sidebar';
-
+import freeImage from '../../img/wave8.png';
+import { Card } from '@mui/material';
 function MyCalendar() {
   const [events, setEvents] = useState([]);
   const heureDépart = useSelector(state => state.heureDépart);
@@ -17,6 +18,7 @@ function MyCalendar() {
   const [data, setData] = useState([]);
   moment.locale('fr');
   const localizer = momentLocalizer(moment);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     dispatch(heureDépartAction());
@@ -63,24 +65,55 @@ function MyCalendar() {
 
   return (
     <div>
-       
-      <AiFillCalendar />
+      
       <Sidebar />
       <div>
-        <Calendar
-          localizer={localizer}
-          events={events}
-          startAccessor="start"
-          endAccessor="end"
-          style={{ height: '65vh' }}
-          eventPropGetter={eventStyleGetter}
-          onSelectEvent={handleEventSelect}
-          views={['month', 'week', 'day', 'agenda']}
-          toolbar={true}
-        />
+        <Card
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            maxWidth: 2100,
+            borderRadius: '15px',
+            overflow: 'hidden',
+            boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.1)',
+            border: `2px solid ${isHovered ? "#3A0CA3" : 'transparent'}`,
+            transition: 'border-color 0.1s ease',
+            margin: '0 auto',
+            backgroundColor: 'white',
+            padding: '15px',
+            height: '68vh'
+          }}
+           
+        >
+          <Calendar
+            localizer={localizer}
+            events={events}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ height: '64vh', width: '100%' }}
+            eventPropGetter={eventStyleGetter}
+            onSelectEvent={handleEventSelect}
+            views={['month', 'week', 'day', 'agenda']}
+            toolbar={true}
+          />
+        </Card>
       </div>
+      <img
+        src={freeImage}
+        alt="Free Image"
+        className="moving-image"
+        style={{
+          maxWidth: '100%',
+          objectFit: 'cover',
+          marginTop: '-232px' ,
+          marginRight: '95px',
+        // Ajustez cette valeur pour déplacer l'image plus haut
+        }}
+      />
     </div>
   );
-}
+};
 
 export default MyCalendar;

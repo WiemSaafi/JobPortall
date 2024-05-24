@@ -89,14 +89,14 @@ const HeaderTop = () => {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{ boxShadow: 0, bgcolor: "#303f9f" }}>
+            <AppBar position="static" sx={{ boxShadow: 0, bgcolor: "#f0f0f2" }}>
                 <Toolbar>
-                    <IconButton onClick={() => collapseSidebar()}
+                    <IconButton sx={{ mr: 2, color: "#F72585" }} onClick={() => collapseSidebar()}
                         size="large"
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
-                        sx={{ mr: 2 }}
+                         
                     >
                         <MenuIcon />
                     </IconButton>
@@ -104,12 +104,12 @@ const HeaderTop = () => {
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, color: "white", fontWeight: 600 }}
+                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, color: "#3A0CA3", fontWeight: 600 }}
                     >
                         Digital Market
                     </Typography>
 
-                    <IconButton sx={{ mr: 2, color: "white" }} onClick={() => dispatch(toggleActionTheme())}>
+                    <IconButton sx={{ mr: 2, color: "#F72585" }} onClick={() => dispatch(toggleActionTheme())}>
                         {palette.mode === "dark" ? (
                             <DarkMode sx={{ fontSize: "25px" }} />
                         ) : (
@@ -118,7 +118,7 @@ const HeaderTop = () => {
                     </IconButton>
 
                     {/* Notification icon with click handling */}
-                    <IconButton sx={{ color: "white" }} onClick={handleNotificationClick}>
+                    <IconButton sx={{ color: "#F72585" }} onClick={handleNotificationClick}>
                         <NotificationsIcon />
                     </IconButton>
 

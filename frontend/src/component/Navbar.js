@@ -22,7 +22,10 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import LoginIcon from '@mui/icons-material/Login';
 import { styled } from '@mui/material/styles';
-import avatarImage from '../img/avatar.svg';
+import avatarImage from '../img/bleu.jpg';
+ 
+
+
 
 const pages = ['Home', 'Log In'];
 
@@ -58,10 +61,10 @@ const Navbar = () => {
     }
 
     return (
-        <AppBar position="static" sx={{ bgcolor: "#0CB080" }}>
+        <AppBar position="static" sx={{ bgcolor: "#f0f0f2" }}>
             <Container>
                 <Toolbar disableGutters>
-                    <WorkIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+                    <WorkIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 ,color: '#F72585'}} />
                     <Typography
                         variant="h6"
                         noWrap
@@ -73,21 +76,21 @@ const Navbar = () => {
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
-                            color: 'inherit',
+                            color: ' #3A0CA3',
                             textDecoration: 'none',
                         }}
                     >
                         DIGITAL MARKET
                     </Typography>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none',color: '#3A0CA3' } }}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
-                            color="inherit"
+                            color="#3A0CA3"
                         >
                             <MenuIcon />
                         </IconButton>
@@ -116,7 +119,7 @@ const Navbar = () => {
                             ))}
                         </Menu>
                     </Box>
-                    <WorkIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                    <WorkIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 ,color: '#F72585'}} />
                     <Typography
                         variant="h6"
                         noWrap
@@ -129,7 +132,7 @@ const Navbar = () => {
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.2rem',
-                            color: 'inherit',
+                            color:  "#F72585",
                             textDecoration: 'none',
                         }}
                     >
@@ -139,17 +142,17 @@ const Navbar = () => {
                         {/* menu desktop */}
                         <Button
                             onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block' }}>
-                            <Link to="/" style={{ color: 'white', textDecoration: "none" }}>
+                            sx={{ my: 2, color: '#3A0CA3', display: 'block' }}>
+                            <Link to="/" style={{ color: '#3A0CA3', textDecoration: "none" }}>
                                 Home
                             </Link>
                         </Button>
                     </Box>
                     <IconButton sx={{ mr: 4 }} onClick={() => dispatch(toggleActionTheme())}>
                         {palette.mode === "dark" ? (
-                            <DarkMode sx={{ color: "#ffffff", fontSize: "25px" }} />
+                            <DarkMode sx={{ color: " #F72585", fontSize: "25px" }} />
                         ) : (
-                            <LightMode sx={{ color: "#ffffff", fontSize: "25px" }} />
+                            <LightMode sx={{ color: " #F72585", fontSize: "25px" }} />
                         )}
                     </IconButton>
                     <Box sx={{ flexGrow: 0 }}>
@@ -164,7 +167,7 @@ const Navbar = () => {
                                 sx: {
                                     "& 	.MuiMenu-list": {
                                         bgcolor: "primary.white",
-                                        color: "white"
+                                        color: " #F72585"
                                     },
                                 }
                             }}
@@ -186,16 +189,17 @@ const Navbar = () => {
                             {/* Modifications du menu select */}
                             <MenuItem onClick={handleCloseUserMenu}>
                                 <Typography textAlign="center">
-                                    <Link style={{ textDecoration: "none", color: "#0CB080" }} to="/admin/dashboard">
-                                        <DashboardIcon sx={{ mr: 1 }} />
+                                    <Link style={{ textDecoration: "none", color: "#3A0CA3" }} to="/admin/dashboard">
+                                        <DashboardIcon sx={{ mr: 1 ,color: '#F72585'}} />
                                         Admin Dashboard
                                     </Link>
                                 </Typography>
                             </MenuItem>
                             <MenuItem onClick={handleCloseUserMenu}>
                                 <Typography textAlign="center">
-                                    <Link style={{ textDecoration: "none", color: "#0CB080" }} to="/user/dashboard">
-                                        <DashboardIcon sx={{ mr: 1 }} />
+                                    <Link style={{ textDecoration: "none", color: "#3A0CA3" }} to="/user/dashboard">
+                                    <DashboardIcon sx={{ mr: 1, color: '#F72585' }} />
+
                                         User Dashboard
                                     </Link>
                                 </Typography>
@@ -204,23 +208,27 @@ const Navbar = () => {
                                 !userInfo ?
                                     <MenuItem onClick={()=>{handleCloseUserMenu(); navigate("/login")}}>
                                         <Typography textAlign="center">
-                                            <Link style={{ textDecoration: "none", color: "#0CB080"}} to="/login">
-                                                <LoginIcon sx={{ mr: 1 }} />
+                                            <Link style={{ textDecoration: "none", color: "#3A0CA3"}} to="/login">
+                                                <LoginIcon sx={{ mr: 1,color: '#F72585' }} />
                                                 Log In
                                             </Link>
                                         </Typography>
                                     </MenuItem> :
                                     <MenuItem onClick={logOutUser}>
-                                        <Typography style={{ textDecoration: "none", color: "#0CB080" }} textAlign="center">
-                                            <ExitToAppIcon sx={{ mr: 1 }} />
+                                        <Typography style={{ textDecoration: "none", color: "#F72585'" }} textAlign="center">
+                                            <ExitToAppIcon sx={{ mr: 1 ,color: '#F72585'}} />
                                             Log Out
                                         </Typography>
                                     </MenuItem>
                             }
                         </Menu>
+                         
                     </Box>
+                    
                 </Toolbar>
+                
             </Container>
+            
         </AppBar>
     );
 }
