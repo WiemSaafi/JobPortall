@@ -17,7 +17,7 @@ const DashUsers = () => {
         dispatch(allUserAction());
     }, [dispatch]);
 
-    const { success: deleteSuccess } = useSelector(state => state.deleteUser || {});
+    const { success } = useSelector(state => state.deleteUser || {});
 
     const { users } = useSelector(state => state.allUsers);
     const data = users || [];
@@ -25,33 +25,13 @@ const DashUsers = () => {
     const deleteUserById = (id) => {
         if (window.confirm(`Are you sure you want to delete user ID: "${id}"?`)) {
             dispatch(deleteUSERAction(id));
-            if (deleteSuccess && deleteSuccess === true) {
+
+            // if (success && success === true) {
                 dispatch(allUserAction());
-            }
+            // }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+ 
     const columns = [
         {
             field: 'firstName',
@@ -89,22 +69,7 @@ const DashUsers = () => {
                         
                     </Button>
                 </Link>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
             
             )
         },
@@ -139,6 +104,10 @@ const DashUsers = () => {
 
 
 
+
+
+
+
 <Link   to={`/admin/edit/user/${values.row._id}`}> 
                 <Button variant="contained" startIcon={<EditIcon sx={{ marginLeft: '8px' }}/>}
                 
@@ -164,6 +133,13 @@ const DashUsers = () => {
                 </Button>
                 </Link>
     
+
+
+
+
+
+
+
                 <Button
                     onClick={() => deleteUserById(values.row._id)}
                     variant="contained"
@@ -194,17 +170,6 @@ const DashUsers = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-               
  
             </Box>
             
@@ -217,12 +182,6 @@ const DashUsers = () => {
     return (
 
 
-
-
-
-
-
-        
         <Box>
  <Link  to="/admin/user/create">
                 <Button  
@@ -259,6 +218,7 @@ const DashUsers = () => {
            
             <Box sx={{ pb: 6.75, display: "flex", justifyContent: "flex-end" }}>
     
+
 
 
             </Box>

@@ -15,7 +15,7 @@ import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 import PersonIcon from '@mui/icons-material/Person';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'; // Correction ici
 import NotificationsIcon from '@mui/icons-material/Notifications';
- import logoDashboard from '../../img/bleu.jpg';
+ import logoDashboard from '../../images/digitale.jpeg';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 const SidebarAdm = () => {
     const { userInfo } = useSelector(state => state.signIn);

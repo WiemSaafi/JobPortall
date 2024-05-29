@@ -183,10 +183,14 @@ export const userSingleAction= (id) => async (dispatch) => {
         });
     }
 }
-export const deleteUSERAction = (id) => async (dispatch) => {
+
+
+
+export const deleteUSERAction = (user_id) => async (dispatch) => {
     dispatch({ type: DELETE_USER_REQUEST });
     try {
-        const { data } = await axios.delete(`api/admin/user/delete/${id}`);
+        const { data } = await axios.delete(`/api/admin/user/delete/${user_id}`);
+        console.log("data in delete",data)
         dispatch({
             type: DELETE_USER_SUCCESS,
             payload: data

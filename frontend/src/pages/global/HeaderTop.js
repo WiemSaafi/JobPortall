@@ -106,7 +106,7 @@ const HeaderTop = () => {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, color: "#3A0CA3", fontWeight: 350 }}
                     >
-                        Digital Market
+                        Bienvenue a notre plateform 
                     </Typography>
 
                     <IconButton sx={{ mr: 2, color: "#FCDC12" }} onClick={() => dispatch(toggleActionTheme())}>

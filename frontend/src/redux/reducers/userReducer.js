@@ -194,6 +194,8 @@ export const userReducerSingle = (state = { user: null }, action) => {
     }
 
 }
+
+
 export const deleteUserReducer = (state = {}, action) => {
     switch (action.type) {
         case DELETE_USER_REQUEST:
