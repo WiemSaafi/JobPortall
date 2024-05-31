@@ -12,6 +12,7 @@ import {
     userReducerSignUp
 } from './reducers/userReducer';
 import { modeReducer } from './reducers/themeModeReducer';
+import { pourcentagePresenceReducer, userReducerheureuser } from './reducers/heuredépartReducer';
 
 //combine reducers
 const reducer = combineReducers({
@@ -27,8 +28,10 @@ const reducer = combineReducers({
     mode: modeReducer,
     registerJob: registerAjobReducer,
     deleteJob: deleteJobReducer,
-    createJobType: createJobTypeReducer
-
+    createJobType: createJobTypeReducer,
+    calculerPourcentagePresence: pourcentagePresenceReducer ,
+    heureDépart: userReducerheureuser
+    
 });
 
 

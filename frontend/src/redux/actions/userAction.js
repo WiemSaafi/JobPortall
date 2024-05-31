@@ -101,7 +101,7 @@ export const userProfileAction = () => async (dispatch) => {
             type: USER_LOAD_SUCCESS,
             payload: data
         });
-
+return data
     } catch (error) {
         dispatch({
             type: USER_LOAD_FAIL,
@@ -152,7 +152,7 @@ export const userApplyJobAction = (job) => async (dispatch) => {
 export const userUpdateAction = (user, user_id) => async (dispatch) => {
     dispatch({ type: USER_UPDATE_REQUEST });
     try {
-        const { data } = await axios.put(`/api/user/edit/${user_id}`, user);
+        const { data } = await axios.put(`/api/user/edit/${user_id}`,user);
 
         dispatch({
             type: USER_UPDATE_SUCCESS,
@@ -175,6 +175,7 @@ export const userSingleAction= (id) => async (dispatch) => {
             type: USER_SINGLE_SUCCESS,
             payload: data
         });
+        return data
 
     } catch (error) {
         dispatch({

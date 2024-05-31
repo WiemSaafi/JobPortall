@@ -152,13 +152,35 @@ exports.createUserJobsHistory = async (req, res, next) => {
     }
 };
 
-exports.singleUserByEmpreintId = async (empreinte_id) => {
+exports.singleUserByEmpreintId = async (CIN) => {
     try {
-        const user = await User.findOne({ empreinte_id });
+        console.log("CINN:",CIN)
+        const user = await User.findOne({ CIN: CIN });
+        
+        // Vérification si l'utilisateur existe
+        if (!user) {
+            return console.log(new ErrorResponse("Utilisateur non trouvé", 404));
+        }
+        // Envoi de la réponse avec l'utilisateur trouvé
+        return user
+       
+    } catch (error) {
+       console.log(error);
+    }
+}
+/*
+exports.singleUserByName = async (req, res, next) => {
+    try {
+        const { name } = req.params; // Assuming the name comes from request parameters
+        const [firstName, lastName] = name.split(' '); // Split the name into first and last names
+
+        const user = await User.findOne({ firstName, lastName });
+
         // Vérification si l'utilisateur existe
         if (!user) {
             return next(new ErrorResponse("Utilisateur non trouvé", 404));
         }
+
         // Envoi de la réponse avec l'utilisateur trouvé
         res.status(200).json({
             success: true,
@@ -168,3 +190,4 @@ exports.singleUserByEmpreintId = async (empreinte_id) => {
         return next(error);
     }
 };
+*/

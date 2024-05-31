@@ -8,83 +8,159 @@ import { DownloadOutlined } from '@mui/icons-material';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { heureDépartAction } from '../../redux/actions/heuredépart';
+import { heureDépartAction, pourcentagePresenceAction } from '../../redux/actions/heuredépart';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import PeopleIcon from '@mui/icons-material/People';
 import freeImage from '../../img/small3.png';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import ChartComponent from '../../component/ChartComponent';
+
+
+
 
 const AdminDashboard = () => {
-
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [buttonColor, setButtonColor] = useState('linear-gradient(to right, #F72585, #7209B7)');
-
-  const handleButtonClick = () => {
-    setButtonColor('linear-gradient(to right, #7209B7, #3A0CA3)');
-  };
-
-
-
-
   const dispatch = useDispatch();
   const { user } = useSelector(state => state.userProfile);
   const { jobs } = useSelector(state => state.loadJobs);
-  const heureDépart = useSelector(state => state.heureDépart);
+ const [calculerPourcentagePresence, setCalculerPourcentagePresence] = useState()
+  // const { calculerPourcentagePresence} = useSelector((state) => state.calculerPourcentagePresence);
+  //const calculerPourcentagePresence = useSelector(state => state.calculerPourcentagePresence);
+ const [pourcentagePresence, setPourcentagePresence] = useState(null);
+ const heureDépart = useSelector(state => state.heureDépart);
+ // const { pourcentagePresence } = useSelector(state => state.calculerPourcentagePresence);
+//const calculerPourcentagePresence = useSelector(state => state.calculerPourcentagePresence);
+//const calculerPourcentagePresence = useSelector((state) => state.calculerPourcentagePresence);
   
-  const [lateEmployeesPercentage, setLateEmployeesPercentage] = useState(0);
-  const [data, setData] = useState([]);
- 
 
+
+  const [data, setData] = useState(null);
+
+ // const [pourcentagePresence, setPourcentagePresence] = useState(0);
+
+  //let absencesPercentage; // Déclaration de la variable absencesPercentage
+//   useEffect(() => {
+//     setPourcentagePresence(calculerPourcentagePresence.pourcentagePresence);
+//  }, [calculerPourcentagePresence.pourcentagePresence]);
+  
+// const absencesPercentage = pourcentagePresence !== null && !isNaN(pourcentagePresence) ? 100 - pourcentagePresence : undefined;
   useEffect(() => {
     dispatch(heureDépartAction());
+   
   }, []);
+ useEffect(() => {
+    const fetchUserData = async () => {
+        try {
+            const data = await   dispatch(pourcentagePresenceAction());
+            setCalculerPourcentagePresence(data)
+            setPourcentagePresence(data?.pourcentagePresence)
+            console.log(" Data:", data);
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
 
+    fetchUserData();
+}, [dispatch]);
+
+//   useEffect(() => {
+//     if (calculerPourcentagePresence && calculerPourcentagePresence.pourcentagePresence !== undefined) {
+//       setPresencePercentage(calculerPourcentagePresence.pourcentagePresence);
+//  }
+//    }, [calculerPourcentagePresence]);
+// useEffect(() => {
+//   if (calculerPourcentagePresence && calculerPourcentagePresence.pourcentagePresence !== undefined) {
+//     setPourcentagePresence(calculerPourcentagePresence.pourcentagePresence);
+//   }
+// }, [calculerPourcentagePresence]);
+
+
+// useEffect(() => {
+//   setpourcentagePresence(calculerPourcentagePresence?.pourcentagePresence);
+  
+// }, [calculerPourcentagePresence]);
+// ;
   useEffect(() => {
-    if (heureDépart && heureDépart.Heure) {
-      setData(heureDépart.Heure);
-    }
+    console.log("Données de l'heure de départ :", heureDépart); // Vérifier les données reçues
+   // if (heureDépart && heureDépart.length) {
+      setData(heureDépart.user);
+      
+   // }
   }, [heureDépart]);
+  // useEffect(() => {
+  //   console.log("Données de l'heure de départ :", calculerPourcentagePresence); // Vérifier les données reçues
+  //  // if (heureDépart && heureDépart.length) {
+  //   setPourcentagePresence(calculerPourcentagePresence.pourcentagePresence);
+      
+  //  // }
+  // }, [calculerPourcentagePresence]);
+  // console.log('hh', calculerPourcentagePresence)
+  
 
-  useEffect(() => {
-    if (data.length > 0) {
-      const heuredepartLength = data.filter(heure => heure.typeHeure === 'entrée').map(heure => moment(heure.createdAt).format('YYYY-MM-DD HH:mm'));
-      const lateEmployeesAfter0830 = heuredepartLength.filter(heure => moment(heure, 'HH:mm').isAfter(moment('08:30', 'HH:mm')));
-      const totalEmployees = heuredepartLength.length;
-      const totalLateEmployeesAfter0830 = lateEmployeesAfter0830.length;
+  // useEffect(() => {
+  //   if (pourcentagePresence !== null && !isNaN(pourcentagePresence)) {
+  //     // Calculate absence percentage only if pourcentagePresence is valid
+  //     const absencesPercentage = 100 - pourcentagePresence;
+  //     console.log("Pourcentage d'absence :", absencesPercentage);
+  //   }
+  // }, [pourcentagePresence]);
+  // useEffect(() => {
+  //   if (pourcentagePresenceState !== null && !isNaN(pourcentagePresenceState)) {
+  //     setPourcentagePresence(pourcentagePresenceState);
+  //   }
+  // }, [pourcentagePresenceState]);
+  // console.log("Pourcentage de presence:", pourcentagePresenceState);
+  // useEffect(() => {
+  //   // Calculer le pourcentage d'absence en soustrayant le pourcentage de présence du total (100%)
+  const absencesPercentage = 100 - pourcentagePresence;
+  //   // Utiliser le pourcentage d'absence calculé
+  //   console.log("Pourcentage d'absence :", absencesPercentage);
+  // }, [pourcentagePresence]);
+  
+ 
+ 
 
-      if (totalEmployees > 0) {
-        const percentageLateAfter0830 = (totalLateEmployeesAfter0830 / totalEmployees) * 100;
-        setLateEmployeesPercentage(percentageLateAfter0830);
-      }
-    }
-  }, [data]);
 
-  const heuredepartLength = !!data?.length ? data.filter(heure => heure.typeHeure === 'entrée').map(heure => moment(heure.createdAt).format('YYYY-MM-DD HH:mm')) : [];
-  const heuresortieLength = !!data?.length ? data.filter(heure => heure.typeHeure === 'sortie').map(heure => moment(heure.createdAt).format('YYYY-MM-DD HH:mm')) : [];
+  const heuredepartLength = !!data?.length ? data.filter(heure => heure.typeHeure === 'entrée').map(heure => moment(heure.Heure).format('YYYY-MM-DD HH:mm')) : [];
+  const heuresortieLength = !!data?.length ? data.filter(Heure => Heure.typeHeure === 'sortie').map(Heure => moment(Heure.Heure).format('YYYY-MM-DD HH:mm')) : [];
   const totalEmployés = !!user?.length ? user.map(use => (use.firstName)) : [];
+console.log("heuredepartLength")
+const convertToMinutes = (time) => {
+  const momentTime = moment(time, "HH:mm");
+  return momentTime.hours() * 60 + momentTime.minutes();
+};
 
-  const dataa = [
-    {
-      name: 'départ',
-      data: heuredepartLength.map(i => ({ x: moment(i).format("YYYY-MM-DD"), y: moment(i).format("HH:mm") })),
-    },
-    {
-      name: 'sortie',
-      data: heuresortieLength.map(i => ({ x: moment(i).format("YYYY-MM-DD"), y: moment(i).format("HH:mm") })),
-    },
-  ];
+const filterValidData = (data) => {
+  return data.filter(i => {
+    const timeInMinutes = convertToMinutes(moment(i).format("HH:mm"));
+    return !isNaN(timeInMinutes) && timeInMinutes >= 420 && timeInMinutes <= 1080;
+  }).map(i => ({
+    x: moment(i).format("YYYY-MM-DD"),
+    y: convertToMinutes(moment(i).format("HH:mm"))
+  }));
+};
 
-  const [chartOptions, setChartOptions] = useState({
+const dataa = [
+  {
+    name: 'départ',
+    data: filterValidData(heuredepartLength),
+  },
+  {
+    name: 'sortie',
+    data: filterValidData(heuresortieLength),
+  },
+];
+  
+  const [options, setoptions] = useState({
     chart: {
       title: {
         text: "HR Performance",
         align: "left"
       },
+   
       type: "area",
-      height: 350
+      height: "600",
+    
     },
     xaxis: {
       type: "datetime",
@@ -97,19 +173,32 @@ const AdminDashboard = () => {
         }
       }
     },
-    animations: {
-      enabled: true,
-      dynamicAnimation: {
-        enabled: true,
-        speed: 2000
-      }
+    yaxis: {
+      labels: {
+        formatter: function (val) {
+          const hours = Math.floor(val / 60);
+          const minutes = val % 60;
+          return `${hours}h ${minutes}m`;
+        }
+      },
+      title: {
+        text: 'Time of Day'
+      },
+      min: 420,  // 7:00 AM in minutes
+      max: 1080,  // 6:00 PM in minutes
+      tickAmount: 12,
+    },  dataLabels: {
+      enabled: false // Disable data labels on the lines
     }
+  
   });
 
-  const presencesPercentage = 75;
-  const absencesPercentage = 25;
+  //const presencesPercentage = 75;
+  //const absencesPercentage = 25;
   const hoursExtraPercentage = 50;
-  const totalEmployéss = 80;
+//   const absencesPercentage = 100 - pourcentagePresence;
+//   // Utiliser le pourcentage d'absence calculé
+//  console.log("Pourcentage d'absence :", absencesPercentage);
 
   return (
     <>
@@ -126,47 +215,30 @@ const AdminDashboard = () => {
                 pb: 0.5,
                 borderBottom: '2px solid #3A0CA3',
                 display: 'block',
-                position: 'absolute',
+              position: 'absolute',
                 top: 80,
                 left: 290,
-                zIndex: 1000
+              zIndex:2222000
             }}
         >
             Tableau du bord
         </Typography>
         </Box>
- {/* 
-        <Box sx={{ p: 1, borderRadius: 10, background: '#fff', minWidth: 280, width: 'calc(10% - 10px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
-          <Calendar
-            onChange={setSelectedDate}
-            value={selectedDate}
-          />
-        </Box>
- */}
-
-
-
-
-
-
-
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 2 }} sx={{ marginBottom: 10 }}>
-
-
-        
-
+ 
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }} sx={{ marginBottom: 10 }}>
           {/* Premier Cadre */}
-          <Box sx={{ p: 5, borderRadius: 10 , background: 'linear-gradient(to right,#F72585 ,#F72585)', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
+          <Box sx={{ p: 5, borderRadius: 12 , background: 'linear-gradient(to right,#F72585 ,#F72585)', minWidth: 280, width: 'calc(50% - 20px)', mb: 2 }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <CheckCircleIcon sx={{ color: "#fff", fontSize: 30 }} />
-              <Typography variant="body1" sx={{ ml: 2, color: 'white', fontFamily: 'Helvetica, sans-serif', fontWeight: 'normal' }}>
-        Présences
-      </Typography>
+              <Typography variant="body1" sx={{ ml: 2, color: 'white' }}>
+            Présences
+        </Typography>
             </Box>
-            <Box sx={{ mt: 1, display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
               <CircularProgressbar
-                value={presencesPercentage}
-                text={`${presencesPercentage}%`}
+              
+              value={ pourcentagePresence || 0}
+              text={`${pourcentagePresence || 0}%`}
                 strokeWidth={10}
                 styles={{
                   root: { width: '50px', marginRight: '16px' },
@@ -179,15 +251,15 @@ const AdminDashboard = () => {
           </Box>
 
           {/* Deuxième Cadre */}
-          <Box sx={{ p: 5, borderRadius: 10, background: 'linear-gradient(to right ,#7209B7,  #7209B7)', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
+          <Box sx={{ p: 5, borderRadius: 12, background: 'linear-gradient(to right ,#7209B7,  #7209B7)', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <CancelIcon sx={{ color: "#fff", fontSize: 30 }} />
-              <Typography variant="body1"sx={{ ml: 2, color: 'white', fontFamily: 'Helvetica, sans-serif', fontWeight: 'normal' }}>Absences</Typography>
+              <Typography variant="body1" sx={{ ml: 2 ,color: 'white' }}>Absences</Typography>
             </Box>
             <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
               <CircularProgressbar
-                value={absencesPercentage}
-                text={`${absencesPercentage}%`}
+                value={absencesPercentage ||0}
+                text={`${absencesPercentage ||0 }%`}
                 strokeWidth={10}
                 styles={{
                   root: { width: '50px', marginRight: '16px' },
@@ -200,10 +272,10 @@ const AdminDashboard = () => {
           </Box>
 
           {/* Troisième Cadre */}
-          <Box sx={{ p: 5, borderRadius: 10, background: 'linear-gradient(to right,#3A0CA3 , #3A0CA3)', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
+          <Box sx={{ p: 5, borderRadius: 12, background: 'linear-gradient(to right,#3A0CA3 , #3A0CA3)', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <ScheduleIcon sx={{ color: "#fff" ,fontSize: 30 }} />
-              <Typography variant="body1"sx={{ ml: 2, color: 'white', fontFamily: 'Helvetica, sans-serif', fontWeight: 'normal' }}>Heures supplémentaires</Typography>
+              <Typography variant="body1" sx={{ ml: 2 ,color: 'white'}}>Heures supplémentaires</Typography>
             </Box>
             <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
               <CircularProgressbar
@@ -221,15 +293,15 @@ const AdminDashboard = () => {
           </Box>
 
           {/* Quatrième Cadre */}
-          <Box sx={{ p: 5, borderRadius: 10, background: 'linear-gradient(to right , #4361EE,#4361EE)', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
+          <Box sx={{ p: 5, borderRadius: 12, background: 'linear-gradient(to right , #4361EE,#4361EE)', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <PeopleIcon sx={{ color: "#fff", fontSize: 30 }} />
-              <Typography variant="body1" sx={{ ml: 2, color: 'white', fontFamily: 'Helvetica, sans-serif', fontWeight: 'normal' }}>Nombre d'employés</Typography>
+              <Typography variant="body1" sx={{ ml: 2,color: 'white' }}>Nombre d'employés</Typography>
             </Box>
             <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
               <CircularProgressbar
-                value={totalEmployéss}
-                text={`${totalEmployéss}%`}
+                value={user && user.firstName.length}
+                text={`${user && user.firstName.length}`}
                 strokeWidth={10}
                 styles={{
                   root: { width: '50px', marginRight: '16px' },
@@ -248,45 +320,48 @@ const AdminDashboard = () => {
    
 >
 <Box
-  sx={{
-    background: 'linear-gradient(to right , #fff,#fff)',
-    mt: 4,
-    borderRadius: 10,
-    boxShadow: '5 14px 18pxrgba(0, 0, 0, 0.1)',
-    overflow: 'hidden',
-    transition: 'transform 0.2s ease-in-out',
-    '&:hover': { transform: 'scale(1.02)' },
-    position: 'relative',  // Ensure the button is positioned correctly
-    padding: 0  // Add padding for spacing inside the box
-  }}
+  // sx={{
+  //   background: 'linear-gradient(to right , #fff,#fff)',
+  //   mt: 4,
+  //   borderRadius: 6,
+  //   boxShadow: '5 14px 18pxrgba(0, 0, 0, 0.1)',
+  //   overflow: 'hidden',
+  //   transition: 'transform 0.2s ease-in-out',
+  //   '&:hover': { transform: 'scale(1.02)' },
+  //   position: 'relative',  // Ensure the button is positioned correctly
+  //   padding: 0  // Add padding for spacing inside the box
+ // }}
 >
-<Button
-      onClick={handleButtonClick}
-      sx={{
-        padding: '0.6px 0.6px',
-        textTransform: 'capitalize',
-        color: '#fff',
-        borderRadius: '10px',
-        position: 'absolute',
-        top: 10,
-        right: 15,
-        background: buttonColor, // Utilisation de la couleur du bouton
-      }}
-    >
-      <DownloadOutlined />
-    </Button>
-  <Stack direction={{ xs: 'column', sm: 'row' }}>
+  <Button
+    sx={{
+      padding: "0.6px 0.6px",
+      textTransform: "capitalize",
+       color:"#F72585",
+       
+      position: 'absolute',
+      top: 10,
+      right: 15,
+      
+    }}
+  >
+
+
+
+    <DownloadOutlined />
+     
+  </Button>
+  {/* <Stack direction={{ xs: 'column', sm: 'row' }}>
     <Chart
-      options={chartOptions}
+      options={options}
       series={dataa}
       type="area"
       width="100%"
-      height="230px"
+      height="300px"
       
 
     />
-  </Stack>
-  <img
+  </Stack> */}
+  {/* <img
   src={freeImage}
   alt="Free Image"
   className="moving-image"
@@ -295,11 +370,26 @@ const AdminDashboard = () => {
     objectFit: 'cover',
     marginTop: '-115px' // Ajustez cette valeur pour déplacer l'image plus haut
   }}
-/>
+/> */}
 </Box>
 
 
 </Box>
+
+<Box>
+        <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ mt: 3 }} spacing={{ xs: 1, sm: 2, md: 4, p: 5 }}>
+          <ChartComponent>
+            <Chart
+              options={options}
+              series={dataa}
+              type="area"
+              width="100%"
+              height="500px"
+            />
+          </ChartComponent>
+        </Stack>
+      </Box>
+     
 
     </>
   );
