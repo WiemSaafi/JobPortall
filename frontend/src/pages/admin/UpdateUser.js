@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { useDispatch, useSelector } from 'react-redux';
-import { userUpdateAction } from '../../redux/actions/userAction';
+import { userSingleAction, userUpdateAction } from '../../redux/actions/userAction';
 import { Button, InputAdornment } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import PersonIcon from '@mui/icons-material/Person';
@@ -14,10 +14,14 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import HomeIcon from '@mui/icons-material/Home';
 import freeImage from '../../img/wave7.png';
+import { useParams } from 'react-router-dom';
 
 const UserUpdateDashboard = () => {
-    const { user } = useSelector(state => state.userProfile);
-    const [updatedUser, setUpdatedUser] = useState(user);
+    const { id } = useParams();
+
+    // const { user } = useSelector(state => state.userProfile);
+    const [user, setUser] = useState()
+    const [updatedUser, setUpdatedUser] = useState();
     const [file, setFile] = useState(null); // Nouvelle variable d'état pour le fichier
     const dispatch = useDispatch();
 
@@ -29,12 +33,26 @@ const UserUpdateDashboard = () => {
         }));
     };
 
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const data = await dispatch(userSingleAction(id));
+                setUpdatedUser(data?.user)
+                setUser(data?.user)
+                console.log("User Data:", data);
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+    
+        fetchUserData();
+    }, [dispatch, id]);
     const handleSelectFile = (e) => setFile(e.target.files[0]); // Met à jour la valeur de file
 
     const handleSubmit = () => {
         const formData = new FormData();
         formData.append('file', file);
-        dispatch(userUpdateAction(formData, user._id));
+        dispatch(userUpdateAction(updatedUser, user._id));
     };
 
     return (
@@ -46,6 +64,7 @@ const UserUpdateDashboard = () => {
             pt: -50,
             animation: 'fadeIn 2s'
           }}>
+             {user && (
             <Card sx={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: '16px', overflow: 'hidden' }}>
                 <CardContent sx={{ background: 'linear-gradient(to right, #f8f9fa, #e9ecef)' }}>
                     <Grid container spacing={2} alignItems="center">
@@ -60,7 +79,7 @@ const UserUpdateDashboard = () => {
                                 label="Email"
                                 variant="outlined"
                                 fullWidth
-                                value={updatedUser.email}
+                                value={updatedUser?.email ||''}
                                 onChange={handleInputChange}
                                 InputProps={{
                                     startAdornment: (
@@ -172,7 +191,7 @@ const UserUpdateDashboard = () => {
 
                     <Button
                         onClick={handleSubmit}
-                        disabled={!file}
+                       
                         sx={{
                             marginTop: '16px',
                             background: 'linear-gradient(to right, #F72585, #39999f)',
@@ -203,7 +222,7 @@ const UserUpdateDashboard = () => {
 />
 
             </Card>
-           
+             )}
         </Box>
     );
 };

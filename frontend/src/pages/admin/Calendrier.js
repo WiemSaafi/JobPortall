@@ -25,19 +25,22 @@ function MyCalendar() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (heureDépart && heureDépart.Heure) {
-      setData(heureDépart.Heure);
+    if (heureDépart && heureDépart.user) {
+      setData(heureDépart.user);
     }
   }, [heureDépart]);
+  console.log("data",heureDépart)
 
   useEffect(() => {
     const formattedEvents = data.flatMap(event => {
       if (event.typeHeure === 'entrée') {
         return [{
-          title: event.typeHeure,
+          title: `${event.typeHeure} - ${event.typeHeure === 'entrée' ? 'Unknown' : (event.user && event.user.firstName ? event.user.firstName : 'Unknown')}`,
           start: moment(event.createdAt).toDate(),
           end: moment(event.createdAt).toDate(),
         }];
+        
+        
       } else if (event.typeHeure === 'sortie') {
         return [{
           title: event.typeHeure,
@@ -45,11 +48,13 @@ function MyCalendar() {
           end: moment(event.createdAt).toDate(),
         }];
       }
+      
       return [];
+      
     });
     setEvents(formattedEvents);
   }, [data]);
-
+  
   const eventStyleGetter = (event) => {
     let style = {
       backgroundColor: event.type === 'entrée' ? 'green' : 'red', // Couleur basée sur le type d'événement

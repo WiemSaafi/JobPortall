@@ -11,7 +11,11 @@
         HEURE_SINGLE_SUCCESS,
         HEURE_SINGLE_FAIL,
         HEURE_SINGLE_RESET,
-        HEURE_DERNIER_FAIL, HEURE_DERNIER_REQUEST, HEURE_DERNIER_RESET, HEURE_DERNIER_SUCCESS 
+        HEURE_DERNIER_FAIL, HEURE_DERNIER_REQUEST, HEURE_DERNIER_RESET, HEURE_DERNIER_SUCCESS, 
+        HEURE_PRESENCE_REQUEST,
+        HEURE_PRESENCE_SUCCESS,
+        HEURE_PRESENCE_FAIL,
+        HEURE_PRESENCE_RESET
     } from "../constants/heuredépartconstant"
 
 
@@ -86,3 +90,18 @@
             }
         
         }
+    export const pourcentagePresenceReducer = (state = { pourcentagePresence: null }, action) => {
+        switch (action.type) {
+            case HEURE_PRESENCE_REQUEST:
+                return { loading: true, pourcentagePresence: null };
+            case HEURE_PRESENCE_SUCCESS:
+                return { loading: false, pourcentagePresence: action.payload.user };
+            case HEURE_PRESENCE_FAIL:
+                return { loading: false, pourcentagePresence: null, error: action.payload };
+            case HEURE_PRESENCE_RESET:
+                return {};
+            default:
+                return state;
+        }
+    };
+

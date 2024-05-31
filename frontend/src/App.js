@@ -1,12 +1,11 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Home.js';
 import NotFound from './pages/NotFound';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-//import { theme } from './theme';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import LogIn from './pages/LogIn';
@@ -24,37 +23,30 @@ import Register from './pages/Register';
 import DashCategory from './pages/admin/DashCategory';
 import DashCreateJob from './pages/admin/DashCreateJob';
 import DashCreateCategory from './pages/admin/DashCreateCategory';
-import InfoUser from './pages/admin/InfoUser.js'
-
+import InfoUser from './pages/admin/InfoUser.js';
 import { createTheme } from '@mui/material/styles';
-import { themeColors } from './theme'
-import { useMemo } from 'react';
-import MyCalendar from './pages/admin/Calendrier.js'
-//import event from "./Calendar/Event.js";
+import { themeColors } from './theme';
+import MyCalendar from './pages/admin/Calendrier.js';
 import Not from './Notification/Not.js';
 import DashCreateUser from './pages/admin/CreateUser.js';
 import UserUpdateDashboard from './pages/admin/UpdateUser.js';
- 
-//import io from 'socket.io-client';
-//const socket = io('http://localhost:3000');
-//HOC
+import io from 'socket.io-client';
+
 const UserDashboardHOC = Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
 const UserInfoDashboardHOC = Layout(UserInfoDashboard);
 const AdminDashboardHOC = Layout(AdminDashboard);
 const DashUsersHOC = Layout(DashUsers);
 const DashJobsHOC = Layout(DashJobs);
-const DashCategoryHOC = Layout(DashCategory)
-const DashCreateJobHOC = Layout(DashCreateJob)
-const DashCreateCategoryHOC = Layout(DashCreateCategory)
-const InfoUserHOC = Layout(InfoUser)
-//const WebSocket = require('ws');
-const DashCreateUserHOC = Layout(DashCreateUser)
-const UserUpdateDashboardHOC = Layout(UserUpdateDashboard)
-const gateway = 'ws://192.168.3.81:81/';
+const DashCategoryHOC = Layout(DashCategory);
+const DashCreateJobHOC = Layout(DashCreateJob);
+const DashCreateCategoryHOC = Layout(DashCreateCategory);
+const InfoUserHOC = Layout(InfoUser);
+const DashCreateUserHOC = Layout(DashCreateUser);
+const UserUpdateDashboardHOC = Layout(UserUpdateDashboard);
+const MyCalendarHOC = Layout(MyCalendar);
+const socket = io('http://localhost:3000');
 
-let websocket;
-const MyCalendarHOC = Layout(MyCalendar)
 const App = () => {
     const { mode } = useSelector((state) => state.mode);
     const theme = useMemo(() => createTheme(themeColors(mode)), [mode]);
@@ -65,52 +57,34 @@ const App = () => {
 
     useEffect(() => {
         setUser(userProfile.user);
-        initWebSocket();
     }, [userProfile.user]);
 
-    
-       /*  // Écouter les messages du serveur
-        socket.on('message', (data) => {
-            setMessage(data);
+    useEffect(() => {
+        socket.on('notification', (data) => {
+            if (data.notification) {
+                toast.success(data.notification);
+            }
         });
-        socket.emit('notification', "test"); */
-        // Écouter les messages du serveur
-      /* socket.on('message', (data) => {
-            setMessage(data);
-        });
-        socket.emit('notification', "test"); 
-        */
-        function initWebSocket() {
-            console.log('Trying to open a WebSocket connection...');
-            websocket = new WebSocket(gateway);
-            websocket.onopen = onOpen; // Utilisez onopen pour écouter l'événement d'ouverture de la connexion WebSocket
-        websocket.onclose = onClose; // Utilisez onclose pour écouter l'événement de fermeture de la connexion WebSocket
-        websocket.onmessage = onMessage; // Utilisez onmessage pour écouter les messages reçus via WebSocket
-          }
-          
-          function onOpen(event) {
-            console.log('Connection DONE', event);
-          }
-          
-          function onClose() {
-            console.log('Connection closed');
-            setTimeout(initWebSocket, 2000);
-          }
-          
-          function onMessage(event) {
-            console.log('Message received vv: ', event?.data);
-            // Insert your message handling logic here
-          }
-          
-         
-       
+        return () => {
+            socket.off('notification');
+        };
+    }, []);
 
- 
-  
+    useEffect(() => {
+        const checkTime = () => {
+            const now = new Date();
+            console.log("Checking time:", now); // Ajout d'un journal pour déboguer
+            if (now.getHours() === 13 && now.getMinutes() === 40) {
+                toast.success("Il est 12h ! C'est l'heure de pausse !");
+            }
+        };
+
+        const interval = setInterval(checkTime, 60000); // Vérifie l'heure toutes les minutes
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <>
-        
-        
             <ToastContainer />
             <ThemeProvider theme={theme}>
                 <CssBaseline />
@@ -129,23 +103,21 @@ const App = () => {
                             <Route path='/admin/category' element={<AdminRoute><DashCategoryHOC /></AdminRoute>} />
                             <Route path='/admin/job/create' element={<AdminRoute><DashCreateJobHOC /></AdminRoute>} />
                             <Route path='/admin/category/create' element={<AdminRoute><DashCreateCategoryHOC /></AdminRoute>} />
-                            <Route path='/user/dashboard' element={<UserRoute>< UserDashboardHOC /></UserRoute>} />
-                            <Route path='/user/jobs' element={<UserRoute>< UserJobsHistoryHOC /></UserRoute>} />
-                            <Route path='/user/info' element={<UserRoute>< UserInfoDashboardHOC /></UserRoute>} />
+                            <Route path='/user/dashboard' element={<UserRoute><UserDashboardHOC /></UserRoute>} />
+                            <Route path='/user/jobs' element={<UserRoute><UserJobsHistoryHOC /></UserRoute>} />
+                            <Route path='/user/info' element={<UserRoute><UserInfoDashboardHOC /></UserRoute>} />
                             <Route path='/user/notifications' element={<UserRoute><Not /></UserRoute>} />
-                            <Route path='/employee/details/:id' element={<UserRoute>< InfoUserHOC/></UserRoute>} />
+                            <Route path='/employee/details/:id' element={<UserRoute><InfoUserHOC /></UserRoute>} />
                             <Route path='/admin/user/create' element={<AdminRoute><DashCreateUserHOC /></AdminRoute>} />
                             <Route path='/admin/edit/user/:id' element={<AdminRoute><UserUpdateDashboardHOC /></AdminRoute>} />
                             <Route path='/admin/calendrier' element={<AdminRoute><MyCalendarHOC /></AdminRoute>} />
-
                             <Route path='*' element={<NotFound />} />
                         </Routes>
                     </BrowserRouter>
                 </ProSidebarProvider>
             </ThemeProvider>
         </>
-
-    )
+    );
 }
 
-export default App
+export default App;

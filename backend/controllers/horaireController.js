@@ -1,3 +1,4 @@
+const moment = require("moment")
 const HeureDépart = require('../models/horaireDépartModel');
 const User = require('../models/userModel');
 const ErrorResponse = require('../utils/errorResponse');
@@ -64,22 +65,23 @@ exports.createHeure = async (id,heureStr) => {
         const derniereEntree = await HeureDépart.findOne({ user: id })
             .sort({ "Heure": -1 }) // Trie par ordre décroissant de la date/heure
             .limit(1);
-
-
-        if (!!derniereEntree?.id) {
-            // Vérifier si la dernière entrée est d'aujourd'hui
-            const lastEntryDate = new Date(derniereEntree.Heure);
+            console.log("derniereEntree",derniereEntree)
             const today = new Date();
             const heureDate = new Date(today.toDateString() + ' ' + heureStr);
             if (isNaN(heureDate.getTime())) {
-                return res.status(400).json({ success: false, error: "Format de date invalide pour heureDépart" });
+                return { success: false, error: "Format de date invalide pour heureDépart" };
             }
+
+
+        if (!!derniereEntree?._id) {
+            // Vérifier si la dernière entrée est d'aujourd'hui
+            const lastEntryDate = new Date(derniereEntree.Heure);
             if (lastEntryDate.toDateString() === today.toDateString()) {
-                if (derniereEntree?.typeHeure == "sortie") {
+                if (derniereEntree?.typeHeure == "entrée") {
                     // Si c'est la première entrée de la journée, créez une entrée de départ
                     const heureDepart = await HeureDépart.create({
                         Heure:  heureDate,
-                        typeHeure: "entrée",
+                        typeHeure: "sortie",
                         user: id
                     });
                     return (heureDepart);
@@ -87,14 +89,22 @@ exports.createHeure = async (id,heureStr) => {
                     // Si ce n'est pas la première entrée de la journée, créez une entrée de sortie
                     const heureSortie = await HeureDépart.create({
                         Heure: heureDate,
-                        typeHeure: "sortie",
+                        typeHeure: "entrée",
                         user: id
                     });
                     return(heureSortie);
                 }
+            } else {
+                // Si ce n'est pas la première entrée de la journée, créez une entrée de sortie
+                const heureSortie = await HeureDépart.create({
+                    Heure: heureDate,
+                    typeHeure: "entrée",
+                    user: id
+                });
+                return(heureSortie);
             }
         } else {
-           // // création entrée
+           // création entrée
             const heureDepart = await HeureDépart.create({
                 Heure:  heureDate,
                 typeHeure: "entrée",
@@ -133,12 +143,15 @@ exports.heuredepartjourmois = async (req, res, next) => {
         // Filtrer les heures de départ pour le jour, le mois et l'année spécifiés
         const heuresDépartJourMois = allHeuresDépart.filter(heure => {
             if (heure.Heure) { // Vérifier si Heure est défini
-                const heureJour = heure.Heure.getDay(); // Récupérer le jour de la semaine de l'heure de départ
+                const heureJour = heure.Heure.getDay() + 1; // Récupérer le jour de la semaine de l'heure de départ
                 const heureMois = heure.Heure.getMonth(); // Récupérer le mois de l'heure de départ
                 const heureAnnee = heure.Heure.getFullYear();
-                console.log('heureAnnee:', heureAnnee); // Récupérer l'année de l'heure de départ
-                const jourIndex = validDays.indexOf(selectedDay.toLowerCase()); // Index du jour sélectionné
+                
+            const jourIndex = validDays.indexOf(selectedDay.toLowerCase()); // Index du jour sélectionné
                 const moisIndex = validMonths.indexOf(selectedMonth.toLowerCase()); // Index du mois sélectionné
+                console.log("eee jours",heureJour, jourIndex)
+                console.log("eee",heureMois,moisIndex)
+                console.log("eee",heureAnnee)
                 return heureJour === jourIndex && heureMois === moisIndex && heureAnnee === parseInt(selectedYear);
             }
         });
@@ -163,15 +176,16 @@ exports.singleHeure = async (req, res, next) => {
 exports.getDerniereEntreeSortie = async (req, res, next) => {
     try {
         // Recherche de la dernière entrée de l'utilisateur
-        const derniereEntree = await HeureDépart.findOne({ user: req.params._id, typeHeure: 'entrée' })
-            .sort({ "Heure": -1 }) // Trie par ordre décroissant de la date/heure
-            .limit(1);
-
+        const derniereEntree = await HeureDépart.find({ user: req.params._id, typeHeure: 'entrée' })
+            /* .sort({ "Heure": -1 }) // Trie par ordre décroissant de la date/heure
+            .limit(1); */
+            console.log("hhhh", req.params._d)
         // Recherche de la dernière sortie de l'utilisateur
-        const derniereSortie = await HeureDépart.findOne({ user: req.params._id, typeHeure: 'sortie' })
+        const derniereSortie = await HeureDépart.find({ user: req.params._id, typeHeure: 'sortie' })
+
             .sort({ "Heure": -1 }) // Trie par ordre décroissant de la date/heure
             .limit(1);
-
+            console.log("sort",derniereSortie)
         res.status(200).json({
             success: true,
             derniereEntree,
@@ -184,7 +198,7 @@ exports.getDerniereEntreeSortie = async (req, res, next) => {
 
 exports.heureDépart = async (req, res) => {
     try {
-        const heures = await HeureDépart.find(req.body);
+        const heures = await HeureDépart.find(req.body).populate('user');
         console.log("Toutes les heures de départ :", heures);
         if (!heures) {
             return res.status(404).json({ success: false, error: "Heures de départ non trouvées" });
@@ -193,5 +207,61 @@ exports.heureDépart = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, error: "Erreur serveur lors de la récupération des heures de départ" });
+    }
+};
+
+// Contrôleur pour calculer le pourcentage de présence des employés en regroupant toutes les heures de présence
+exports.calculerPourcentagePresence = async (req, res) => {
+    try {
+        // Récupérer tous les utilisateurs
+        const users = await User.find();
+
+        // Récupérer toutes les heures de départ
+        const heuresDepartEntered = await HeureDépart.find({ typeHeure: 'entrée' });
+      //  const heuresDepart = heuresDepartEntered?.filter(h=>moment(h?.createdAt).format("YYYY/MM/DD") >= moment().startOf("month").format("YYYY/MM/DD"))
+
+        const startOfMonth = moment().startOf("month").format("YYYY/MM/DD");
+        
+        const heuresDepart = [];
+        const seenUsers = {};
+        
+        // Filtrer les heures de départ pour conserver seulement une par utilisateur par jour
+        heuresDepartEntered.forEach(heure => {
+          const createdAtDate = moment(heure.createdAt).format("YYYY/MM/DD");
+          
+          if (createdAtDate >= startOfMonth) {
+            const userId = heure.userId; // Assurez-vous que userId est la clé unique pour chaque utilisateur
+            if (!seenUsers[userId]) {
+              seenUsers[userId] = {};
+            }
+        
+            if (!seenUsers[userId][createdAtDate]) {
+              seenUsers[userId][createdAtDate] = true;
+              heuresDepart.push(heure);
+            }
+          }
+        });
+        
+        console.log(heuresDepart);
+        
+        // Nombre total d'utilisateurs
+        const totalUsers = users?.filter(u=>!!u?.CIN)?.length;
+        console.log("usersss",totalUsers)
+
+        // Nombre total d'heures enregistrées
+        const totalHeuresEnregistrees = heuresDepart?.length;
+        console.log("totalHeuresEnregistrees",totalHeuresEnregistrees)
+
+        if (totalUsers === 0 || totalHeuresEnregistrees === 0) {
+            return res.status(200).json({ pourcentagePresence: 0 });
+        }
+
+        // Calculer le pourcentage de présence
+        const pourcentagePresence = ((totalHeuresEnregistrees / totalUsers) / moment().daysInMonth())* 100;
+
+        res.json({ pourcentagePresence: pourcentagePresence.toFixed(2), totalHeuresEnregistrees });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Une erreur s'est produite lors du calcul du pourcentage de présence." });
     }
 };

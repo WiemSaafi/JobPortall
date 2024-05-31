@@ -54,19 +54,31 @@ const InfoUser = () => {
     useEffect(() => {
         dispatch(userSingleHeureAction(id));
     }, [dispatch, id]);
-
   
-    useEffect(() => {
-        setUser(userProfile.user);
-    }, [userProfile.user]);
+  
+    // useEffect(() => {
+    //     setUser(userProfile.user);
+    // }, [userProfile.user]);
+
+    
     useEffect(() => {
         setderniereheure(getDerniereEntreeSortie?.derniereEntree);
         setderniereSortie(getDerniereEntreeSortie?.derniereSortie);
     }, [getDerniereEntreeSortie]);
   ;
-    useEffect(() => {
-        dispatch(userSingleAction(id));
-    }, [dispatch, id]);
+  useEffect(() => {
+    const fetchUserData = async () => {
+        try {
+            const data = await dispatch(userSingleAction(id));
+            setUser(data?.user)
+            console.log("User Data:", data);
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
+
+    fetchUserData();
+}, [dispatch, id]);
    
 
     const handleChangeJour = (event) => {
@@ -95,6 +107,8 @@ const InfoUser = () => {
         fetchData();
     }, [dispatch, selectedJour, selectedMonth, selectedYear]);
     const currentYear = new Date().getFullYear();
+
+
 
 // jw card
 return (
@@ -292,6 +306,7 @@ return (
                 </FormControl>
             </Fade>
         </Grid>
+        
         <Grid item xs={12} sm={4}>
             <Fade in={true} timeout={2000}>
                 <FormControl fullWidth variant="outlined">
@@ -301,13 +316,13 @@ return (
                         id="select-annee"
                         value={selectedYear}
                         onChange={handleChangeYear}
-                        label="Année"
+                        label="Year"
                         style={{ backgroundColor: '#FFf' }}
                         startAdornment={<EventIcon style={{ color: '#F72585' }} />}
                     >
                         <MenuItem value=""><em>Aucun</em></MenuItem>
-                        {Array.from({ length: 21 }, (_, i) => currentYear - 10 + i).map(year => (
-                            <MenuItem key={year} value={year}>{year}</MenuItem>
+                        {Array.from({ length: 21 }, (_, i) => currentYear - 10 + i).map(Year => (
+                            <MenuItem key={Year} value={Year}>{Year}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
@@ -379,7 +394,8 @@ Heures de départ et de sortie
                     InputProps={{
                         readOnly: true,
                         startAdornment: <EventIcon sx={{ color: '#F72585', marginRight: '10px' }} />
-                    }}
+                    }} 
+                    
                 />         
             </motion.div>
         </Grid>
