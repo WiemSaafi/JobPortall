@@ -4,7 +4,7 @@ const { createHeure, heuredepartjourmois, heureDépart, singleHeure, getDerniere
 const { isAuthenticated } = require('../middleware/auth');
 
 //router.post('/heurs', isAuthenticated, createHeure);
-router.get('/heure/:id', isAuthenticated, singleHeure);
+router.get('/heure/:id',singleHeure);
 router.get('/jourmois', isAuthenticated,heuredepartjourmois );
 router.get('/dept', heureDépart);
 router.get('/dernierentreesortie/:_id', getDerniereEntreeSortie);

@@ -13,7 +13,7 @@ import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { userSingleAction } from '../../redux/actions/userAction';
-import { heuredepartjourAction, userSingleHeureAction } from '../../redux/actions/heuredépart';
+import { getDerniereEntreeSortieAction, heuredepartjourAction, userSingleHeureAction } from '../../redux/actions/heuredépart';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import DatePicker from '@mui/lab/DatePicker';
@@ -58,14 +58,35 @@ const InfoUser = () => {
   
     // useEffect(() => {
     //     setUser(userProfile.user);
-    // }, [userProfile.user]);
+    //  }, [userProfile.user]);
 
     
+     useEffect(() => {
+          setderniereheure(getDerniereEntreeSortie?.derniereEntree);
+       setderniereSortie(getDerniereEntreeSortie?.derniereSortie);
+      }, [getDerniereEntreeSortie]);
+
+   useEffect(() => {
+        const fetchUserData = async () => {
+          try {
+           dispatch(getDerniereEntreeSortieAction(id));
+         } catch (error) {
+                console.error("Error fetching user data:", error);
+          }
+        };
+
+       fetchUserData();
+  }, [dispatch, id]);
+
+    // Éventuellement, vous pouvez écouter les changements de l'état Redux pour mettre à jour votre state local
     useEffect(() => {
-        setderniereheure(getDerniereEntreeSortie?.derniereEntree);
-        setderniereSortie(getDerniereEntreeSortie?.derniereSortie);
-    }, [getDerniereEntreeSortie]);
-  ;
+       
+            // Mettre à jour votre state local une fois que les données ont été récupérées avec succès
+            setderniereSortie(derniereSortie);
+       
+    }, [ derniereSortie]);
+
+   
   useEffect(() => {
     const fetchUserData = async () => {
         try {
@@ -79,6 +100,8 @@ const InfoUser = () => {
 
     fetchUserData();
 }, [dispatch, id]);
+
+
    
 
     const handleChangeJour = (event) => {
@@ -95,8 +118,9 @@ const InfoUser = () => {
     useEffect(() => {
         const fetchData = async () => {
             if (selectedJour && selectedMonth && selectedYear) {
+              ;
                 try {
-                    const data = await dispatch(heuredepartjourAction(selectedJour, selectedMonth, selectedYear));
+                    const data = await dispatch(heuredepartjourAction(selectedJour, selectedMonth, selectedYear,));
                     setheuresDépartJourMois(data);
                 } catch (error) {
                     console.error('Erreur lors de la récupération des heures de départ:', error);
@@ -356,7 +380,7 @@ Heures de départ et de sortie
                     label="Dernière heure d'entrée"
                     variant="outlined"
                     fullWidth
-                    value={derniereEntree ? moment(derniereEntree.Heure).format('HH:mm') : ''}
+                    value={derniereEntree ? moment(getDerniereEntreeSortie?.derniereEntree).format('HH:mm') : ''}
                     InputProps={{
                         readOnly: true,
                         startAdornment: <AccessTimeIcon sx={{ color: '#F72585', marginRight: '10px' }} />
@@ -371,14 +395,18 @@ Heures de départ et de sortie
                     label="Dernière heure de sortie"
                     variant="outlined"
                     fullWidth
-                    value={derniereSortie ? moment(derniereSortie.Heure).format('HH:mm') : ''}
+                     value={derniereSortie ? moment(derniereSortie?.Heure).format('HH:mm') : ''}
+                    
                     InputProps={{
                         readOnly: true,
                         startAdornment: <AccessTimeIcon sx={{ color: '#F72585', marginRight: '10px' }} />
                     }}
+                   
                 />
+                 
             </motion.div>
         </Grid>
+       
         <Grid item xs={12} md={6}>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.4 }}>
                 <TextField
@@ -418,6 +446,7 @@ Heures de départ et de sortie
                 />
             </motion.div>
         </Grid>
+        
     </Grid>
 </CardContent>
 

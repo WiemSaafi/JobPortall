@@ -15,6 +15,7 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 import PeopleIcon from '@mui/icons-material/People';
 import freeImage from '../../img/small3.png';
 import ChartComponent from '../../component/ChartComponent';
+import { allUserAction } from '../../redux/actions/userAction';
 
 
 
@@ -31,7 +32,8 @@ const AdminDashboard = () => {
  // const { pourcentagePresence } = useSelector(state => state.calculerPourcentagePresence);
 //const calculerPourcentagePresence = useSelector(state => state.calculerPourcentagePresence);
 //const calculerPourcentagePresence = useSelector((state) => state.calculerPourcentagePresence);
-  
+
+
 
 
   const [data, setData] = useState(null);
@@ -118,12 +120,12 @@ const AdminDashboard = () => {
   // }, [pourcentagePresence]);
   
  
- 
+ const totalUsers = user?.length || 0;
 
 
   const heuredepartLength = !!data?.length ? data.filter(heure => heure.typeHeure === 'entrée').map(heure => moment(heure.Heure).format('YYYY-MM-DD HH:mm')) : [];
   const heuresortieLength = !!data?.length ? data.filter(Heure => Heure.typeHeure === 'sortie').map(Heure => moment(Heure.Heure).format('YYYY-MM-DD HH:mm')) : [];
-  const totalEmployés = !!user?.length ? user.map(use => (use.firstName)) : [];
+  //const totalEmployés = !!user?.length ? user.map(use => (use.firstName)) : [];
 console.log("heuredepartLength")
 const convertToMinutes = (time) => {
   const momentTime = moment(time, "HH:mm");
@@ -199,13 +201,17 @@ const dataa = [
 //   const absencesPercentage = 100 - pourcentagePresence;
 //   // Utiliser le pourcentage d'absence calculé
 //  console.log("Pourcentage d'absence :", absencesPercentage);
+//const totalUsers = user && user?.length ;
+//const totalUsers = users?.length;
+
+
 
   return (
     <>
       <Box sx={{ textAlign: "left", position: "absolute", right: 52, top: 364 }}>
         
           </Box>
-
+         
       <Box>
         <Box sx={{ marginBottom: 7 }}>
         <Typography
@@ -300,8 +306,9 @@ const dataa = [
             </Box>
             <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
               <CircularProgressbar
-                value={user && user.firstName.length}
-                text={`${user && user.firstName.length}`}
+               
+                value={totalUsers}
+                text={`${totalUsers}`}
                 strokeWidth={10}
                 styles={{
                   root: { width: '50px', marginRight: '16px' },

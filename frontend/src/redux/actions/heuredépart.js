@@ -75,10 +75,10 @@ export const userSingleHeureAction  = (id) => async (dispatch) => {
 }
 
 
-export const getDerniereEntreeSortieAction  = (id) => async (dispatch) => {
+export const getDerniereEntreeSortieAction  = (_id) => async (dispatch) => {
     dispatch({ type: HEURE_DERNIER_REQUEST });
     try {
-        const { data } = await axios.get(`/api/dernierentreesortie/${id}`);
+        const { data } = await axios.get(`/api/dernierentreesortie/${_id}`);
         dispatch({
             type: HEURE_DERNIER_SUCCESS,
             payload: data

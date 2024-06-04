@@ -168,7 +168,9 @@ exports.singleHeure = async (req, res, next) => {
         res.status(200).json({
             success: true,
           heure
+          
         })
+        
     } catch (error) {
         next(error);
     }
@@ -177,8 +179,9 @@ exports.getDerniereEntreeSortie = async (req, res, next) => {
     try {
         // Recherche de la dernière entrée de l'utilisateur
         const derniereEntree = await HeureDépart.find({ user: req.params._id, typeHeure: 'entrée' })
-            /* .sort({ "Heure": -1 }) // Trie par ordre décroissant de la date/heure
-            .limit(1); */
+             /*.sort({ "Heure": -1 }) // Trie par ordre décroissant de la date/heure
+            .limit(1); 
+            */
             console.log("hhhh", req.params._d)
         // Recherche de la dernière sortie de l'utilisateur
         const derniereSortie = await HeureDépart.find({ user: req.params._id, typeHeure: 'sortie' })
