@@ -62,19 +62,19 @@ const DashCreateUser = () => {
 
 
 
-  const [buttonColors, setButtonColors] = useState({
-    primary: '#F72585, #7209B7',
-    secondary: '#7209B7, #3A0CA3'
-  });
+  // const [buttonColors, setButtonColors] = useState({
+  //   primary: '#F72585, #7209B7',
+  //   secondary: '#7209B7, #3A0CA3'
+  // });
 
-  // Fonction pour changer la couleur du bouton lors du clic
-  const handleButtonClick = () => {
-    // Permuter les couleurs primaires et secondaires
-    setButtonColors({
-      primary: buttonColors.secondary,
-      secondary: buttonColors.primary
-    });
-  }
+  // // Fonction pour changer la couleur du bouton lors du clic
+  // const handleButtonClick = () => {
+  //   // Permuter les couleurs primaires et secondaires
+  //   setButtonColors({
+  //     primary: buttonColors.secondary,
+  //     secondary: buttonColors.primary
+  //   });
+  // }
 
    
 
@@ -318,16 +318,17 @@ const DashCreateUser = () => {
           <Button
   fullWidth
   variant="contained"
-  onClick={handleButtonClick}
-  sx={{
-    backgroundImage: `linear-gradient(to right, ${buttonColors.primary})`, // Utilisation de la couleur primaire
-    color: 'white',
-    borderRadius: '10px',
+   type='submit'
+  // onClick={handleButtonClick}
+  // sx={{
+  //   backgroundImage: `linear-gradient(to right, ${buttonColors.primary})`, // Utilisation de la couleur primaire
+  //   color: 'white',
+  //   borderRadius: '10px',
    
-    '&:hover': {
-      backgroundImage: `linear-gradient(to right, ${buttonColors.primary})`, // Conserver la même couleur au survol
-    },
-  }}
+  //   '&:hover': {
+  //     backgroundImage: `linear-gradient(to right, ${buttonColors.primary})`, // Conserver la même couleur au survol
+  //   },
+  // }}
 >
   Créer 
 </Button>
