@@ -29,7 +29,7 @@ import { Fade } from '@mui/material';
 import {   CalendarToday as CalendarIcon, Event as EventIcon, FlightLand as FlightLandIcon } from '@mui/icons-material';
 import FaceIcon from '@mui/icons-material/Face';
 import { motion } from 'framer-motion';
- 
+import freeImage from '../../img/wave777.png';
 
 
 
@@ -136,27 +136,26 @@ const InfoUser = () => {
 
 // jw card
 return (
-    <Box sx={{  marginTop: '-20px',height: '95vh', backgroundColor: '#f0f2f5' }}>
+    <Box sx={{  marginTop: '-45px',height: '35vh', backgroundColor: '#f0f2f5' }}>
         {user && (
             <Card
                 style={{
-                    borderRadius: '15px',
+                    borderRadius: '10px',
                     overflow: 'hidden',
                      
-                    border: '2px solid transparent',
-                    transition: 'border-color 0.3s ease'
+                    transition: 'border-color 0.3s ease',
+                    padding: '16px',
+                    marginTop: '16px'
                 }}
             >
                 <CardContent>
-                <Typography variant="h8" sx={{ color: '#3A0CA3' }}>
-    Informations Personnelles
+                <Typography variant="h8" sx={{ color: '#3A0CA3', marginBottom: '-20px'  }}>
+    Informations Personnelles 
 </Typography>
-<div style={{ height: '20px' }}></div>
 
 
-
-
-                    <Grid container spacing={4}>
+<div style={{ height: '8px' }}></div>
+                    <Grid container spacing={2}>
                             <Grid item xs={12} md={6}>
                                 <TextField
                                     id="firstName"
@@ -170,7 +169,8 @@ return (
                                                 <PersonIcon style={{ color: '#F72585' }} />
                                             </InputAdornment>
                                         ),
-                                        readOnly: true
+                                        readOnly: true,
+                                        sx: { borderRadius: '10px' }
                                     }}
                                 />
                             </Grid>
@@ -187,7 +187,8 @@ return (
                                                 <PersonIcon style={{ color: '#F72585' }} />
                                             </InputAdornment>
                                         ),
-                                        readOnly: true
+                                        readOnly: true,
+                                    sx: { borderRadius: '10px' }
                                     }}
                                 />
                             </Grid>
@@ -204,7 +205,8 @@ return (
                                                 <CalendarTodayIcon style={{ color: '#F72585' }} />
                                             </InputAdornment>
                                         ),
-                                        readOnly: true
+                                        readOnly: true,
+                                    sx: { borderRadius: '10px' }
                                     }}
                                 />
                             </Grid>
@@ -221,7 +223,8 @@ return (
                                                 <EmailIcon style={{ color: '#F72585' }} />
                                             </InputAdornment>
                                         ),
-                                        readOnly: true
+                                        readOnly: true,
+                                        sx: { borderRadius: '10px' }
                                     }}
                                 />
                             </Grid>
@@ -238,7 +241,8 @@ return (
                                                 <PhoneIcon style={{ color: '#F72585' }} />
                                             </InputAdornment>
                                         ),
-                                        readOnly: true
+                                        readOnly: true,
+                                    sx: { borderRadius: '10px' }
                                     }}
                                 />
                             </Grid>
@@ -255,25 +259,76 @@ return (
                                                 <HomeIcon style={{ color: '#F72585' }} />
                                             </InputAdornment>
                                         ),
-                                        readOnly: true
+                                        readOnly: true,
+                                        sx: {
+                                            borderRadius: '10px',
+                                            
+                                        }
                                     }}
                                 />
                             </Grid>
-                        </Grid>
+
+                            <  >
+        <Grid item xs={12} md={6}>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+                <TextField
+                    id="heureDerniereEntree"
+                    label="Dernière heure d'entrée"
+                    variant="outlined"
+                    fullWidth
+                    value={derniereEntree ? moment(getDerniereEntreeSortie?.derniereEntree).format('HH:mm') : ''}
+                    InputProps={{
+                        readOnly: true,
+                        startAdornment: <AccessTimeIcon sx={{ color: '#F72585', marginRight: '10px' }} />,
+                        sx: {
+                            '& .MuiOutlinedInput-notchedOutline': {
+                                borderRadius: '10px',
+                            },
+                            
+                        }
+                    }}
+                />
+            </motion.div>
+        </Grid>
+<Grid item xs={12} md={6}>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.2 }}>
+                <TextField
+                    id="heureDerniereSortie"
+                    label="Dernière heure de sortie"
+                    variant="outlined"
+                    fullWidth
+                     value={derniereSortie ? moment(derniereSortie?.Heure).format('HH:mm') : ''}
+                    
+                     InputProps={{
+                        readOnly: true,
+                        startAdornment: <AccessTimeIcon sx={{ color: '#F72585', marginRight: '10px' }} />,
+                        sx: {
+                            '& .MuiOutlinedInput-notchedOutline': {
+                                borderRadius: '10px',
+                            }
+                        }
+                    }}
+                   
+                />
+                 
+            </motion.div>
+        </Grid>
+
+                        </>
 
 
 
                         <CardContent>
 
                         <Typography variant="h8" sx={{ color: '#3A0CA3' }}>
-                        Sélectionner une date
+                        Sélectionner une date 
 </Typography>
 <div style={{ height: '20px' }}></div>
 
  
-    <Grid container spacing={4} alignItems="center">
-        <Grid item xs={12} sm={4}>
-            <Fade in={true} timeout={1000}>
+<Grid container spacing={2} alignItems="center" justifyContent="center" style={{ height: '100%', marginTop: '-60px' }}>
+    <Grid item xs={7} sm={4}   >
+                            <Fade in={true} timeout={"100%"}>
                
                     <FormControl fullWidth variant="outlined">
     <InputLabel id="select-jour-label">Jour</InputLabel>
@@ -285,6 +340,10 @@ return (
         label="Jour"
         style={{ backgroundColor: '#FFf' }}
         startAdornment={<EventIcon style={{ color: '#F72585' }}/>}
+        sx={{
+            backgroundColor: '#FFF',
+            borderRadius: '10px'  // Ajouter du padding en haut du conteneur
+          }}
     >
                         <MenuItem value="lundi">Lundi</MenuItem>
                         <MenuItem value="mardi">Mardi</MenuItem>
@@ -296,7 +355,7 @@ return (
                 </FormControl>
             </Fade>
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={7} sm={4}>
             <Fade in={true} timeout={1500}>
                 <FormControl fullWidth variant="outlined">
                     <InputLabel id="select-mois-label">Mois</InputLabel>
@@ -309,7 +368,10 @@ return (
                         style={{ backgroundColor: '#FFf' }}
                         startAdornment={<CalendarTodayIcon style={{ color: '#F72585' }} />}
 
-
+                        sx={{
+                            backgroundColor: '#FFF',
+                            borderRadius: '10px'
+                        }}
 
 
                         
@@ -331,8 +393,8 @@ return (
             </Fade>
         </Grid>
         
-        <Grid item xs={12} sm={4}>
-            <Fade in={true} timeout={2000}>
+        <Grid item xs={7} sm={4}>
+            <Fade in={true} timeout={1500}>
                 <FormControl fullWidth variant="outlined">
                     <InputLabel id="select-annee-label">Année</InputLabel>
                     <Select
@@ -343,7 +405,11 @@ return (
                         label="Year"
                         style={{ backgroundColor: '#FFf' }}
                         startAdornment={<EventIcon style={{ color: '#F72585' }} />}
-                    >
+                        sx={{
+                            backgroundColor: '#FFF',
+                            borderRadius: '10px'
+                        }}
+                   >
                         <MenuItem value=""><em>Aucun</em></MenuItem>
                         {Array.from({ length: 21 }, (_, i) => currentYear - 10 + i).map(Year => (
                             <MenuItem key={Year} value={Year}>{Year}</MenuItem>
@@ -363,51 +429,15 @@ return (
 
 
 
-
-
-
-<Typography variant="h8" sx={{ color: '#3A0CA3' }}>
-Heures de départ et de sortie
-</Typography>
+ 
+ 
 <div style={{ height: '20px' }}></div>
  
-  
-    <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-                <TextField
-                    id="heureDerniereEntree"
-                    label="Dernière heure d'entrée"
-                    variant="outlined"
-                    fullWidth
-                    value={derniereEntree ? moment(getDerniereEntreeSortie?.derniereEntree).format('HH:mm') : ''}
-                    InputProps={{
-                        readOnly: true,
-                        startAdornment: <AccessTimeIcon sx={{ color: '#F72585', marginRight: '10px' }} />
-                    }}
-                />
-            </motion.div>
-        </Grid>
-        <Grid item xs={12} md={6}>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.2 }}>
-                <TextField
-                    id="heureDerniereSortie"
-                    label="Dernière heure de sortie"
-                    variant="outlined"
-                    fullWidth
-                     value={derniereSortie ? moment(derniereSortie?.Heure).format('HH:mm') : ''}
-                    
-                    InputProps={{
-                        readOnly: true,
-                        startAdornment: <AccessTimeIcon sx={{ color: '#F72585', marginRight: '10px' }} />
-                    }}
-                   
-                />
-                 
-            </motion.div>
-        </Grid>
+<Grid container spacing={2} style={{ marginTop: '-9px', justifyContent: 'flex-end', alignItems: 'center' }}>
+   
+        
        
-        <Grid item xs={12} md={6}>
+        <Grid item xs={3} md={5.84}>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.4 }}>
                 <TextField
                     id="heureDepartJourEntree"
@@ -421,8 +451,13 @@ Heures de départ et de sortie
                     }
                     InputProps={{
                         readOnly: true,
-                        startAdornment: <EventIcon sx={{ color: '#F72585', marginRight: '10px' }} />
-                    }} 
+                        startAdornment: <EventIcon sx={{ color: '#F72585', marginRight: '10px' }} />,
+                        sx: {
+                            '& .MuiOutlinedInput-notchedOutline': {
+                                borderRadius: '10px',
+                            }
+                        }
+                    }}
                     
                 />         
             </motion.div>
@@ -441,23 +476,32 @@ Heures de départ et de sortie
                     }
                     InputProps={{
                         readOnly: true,
-                        startAdornment: <EventIcon sx={{ color: '#F72585', marginRight: '10px' }} />
+                        startAdornment: <EventIcon sx={{ color: '#F72585', marginRight: '10px' }} />,
+                        sx: {
+                            '& .MuiOutlinedInput-notchedOutline': {
+                                borderRadius: '10px',
+                            }
+                        }
                     }}
                 />
             </motion.div>
         </Grid>
-        
+        </Grid>
     </Grid>
 </CardContent>
-
- 
-
-
-
-
-            </Card>
-        )}
-    </Box>
+</Card>
+)}
+        <img
+src={freeImage}
+alt="Free Image"
+className="moving-image"
+style={{ 
+maxWidth: '100%', 
+objectFit: 'cover',
+marginTop: '-200px' // Ajustez cette valeur pour déplacer l'image plus haut
+}}
+/>
+</Box>
 );
 };
 

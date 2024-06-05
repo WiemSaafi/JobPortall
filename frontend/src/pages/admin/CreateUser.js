@@ -119,7 +119,7 @@ const DashCreateUser = () => {
             <TextField
               fullWidth
               id="firstName"
-              label="First Name"
+              label="Nom"
               name="firstName"
               value={formik.values.firstName}
               onChange={formik.handleChange}
@@ -139,7 +139,7 @@ const DashCreateUser = () => {
             <TextField
               fullWidth
               id="lastName"
-              label="Last Name"
+              label="Prénom"
               name="lastName"
               value={formik.values.lastName}
               onChange={formik.handleChange}
@@ -159,7 +159,7 @@ const DashCreateUser = () => {
             <TextField
               fullWidth
               id="phone"
-              label="Phone"
+              label="Téléphone"
               name="phone"
               value={formik.values.phone}
               onChange={formik.handleChange}
@@ -186,7 +186,7 @@ const DashCreateUser = () => {
             <TextField
               fullWidth
               id="cin"
-              label="Num CIN"
+              label="Numéro cin"
               name="Num Cin"
               value={formik.values.Cin}
               onChange={formik.handleChange}
@@ -209,7 +209,7 @@ const DashCreateUser = () => {
             <TextField
               fullWidth
               id="email"
-              label="Email"
+              label="E-mail"
               name="email"
               type="email"
               value={formik.values.email}
@@ -230,7 +230,7 @@ const DashCreateUser = () => {
             <TextField
               fullWidth
               id="password"
-              label="Password"
+              label="Mot de passe"
               name="password"
               type="password"
               value={formik.values.password}
@@ -271,7 +271,7 @@ const DashCreateUser = () => {
             <TextField
               fullWidth
               id="dateOfBirth"
-              label="Date of Birth"
+              label="Date de naissance"
               type="date"
               name="dateOfBirth"
               value={formik.values.dateOfBirth}
@@ -296,7 +296,7 @@ const DashCreateUser = () => {
             <TextField
               fullWidth
               id="address"
-              label="Address"
+              label="Adresse"
               name="address"
               value={formik.values.address}
               onChange={formik.handleChange}
@@ -371,3 +371,13 @@ const DashCreateUser = () => {
 };
 
 export default DashCreateUser;
+
+
+
+
+
+
+
+
+
+

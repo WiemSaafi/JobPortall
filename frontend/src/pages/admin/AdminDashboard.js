@@ -34,18 +34,7 @@ const AdminDashboard = () => {
 //const calculerPourcentagePresence = useSelector((state) => state.calculerPourcentagePresence);
 
 
-
-
   const [data, setData] = useState(null);
-
- // const [pourcentagePresence, setPourcentagePresence] = useState(0);
-
-  //let absencesPercentage; // Déclaration de la variable absencesPercentage
-//   useEffect(() => {
-//     setPourcentagePresence(calculerPourcentagePresence.pourcentagePresence);
-//  }, [calculerPourcentagePresence.pourcentagePresence]);
-  
-// const absencesPercentage = pourcentagePresence !== null && !isNaN(pourcentagePresence) ? 100 - pourcentagePresence : undefined;
   useEffect(() => {
     dispatch(heureDépartAction());
    
@@ -65,23 +54,6 @@ const AdminDashboard = () => {
     fetchUserData();
 }, [dispatch]);
 
-//   useEffect(() => {
-//     if (calculerPourcentagePresence && calculerPourcentagePresence.pourcentagePresence !== undefined) {
-//       setPresencePercentage(calculerPourcentagePresence.pourcentagePresence);
-//  }
-//    }, [calculerPourcentagePresence]);
-// useEffect(() => {
-//   if (calculerPourcentagePresence && calculerPourcentagePresence.pourcentagePresence !== undefined) {
-//     setPourcentagePresence(calculerPourcentagePresence.pourcentagePresence);
-//   }
-// }, [calculerPourcentagePresence]);
-
-
-// useEffect(() => {
-//   setpourcentagePresence(calculerPourcentagePresence?.pourcentagePresence);
-  
-// }, [calculerPourcentagePresence]);
-// ;
   useEffect(() => {
     console.log("Données de l'heure de départ :", heureDépart); // Vérifier les données reçues
    // if (heureDépart && heureDépart.length) {
@@ -89,36 +61,10 @@ const AdminDashboard = () => {
       
    // }
   }, [heureDépart]);
-  // useEffect(() => {
-  //   console.log("Données de l'heure de départ :", calculerPourcentagePresence); // Vérifier les données reçues
-  //  // if (heureDépart && heureDépart.length) {
-  //   setPourcentagePresence(calculerPourcentagePresence.pourcentagePresence);
-      
-  //  // }
-  // }, [calculerPourcentagePresence]);
-  // console.log('hh', calculerPourcentagePresence)
-  
-
-  // useEffect(() => {
-  //   if (pourcentagePresence !== null && !isNaN(pourcentagePresence)) {
-  //     // Calculate absence percentage only if pourcentagePresence is valid
-  //     const absencesPercentage = 100 - pourcentagePresence;
-  //     console.log("Pourcentage d'absence :", absencesPercentage);
-  //   }
-  // }, [pourcentagePresence]);
-  // useEffect(() => {
-  //   if (pourcentagePresenceState !== null && !isNaN(pourcentagePresenceState)) {
-  //     setPourcentagePresence(pourcentagePresenceState);
-  //   }
-  // }, [pourcentagePresenceState]);
-  // console.log("Pourcentage de presence:", pourcentagePresenceState);
-  // useEffect(() => {
+   
   //   // Calculer le pourcentage d'absence en soustrayant le pourcentage de présence du total (100%)
   const absencesPercentage = 100 - pourcentagePresence;
   //   // Utiliser le pourcentage d'absence calculé
-  //   console.log("Pourcentage d'absence :", absencesPercentage);
-  // }, [pourcentagePresence]);
-  
  
  const totalUsers = user?.length || 0;
 
@@ -198,12 +144,7 @@ const dataa = [
   //const presencesPercentage = 75;
   //const absencesPercentage = 25;
   const hoursExtraPercentage = 50;
-//   const absencesPercentage = 100 - pourcentagePresence;
-//   // Utiliser le pourcentage d'absence calculé
-//  console.log("Pourcentage d'absence :", absencesPercentage);
-//const totalUsers = user && user?.length ;
-//const totalUsers = users?.length;
-
+ 
 
 
   return (
@@ -231,23 +172,23 @@ const dataa = [
         </Typography>
         </Box>
  
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }} sx={{ marginBottom: 10 }}>
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 4, md: 10}} sx={{ marginBottom: 10 }}>
           {/* Premier Cadre */}
-          <Box sx={{ p: 5, borderRadius: 12 , background: 'linear-gradient(to right,#F72585 ,#F72585)', minWidth: 280, width: 'calc(50% - 20px)', mb: 2 }}>
+          <Box sx={{ p: 2, borderRadius: 12 , background: 'linear-gradient(to right,#F72585 ,#F72585)', minWidth: 300, width: 'calc(25% - 10px)', mb: 2 }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <CheckCircleIcon sx={{ color: "#fff", fontSize: 30 }} />
+              <CheckCircleIcon sx={{ color: "#fff", fontSize: 35 }} />
               <Typography variant="body1" sx={{ ml: 2, color: 'white' }}>
             Présences
         </Typography>
             </Box>
-            <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ mt: 7, display: 'flex', alignItems: 'center' }}>
               <CircularProgressbar
               
               value={ pourcentagePresence || 0}
               text={`${pourcentagePresence || 0}%`}
-                strokeWidth={10}
+                strokeWidth={13}
                 styles={{
-                  root: { width: '50px', marginRight: '16px' },
+                  root: { width: '65px', marginRight: '16px' },
                   path: { stroke: "#Fff" },
                   text: { fill: "#Fff"}
                 }}
@@ -257,18 +198,18 @@ const dataa = [
           </Box>
 
           {/* Deuxième Cadre */}
-          <Box sx={{ p: 5, borderRadius: 12, background: 'linear-gradient(to right ,#7209B7,  #7209B7)', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
+          <Box sx={{ p: 2, borderRadius: 12, background: 'linear-gradient(to right ,#7209B7,  #7209B7)', minWidth: 300, width: 'calc(25% - 10px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <CancelIcon sx={{ color: "#fff", fontSize: 30 }} />
+              <CancelIcon sx={{ color: "#fff", fontSize: 35 }} />
               <Typography variant="body1" sx={{ ml: 2 ,color: 'white' }}>Absences</Typography>
             </Box>
-            <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ mt: 7, display: 'flex', alignItems: 'center' }}>
               <CircularProgressbar
                 value={absencesPercentage ||0}
                 text={`${absencesPercentage ||0 }%`}
-                strokeWidth={10}
+                strokeWidth={13}
                 styles={{
-                  root: { width: '50px', marginRight: '16px' },
+                  root: { width: '65px', marginRight: '16px' },
                   path: { stroke: "#fff"},
                   text: { fill: "#fff" }
                 }}
@@ -277,41 +218,21 @@ const dataa = [
             </Box>
           </Box>
 
-          {/* Troisième Cadre */}
-          <Box sx={{ p: 5, borderRadius: 12, background: 'linear-gradient(to right,#3A0CA3 , #3A0CA3)', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <ScheduleIcon sx={{ color: "#fff" ,fontSize: 30 }} />
-              <Typography variant="body1" sx={{ ml: 2 ,color: 'white'}}>Heures supplémentaires</Typography>
-            </Box>
-            <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
-              <CircularProgressbar
-                value={hoursExtraPercentage}
-                text={`${hoursExtraPercentage}%`}
-                strokeWidth={10}
-                styles={{
-                  root: { width: '50px', marginRight: '16px' },
-                  path: { stroke: "#fff" },
-                  text: { fill: "#fff" }
-                }}
-              />
-              <Typography variant="body1"> </Typography>
-            </Box>
-          </Box>
 
-          {/* Quatrième Cadre */}
-          <Box sx={{ p: 5, borderRadius: 12, background: 'linear-gradient(to right , #4361EE,#4361EE)', minWidth: 280, width: 'calc(50% - 20px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
+          {/* troisiéme Cadre */}
+          <Box sx={{ p: 2, borderRadius: 12, background: 'linear-gradient(to right , #4361EE,#4361EE)', minWidth: 300, width: 'calc(25% - 10px)', mb: 2, transition: 'all 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <PeopleIcon sx={{ color: "#fff", fontSize: 30 }} />
+              <PeopleIcon sx={{ color: "#fff", fontSize: 35 }} />
               <Typography variant="body1" sx={{ ml: 2,color: 'white' }}>Nombre d'employés</Typography>
             </Box>
-            <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ mt: 7, display: 'flex', alignItems: 'center' }}>
               <CircularProgressbar
                
                 value={totalUsers}
                 text={`${totalUsers}`}
-                strokeWidth={10}
+                strokeWidth={13}
                 styles={{
-                  root: { width: '50px', marginRight: '16px' },
+                  root: { width: '65px', marginRight: '16px' },
                   path: { stroke: "#ffff"},
                   text: { fill: "#fff"}
                 }}
@@ -327,17 +248,7 @@ const dataa = [
    
 >
 <Box
-  // sx={{
-  //   background: 'linear-gradient(to right , #fff,#fff)',
-  //   mt: 4,
-  //   borderRadius: 6,
-  //   boxShadow: '5 14px 18pxrgba(0, 0, 0, 0.1)',
-  //   overflow: 'hidden',
-  //   transition: 'transform 0.2s ease-in-out',
-  //   '&:hover': { transform: 'scale(1.02)' },
-  //   position: 'relative',  // Ensure the button is positioned correctly
-  //   padding: 0  // Add padding for spacing inside the box
- // }}
+
 >
   <Button
     sx={{
@@ -346,7 +257,7 @@ const dataa = [
        color:"#F72585",
        
       position: 'absolute',
-      top: 10,
+      top: 0,
       right: 15,
       
     }}
@@ -354,30 +265,9 @@ const dataa = [
 
 
 
-    <DownloadOutlined />
+    
      
   </Button>
-  {/* <Stack direction={{ xs: 'column', sm: 'row' }}>
-    <Chart
-      options={options}
-      series={dataa}
-      type="area"
-      width="100%"
-      height="300px"
-      
-
-    />
-  </Stack> */}
-  {/* <img
-  src={freeImage}
-  alt="Free Image"
-  className="moving-image"
-  style={{ 
-    maxWidth: '100%', 
-    objectFit: 'cover',
-    marginTop: '-115px' // Ajustez cette valeur pour déplacer l'image plus haut
-  }}
-/> */}
 </Box>
 
 
@@ -391,7 +281,7 @@ const dataa = [
               series={dataa}
               type="area"
               width="100%"
-              height="500px"
+              height="295px"
             />
           </ChartComponent>
         </Stack>

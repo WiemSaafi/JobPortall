@@ -58,6 +58,12 @@ useEffect(() => {
         fetchUserData();
     }, [dispatch]);
 
+    const handleButtonClick = () => {
+        // Changer la couleur du bouton lorsqu'un utilisateur fait une sélection
+        setButtonColor('linear-gradient(to right, #7209B7, #3A0CA3  )');
+      };
+    const [buttonColor, setButtonColor] = useState('linear-gradient(to right, #F72585, #7209B7)');
+
 
     return (
         <Box sx={{ maxWidth: "100%", margin: "0%", pt: -200 }}>
@@ -67,7 +73,7 @@ useEffect(() => {
                     <Grid container spacing={2} alignItems="center">
                         <Grid item xs={12}>
                             <Typography variant="h8" sx={{  color: "#3A0CA3" }}>
-                                Informations Personnelles
+                                Informations Personnelles  
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -190,17 +196,17 @@ useEffect(() => {
                         onClick={handleSubmit}
                       //  disabled={!file}
                         sx={{
-                            marginTop: '16px',
-                            background: 'linear-gradient(to right, #F72585, #39999f)',
+                            marginTop: '10px',
+                            background: buttonColor,
                             color: '#fff',
                             '&:hover': {
-                                background: 'linear-gradient(to right, #F72585, #39999f)',
+                              background: buttonColor,
                             },
-                            borderRadius: '12px',
+                            borderRadius: '10px',
                             transition: 'transform 0.3s ease',
                             '&:disabled': {
-                                background: "#F72585",
-                                color: '#e9ecef'
+                              background: "#F72585",
+                              color: '#e9ecef'
                             }
                         }}
                     >
@@ -214,7 +220,7 @@ useEffect(() => {
   style={{ 
     maxWidth: '100%', 
     objectFit: 'cover',
-    marginTop: '-150px' // Ajustez cette valeur pour déplacer l'image plus haut
+    marginTop: '-140px' // Ajustez cette valeur pour déplacer l'image plus haut
   }}
 />
             </Card>

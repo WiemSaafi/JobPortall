@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { allUserAction, deleteUSERAction } from '../../redux/actions/userAction';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import freeImage from '../../img/wave8.png';
+import freeImage from '../../img/wave777.png';
 const DashUsers = () => {
     const dispatch = useDispatch();
 
@@ -223,7 +223,7 @@ const DashUsers = () => {
 
             </Box>
             <Paper sx={{ bgcolor: "#fff", borderRadius: 6 }}>
-                <Box sx={{ height: 360, width: '100%' , marginTop: '-50px'}}>
+                <Box sx={{ height: 555, width: '100%' , marginTop: '-50px'}}>
                     <DataGrid
                         getRowId={(row) => row._id}
                         rows={data}
@@ -242,7 +242,7 @@ const DashUsers = () => {
   style={{ 
     maxWidth: '100%', 
     objectFit: 'cover',
-    marginTop: '-160px' // Ajustez cette valeur pour déplacer l'image plus haut
+    marginTop: '-550px' // Ajustez cette valeur pour déplacer l'image plus haut
   }}
 />
         </Box>

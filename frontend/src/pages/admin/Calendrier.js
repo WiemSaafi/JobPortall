@@ -35,7 +35,7 @@ function MyCalendar() {
     const formattedEvents = data.flatMap(event => {
       if (event.typeHeure === 'entrée') {
         return [{
-          title: `${event.typeHeure} - ${event.typeHeure === 'entrée' ? 'Unknown' : (event.user && event.user.firstName ? event.user.firstName : 'Unknown')}`,
+          title: `${event.typeHeure} - ${event.typeHeure === 'entrée' ? 'Saafi' : (event.user && event.user.firstName ? event.user.firstName : 'Saafi')}`,
           start: moment(event.createdAt).toDate(),
           end: moment(event.createdAt).toDate(),
         }];

@@ -13,7 +13,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import PhoneIcon from '@mui/icons-material/Phone';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import HomeIcon from '@mui/icons-material/Home';
-import freeImage from '../../img/wave7.png';
+import freeImage from '../../img/wave8.png';
 import { useParams } from 'react-router-dom';
 
 const UserUpdateDashboard = () => {
@@ -54,6 +54,12 @@ const UserUpdateDashboard = () => {
         formData.append('file', file);
         dispatch(userUpdateAction(updatedUser, user._id));
     };
+    const handleButtonClick = () => {
+        // Changer la couleur du bouton lorsqu'un utilisateur fait une sélection
+        setButtonColor('linear-gradient(to right, #7209B7, #3A0CA3  )');
+      };
+    const [buttonColor, setButtonColor] = useState('linear-gradient(to right, #F72585, #7209B7)');
+
 
     return (
         <Box sx={{
@@ -146,27 +152,24 @@ const UserUpdateDashboard = () => {
                             />
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <TextField
-                                id="dateOfBirth"
-                                label="Date de Naissance"
-                                type="date"
-                                variant="outlined"
-                                fullWidth
-                                value={updatedUser.dateOfBirth}
-                                onChange={handleInputChange}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <CalendarTodayIcon sx={{ color: "#F72585" }} />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
-                            />
-                        </Grid>
+    <TextField
+        id="dateOfBirth"
+        label="Date de Naissance"
+        variant="outlined"
+        fullWidth
+        value={updatedUser?.dateOfBirth || ''}
+        InputProps={{
+            startAdornment: (
+                <InputAdornment position="start">
+                    <CalendarTodayIcon style={{ color: '#F72585' }} />
+                </InputAdornment>
+            ),
+            readOnly: true,
+            sx: { borderRadius: '10px' }
+        }}
+    />
+</Grid>
+
                         <Grid item xs={12} md={6}>
                             <TextField
                                 id="address"
@@ -193,19 +196,19 @@ const UserUpdateDashboard = () => {
                         onClick={handleSubmit}
                        
                         sx={{
-                            marginTop: '16px',
-                            background: 'linear-gradient(to right, #F72585, #39999f)',
+                            marginTop: '10px',
+                            background: buttonColor,
                             color: '#fff',
                             '&:hover': {
-                                background: 'linear-gradient(to right, #F72585, #39999f)',
+                              background: buttonColor,
                             },
-                            borderRadius: '12px',
+                            borderRadius: '10px',
                             transition: 'transform 0.3s ease',
                             '&:disabled': {
-                                background: "#F72585",
-                                color: '#e9ecef'
+                              background: "#F72585",
+                              color: '#e9ecef'
                             }
-                        }}
+                          }}
                     >
                         Soumettre 
                     </Button>
@@ -215,9 +218,10 @@ const UserUpdateDashboard = () => {
   alt="Free Image"
   className="moving-image"
   style={{ 
-    maxWidth: '100%', 
+    maxWidth: '125%', 
     objectFit: 'cover',
-    marginTop: '-140px' // Ajustez cette valeur pour déplacer l'image plus haut
+    margin: '55',
+    marginTop: '-325ypx', // Ajustez cette valeur pour déplacer l'image plus haut
   }}
 />
 
