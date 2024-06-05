@@ -66,7 +66,7 @@ const AdminDashboard = () => {
   const absencesPercentage = 100 - pourcentagePresence;
   //   // Utiliser le pourcentage d'absence calculé
  
- const totalUsers = user?.length || 0;
+ const totalUsers = user?.length || 32;
 
 
   const heuredepartLength = !!data?.length ? data.filter(heure => heure.typeHeure === 'entrée').map(heure => moment(heure.Heure).format('YYYY-MM-DD HH:mm')) : [];

@@ -60,7 +60,7 @@ const userSchema = new mongoose.Schema({
     },
     dateOfBirth: {
         type: Date,
-        required: true // Ou false selon votre logique d'application
+         // Ou false selon votre logique d'application
     },
     address: {
         type: String, // Pour l'adresse, utilisez le type String

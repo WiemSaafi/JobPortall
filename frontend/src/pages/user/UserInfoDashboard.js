@@ -152,24 +152,21 @@ useEffect(() => {
                             <TextField
                                 id="dateOfBirth"
                                 label="Date de Naissance"
-                                type="date"
-                                variant="outlined"
+                                type="String"
                                 fullWidth
                                 value={updatedUser?.dateOfBirth}
                                 onChange={handleInputChange}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
-                                            <CalendarTodayIcon sx={{ color:"#F72585" }} />
+                                            <CalendarTodayIcon sx={{ color: "#F72585" }} />
                                         </InputAdornment>
                                     ),
                                 }}
                                 sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
                             />
                         </Grid>
+                        
                         <Grid item xs={12} md={6}>
                             <TextField
                                 id="address"

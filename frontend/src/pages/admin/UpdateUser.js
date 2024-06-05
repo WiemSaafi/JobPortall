@@ -13,7 +13,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import PhoneIcon from '@mui/icons-material/Phone';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import HomeIcon from '@mui/icons-material/Home';
-import freeImage from '../../img/wave8.png';
+import freeImage from '../../img/wave7.png';
 import { useParams } from 'react-router-dom';
 
 const UserUpdateDashboard = () => {
@@ -221,7 +221,7 @@ const UserUpdateDashboard = () => {
     maxWidth: '125%', 
     objectFit: 'cover',
     margin: '55',
-    marginTop: '-325ypx', // Ajustez cette valeur pour déplacer l'image plus haut
+    marginTop: '-325px', // Ajustez cette valeur pour déplacer l'image plus haut
   }}
 />
 
