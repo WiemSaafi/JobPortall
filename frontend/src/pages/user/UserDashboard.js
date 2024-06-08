@@ -116,15 +116,65 @@ return (
                     marginTop: '16px'
                 }}
             >
-                
+
+ 
                 
 
 
                    
 
-                <CardContent>
+<CardContent>
+    <Typography variant="h6" sx={{ color: '#3A0CA3', marginBottom: '20px' }}>
+         
+    </Typography>
+    <Grid container spacing={3}>
+        <Grid item xs={12} md={6}>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+                <TextField
+                    id="heureDerniereEntree"
+                    label="Dernière heure d'entrée"
+                    variant="outlined"
+                    fullWidth
+                    value={"8:30"}
+                    InputProps={{
+                        readOnly: true,
+                        startAdornment: <AccessTimeIcon sx={{ color: '#F72585', marginRight: '10px' }} />,
+                        sx: {
+                            '& .MuiOutlinedInput-notchedOutline': {
+                                borderRadius: '10px',
+                            }
+                        }
+                    }}
+                />
+            </motion.div>
+        </Grid>
+        <Grid item xs={12} md={6}>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.2 }}>
+                <TextField
+                    id="heureDerniereSortie"
+                    label="Dernière heure de sortie"
+                    variant="outlined"
+                    fullWidth
+                    value={"5:30"}
+                    InputProps={{
+                        readOnly: true,
+                        startAdornment: <AccessTimeIcon sx={{ color: '#F72585', marginRight: '10px' }} />,
+                        sx: {
+                            '& .MuiOutlinedInput-notchedOutline': {
+                                borderRadius: '10px',
+                            }
+                        }
+                    }}
+                />
+            </motion.div>
+        </Grid>
+ 
+ 
+    </Grid>
+ 
+
                     <Typography variant="h8" sx={{ color: '#3A0CA3' }}>
-                        Sélectionner une date 
+                        Sélectionner une date  
                     </Typography>
                     <div style={{ height: '20px' }}></div>
                     <Grid container spacing={4} alignItems="center">
@@ -280,10 +330,7 @@ return (
                                     label={`Heure(s) travaillé(es) (${selectedJour} ${selectedMonth} ${selectedYear})`}
                                     variant="outlined"
                                     fullWidth
-                                    value={heuresDépartJourMois
-                                        .filter(heure => heure.typeHeure === 'sortie')
-                                        .map(heure => moment(heure.Heure).format('HH:mm'))
-                                        .join(', ')}
+                                    value={ "8 heures"}
                                     InputProps={{
                                         readOnly: true,
                                         startAdornment: <AccessTimeIcon sx={{ color: '#F72585', marginRight: '10px' }} />,
@@ -306,10 +353,11 @@ return (
                                     label={`Heure(s) supplimentaire(s) (${selectedJour} ${selectedMonth} ${selectedYear})`}
                                     variant="outlined"
                                     fullWidth
-                                    value={heuresDépartJourMois
+                                   /*  value={heuresDépartJourMois
                                         .filter(heure => heure.typeHeure === 'sortie')
                                         .map(heure => moment(heure.Heure).format('HH:mm'))
-                                        .join(', ')}
+                                        .join(', ')} */
+                                        value={"0 heures" }
                                     InputProps={{
                                         readOnly: true,
                                         startAdornment: <TimerIcon sx={{ color: '#F72585', marginRight: '10px' }} />,
@@ -320,35 +368,34 @@ return (
                                         }
                                     }}
                                 />
+                                
                             </motion.div>
                         </Grid>
 
 
 
 
-                        <Grid item xs={12} md={4}>
-                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.6 }}>
-                                <TextField
-                                    id="RetardJour"
-                                    label={`temps de retard (${selectedJour} ${selectedMonth} ${selectedYear})`}
-                                    variant="outlined"
-                                    fullWidth
-                                    value={heuresDépartJourMois
-                                        .filter(heure => heure.typeHeure === 'sortie')
-                                        .map(heure => moment(heure.Heure).format('HH:mm'))
-                                        .join(', ')}
-                                    InputProps={{
-                                        readOnly: true,
-                                        startAdornment: <HourglassEmptyIcon sx={{ color: '#F72585', marginRight: '10px' }} />,
-                                        sx: {
-                                            '& .MuiOutlinedInput-notchedOutline': {
-                                                borderRadius: '10px',
-                                            }
-                                        }
-                                    }}
-                                />
-                            </motion.div>
-                        </Grid>
+                        <Grid item xs={5} md={4}>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.6 }}>
+        <TextField
+            id="heureSupplimentaireJour"
+            label={`Heure(s) supplimentaire(s) (${selectedJour} ${selectedMonth} ${selectedYear})`}
+            variant="outlined"
+            fullWidth
+            value="30 minutes"
+            InputProps={{
+                readOnly: true,
+                startAdornment: <TimerIcon sx={{ color: '#F72585', marginRight: '10px' }} />,
+                sx: {
+                    '& .MuiOutlinedInput-notchedOutline': {
+                        borderRadius: '10px',
+                    }
+                }
+            }}
+        />
+    </motion.div>
+</Grid>
+
 
 
                     </Grid>
