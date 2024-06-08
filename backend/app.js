@@ -19,7 +19,7 @@ const schedule = require('node-schedule'); // Ajout du module de planification
 const Heure = require('./models/horaireDépartModel');
 const User = require('./models/userModel');
 
-const gateway = 'ws://192.168.1.13:81/';
+const gateway = 'ws://192.168.1.9:81/';
 
 let client;
 let reconnectInterval = 2000;
