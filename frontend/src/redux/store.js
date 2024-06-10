@@ -5,6 +5,7 @@ import { deleteJobReducer, loadJobReducer, loadJobSingleReducer, registerAjobRed
 import { createJobTypeReducer, loadJobTypeReducer } from './reducers/jobTypeReducer';
 import {
     allUserReducer,
+    updateUserReducer,
     userApplyJobReducer,
     userReducerLogout,
     userReducerProfile,
@@ -31,8 +32,8 @@ const reducer = combineReducers({
     createJobType: createJobTypeReducer,
     calculerPourcentagePresence: pourcentagePresenceReducer ,
     heureDépart: userReducerheureuser,
-    getDerniereEntreeSortie: heureReducerDernier
-    
+    getDerniereEntreeSortie: heureReducerDernier,
+  
 });
 
 
