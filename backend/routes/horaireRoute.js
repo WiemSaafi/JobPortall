@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createHeure, heuredepartjourmois, heureDépart, singleHeure, getDerniereEntreeSortie, calculerPourcentagePresence } = require('../controllers/horaireController');
+const { createHeure, heuredepartjourmois, heureDépart, singleHeure, getDerniereEntreeSortie, calculerPourcentagePresence, calculerTempsDeTravail } = require('../controllers/horaireController');
 const { isAuthenticated } = require('../middleware/auth');
 
 //router.post('/heurs', isAuthenticated, createHeure);
@@ -9,4 +9,5 @@ router.get('/jourmois/:_id', isAuthenticated,heuredepartjourmois );
 router.get('/dept', heureDépart);
 router.get('/dernierentreesortie/:_id', getDerniereEntreeSortie);
 router.get('/pourcentagepresence',calculerPourcentagePresence);
+router.get('/calculerTempsDeTravail',calculerTempsDeTravail );
 module.exports = router

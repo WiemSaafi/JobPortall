@@ -162,6 +162,80 @@ exports.heuredepartjourmois = async (req, res, next) => {
         next(error);
     }
 };
+exports.calculerTempsDeTravail = async(req, res, next) => {
+    try {
+        const { user, debut, fin } = req.query;
+        const listHeure = await HeureDépart.find({
+            user: user,
+            Heure: {
+                $gte: moment(debut).format("YYYY-MM-DD"),
+                $lt:  moment(fin).format("YYYY-MM-DD"),
+            }
+        })     
+        let nbrHeureGlobal = 0;
+        let nbrHeureLate = 0;
+        let nbrHeureSup = 0
+        for (let currentDate = new Date(debut); currentDate < new Date(fin); currentDate.setDate(currentDate.getDate() + 1)) {
+            const filteredData = listHeure.filter(h => moment(h?.Heure).format("DD/MM/YYYY") == moment(currentDate).format("DD/MM/YYYY"));
+            const lastSortie = filteredData.filter(h => h.typeHeure === "sortie").sort((a, b) => b.Heure - a.Heure)[0];
+            const firstEntree = filteredData.filter(h => h.typeHeure === "entrée").sort((a, b) => a.Heure - b.Heure)[0];
+            
+            // Vérifier si lastSortie et firstEntree sont définis avant de continuer
+            if (lastSortie && firstEntree) {
+                // Calculer la différence en millisecondes
+                const differenceMs = new Date(lastSortie.Heure) - new Date(firstEntree.Heure);
+        
+                // Convertir la différence en heures
+            
+
+                // Accumuler la différence d'heures pour chaque jour
+                nbrHeureGlobal += differenceMs;
+                nbrHeureLate += Math.max((8*3600*1000) - differenceMs, 0);
+                nbrHeureSup += Math.max(differenceMs-(8*3600*1000) , 0)
+console.log("ef",differenceMs,8*3600,Math.max((8*3600) - differenceMs, 0))
+            }
+        }
+      // Convertir la durée totale en heures, minutes et secondes
+const totalSeconds = Math.floor(nbrHeureGlobal / 1000);
+const totalHours = totalSeconds / 3600;
+const totalMinutes = (totalSeconds % 3600) / 60;
+const totalSecondsRemaining = totalSeconds % 60;
+
+// Formater le résultat de la durée totale
+const formattedTotalResult = `${Math.floor(totalHours).toString().padStart(2, '0')}:${Math.floor(totalMinutes).toString().padStart(2, '0')}:${totalSecondsRemaining.toString().padStart(2, '0')}`;
+
+// Formater nbrHeureLate
+
+const nbrHeureLateSeconds = Math.floor(nbrHeureLate / 1000);
+const nbrHeureLateHours = nbrHeureLateSeconds / 3600;
+const nbrHeureLateMinutes = (nbrHeureLateSeconds % 3600) / 60;
+const nbrHeureLateSecondsRemaining = nbrHeureLateSeconds % 60;
+console.log("nbrHeureLateHours",nbrHeureLateHours)
+const formattedLateResult = `${Math.floor(nbrHeureLateHours).toString().padStart(2, '0')}:${Math.floor(nbrHeureLateMinutes).toString().padStart(2, '0')}:${Math.floor(nbrHeureLateSecondsRemaining).toString().padStart(2, '0')}`;
+
+// Formater nbrHeureSup
+
+const nbrHeureSupSeconds = Math.floor(nbrHeureSup / 1000);
+const nbrHeureSupHours = nbrHeureSupSeconds / 3600;
+const nbrHeureSupMinutes = (nbrHeureSupSeconds % 3600) / 60;
+const nbrHeureSupSecondsRemaining = nbrHeureSupSeconds % 60;
+
+
+const formattedSupResult = `${Math.floor(nbrHeureSupHours).toString().padStart(2, '0')}:${Math.floor(nbrHeureSupMinutes).toString().padStart(2, '0')}:${Math.floor(nbrHeureSupSecondsRemaining).toString().padStart(2, '0')}`;
+
+// Répondre avec les résultats formatés
+res.status(200).json({
+    success: true,
+    nbrHeureTotal: formattedTotalResult,
+    nbrLateHeure: formattedLateResult,
+    nbrSuppHeure: formattedSupResult
+});
+
+    } catch (error) {
+        console.error('Erreur lors du calcul du temps de travail:', error);
+      next(error)
+    }
+}
 exports.singleHeure = async (req, res, next) => {
     try {
         const heure = await HeureDépart.findById(req.params.id);
