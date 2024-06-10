@@ -15,7 +15,11 @@
         HEURE_PRESENCE_REQUEST,
         HEURE_PRESENCE_SUCCESS,
         HEURE_PRESENCE_FAIL,
-        HEURE_PRESENCE_RESET
+        HEURE_PRESENCE_RESET,
+        USER_tempstravail_REQUEST,
+        USER_tempstravail_SUCCESS,
+        USER_tempstravail_FAIL,
+        USER_tempstravail_RESET
     } from "../constants/heuredépartconstant"
 
 
@@ -48,6 +52,24 @@
                 case  USER_DEPART_FAIL:
                     return { loading: false, data: null, error: action.payload }
                 case USER_DEPART_RESET:
+                    return {}
+                default:
+                    return state;
+            }
+        
+        }
+        export const userReducercalculertavail = (state = { data: null }, action) => {
+            switch (action.type) {
+                case USER_tempstravail_REQUEST:
+                    return { loading: true, data: null }
+                case USER_tempstravail_SUCCESS:
+                    return {
+                        loading: false,
+                        user: action.payload.data,
+                    }
+                case  USER_tempstravail_FAIL:
+                    return { loading: false, data: null, error: action.payload }
+                case USER_tempstravail_RESET:
                     return {}
                 default:
                     return state;

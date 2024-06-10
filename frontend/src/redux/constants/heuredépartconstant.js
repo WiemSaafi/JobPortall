@@ -22,3 +22,8 @@ export const HEURE_PRESENCE_REQUEST = "HEURE_PRESENCE_REQUEST";
 export const HEURE_PRESENCE_SUCCESS = "HEURE_PRESENCE_SUCCESS";
 export const HEURE_PRESENCE_FAIL = "HEURE_PRESENCE_FAIL";
 export const HEURE_PRESENCE_RESET = "HEURE_PRESENCE_RESET";
+
+export const USER_tempstravail_REQUEST = "USER_tempstravail_REQUEST";
+export const USER_tempstravail_SUCCESS = "USER_tempstravail_SUCCESS";
+export const USER_tempstravail_FAIL = "USER_tempstravail_FAIL";
+export const USER_tempstravail_RESET = "USER_tempstravail_RESET";

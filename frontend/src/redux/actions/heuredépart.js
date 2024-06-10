@@ -16,6 +16,9 @@ import {
     HEURE_PRESENCE_REQUEST,
     HEURE_PRESENCE_SUCCESS,
     HEURE_PRESENCE_FAIL,
+    USER_tempstravail_REQUEST,
+    USER_tempstravail_SUCCESS,
+    USER_tempstravail_FAIL,
 } from '../constants/heuredépartconstant';
 
 export const heuredepartjourAction = (id,selectedDay, selectedMonth, selectedYear) => async (dispatch) => {
@@ -52,6 +55,28 @@ export const heureDépartAction = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_DEPART_FAIL,
+            payload: error.response.data.error
+        });
+       
+    }
+};
+export const calculerTempsDeTravailtAction = (debutjour,finjour ) => async (dispatch) => {
+    dispatch({ type: USER_tempstravail_REQUEST });
+    try {
+        // Vous pouvez ajouter ici toute logique de vérification d'authentification et de statut d'administrateur
+        // Par exemple, vous pouvez vérifier si l'utilisateur est connecté et s'il a le statut d'administrateur
+
+        // Ensuite, vous pouvez envoyer la requête GET vers "/heuredep"
+        const { data } = await axios.get(`/api/calculerTempsDeTravail?debut=${debutjour}&fin=${finjour}`);
+
+        dispatch({
+            type: USER_tempstravail_SUCCESS,
+            payload: data
+        });
+        
+    } catch (error) {
+        dispatch({
+            type: USER_tempstravail_FAIL,
             payload: error.response.data.error
         });
        
