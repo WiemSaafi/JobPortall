@@ -1,340 +1,230 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
-import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import { useDispatch, useSelector } from 'react-redux';
-import { userUpdateAction } from '../../redux/actions/userAction';
-import axios from "axios";
-import { Button } from '@mui/material';
+import { userProfileAction, userSingleAction, userUpdateAction } from '../../redux/actions/userAction';
+import { Button, InputAdornment } from '@mui/material';
+import EmailIcon from '@mui/icons-material/Email';
+import PersonIcon from '@mui/icons-material/Person';
+import PhoneIcon from '@mui/icons-material/Phone';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import HomeIcon from '@mui/icons-material/Home';
+import freeImage from '../../img/wave7.png';
+import { useParams } from 'react-router-dom';
 
-const UserInfoDashboard = () => {
-    const { user } = useSelector(state => state.userProfile);
-    const [photo, setPhoto] = useState(null);
+const UserUpdateDashboard = () => {
+    // const { user } = useSelector(state => state.userProfile);
+
+    const [user, setUser] = useState()
+    const [updatedUser, setUpdatedUser] = useState(user);
     const [file, setFile] = useState(null);
-const [isHovered, setIsHovered] = useState(false);
-    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const [res, setRes] = useState({});
+console.log("user",user)
+useEffect(() => {
+    setUpdatedUser(user)
+}, [user?._id])
+
+    const handleInputChange = (e) => {
+        const { id, value } = e.target;
+        setUpdatedUser(prevState => ({
+            ...prevState,
+            [id]: value
+        }));
+    };
 
     const handleSelectFile = (e) => setFile(e.target.files[0]);
 
-     const handleUpload = async (img) => {
-        try {
-            setLoading(true);
-            const data = new FormData();
-            data.append("my_file", file);
-            const res = await axios.put(`http://localhost:3000/api/user/edit/${user._id}`, {image:img});
-            setRes(res.data);
-        } catch (error) {
-            alert(error.message);
-        } finally {
-            setLoading(false);
-        }
-    };  
-    
-
- const [url,setUrl] = useState("");
-  
- // objectif teena nebaath tswira taay ll cloud ye9belha menha yebaathli un api pch ensteemlo w afficheler taswira te3y
- //fct hedhy pch taaml une requete poste aala adrresse api w pech tebaath meeha fichier wel peset eli taswira taay en7ebha tsejel aaleha keelh lezem nestaaml form data
- 
- 
- 
- const uploadedPhoto = async () => {
- try {
-     const form = new FormData()
-     form.append('file',file)
-     form.append('upload_preset',"wiemsa");
-     //axios lezem erejeeli reponse
-     const response = await axios.post('https://api.cloudinary.com/v1_1/ddlsrj3cn/upload' ,form); //https://api.cloudinary.com/v1_1/:cloud_name/:action
-         console.log(response.data.url);
-         handleUpload(response.data.url);
- 
- } catch (error) {
-     console.error('Error uploading image:', error.message);
- }
- };
- 
- 
-
-    //just heka eli ken 
-    useEffect(() => {
-        const storedPhotoDataURL = localStorage.getItem('userphoto');
-        if (storedPhotoDataURL) {
-            setPhoto(storedPhotoDataURL);
-        }
-    }, []); 
-
-     const handlePhotoUpload = async (event) => {
-        const uploadedPhoto = event.target.files[0];
-        setFile(uploadedPhoto);
-        setPhoto(URL.createObjectURL(uploadedPhoto));
-    };
-
     const handleSubmit = () => {
-        if (!file) {
-            console.error("Aucun fichier sélectionné.");
-            return;
-        }
-
         const formData = new FormData();
-        formData.append('image', file);
-
-        dispatch(userUpdateAction(formData, user._id));
+        formData.append('file', file);
+        dispatch(userUpdateAction(updatedUser, user._id));
     };
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const data = await dispatch(userProfileAction());
+                setUser(data?.user)
+                //updatedUser(data?.user)
+                console.log("User Data:", data);
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+    
+        fetchUserData();
+    }, [dispatch]);
 
-    const handleMouseEnter = () => {
-        setIsHovered(true);
-    };
+    const handleButtonClick = () => {
+        // Changer la couleur du bouton lorsqu'un utilisateur fait une sélection
+        setButtonColor('linear-gradient(to right, #7209B7, #3A0CA3  )');
+      };
+    const [buttonColor, setButtonColor] = useState('linear-gradient(to right, #F72585, #7209B7)');
 
-    const handleMouseLeave = () => {
-        setIsHovered(false);
-    }; 
 
     return (
-        <Box sx={{ maxWidth: "92%", margin: "6.25%", pt: 0 }}>
-            <Card
-                style={{
-                    borderRadius: '15px',
-                    overflow: 'hidden',
-                    boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.1)',
-                    border: `2px solid ${isHovered ? '#0b3948' : 'transparent'}`,
-                    transition: 'border-color 0.3s ease'
-                }}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-            >
-                <CardContent>
-                    <Grid container spacing={1} alignItems="center">
-                        <Grid item xs={12} md={6}>
-                            <Typography variant="h5" style={{ fontSize: '29px', fontWeight: 'bold', color: '#0b3948', marginBottom: '-12px' }}>
-                                Personal Info
+        <Box sx={{ maxWidth: "100%", margin: "0%", pt: -200 }}>
+            
+            <Card sx={{ boxShadow: '5 14px 18px rgba(0, 0, 0, 0.2)', borderRadius: '15px', overflow: 'hidden' }}>
+                <CardContent sx={{ background: 'linear-gradient(to right, #Fff)' }}>
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item xs={12}>
+                            <Typography variant="h8" sx={{  color: "#3A0CA3" }}>
+                                Informations Personnelles  
                             </Typography>
                         </Grid>
-                       
-                        <Grid item xs={12} md={6} style={{ textAlign: 'right' }}>
-                            <label htmlFor="photo-upload">
-                                <input
-                                    id="photo-upload"
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handlePhotoUpload}
-                                    style={{ display: 'none' }}
-                                />
-                                <IconButton component="span">
-                                    <PhotoCameraIcon />
-                                </IconButton>
-                            </label>
-                        </Grid>
-                        <button onClick={uploadedPhoto}> upload ! </button>
-            <img src = {URL}/> 
-                        {photo && (
-                            <Grid item xs={12} md={6}>
-                                <img
-                                    src={photo}
-                                    alt="User"
-                                    style={{
-                                        width: '100px',
-                                        height: '100px',
-                                        borderRadius: '100%',
-                                        marginTop: '2px',
-                                        transition: 'transform 0.1 ease',
-                                        transform: isHovered ? 'scale(1.1)' : 'scale(1)'
-                                    }}
-                                />
-                            </Grid>
-                        )}
                         <Grid item xs={12} md={6}>
                             <TextField
                                 id="email"
                                 label="Email"
                                 variant="outlined"
                                 fullWidth
-                                value={user ? user.email : ""}
+                                value={updatedUser?.email}
+                                onChange={handleInputChange}
                                 InputProps={{
-                                    sx: {
-                                        color: isHovered ? '#0b3948' : 'black',
-                                        borderRadius: '8px',
-                                        '& .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: isHovered ? '#0b3948' : 'transparent',
-                                        },
-                                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#0b3948',
-                                        },
-                                    },
-                                    disableUnderline: true,
-                                    focused: {
-                                        borderColor: 'blue'
-                                    }
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <EmailIcon sx={{ color: "#F72585" }} />
+                                        </InputAdornment>
+                                    ),
                                 }}
-                                disabled
+                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
                             />
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <TextField
                                 id="firstName"
-                                label="First name"
+                                label="Prénom"
                                 variant="outlined"
                                 fullWidth
-                                value={user ? user.firstName : ""}
+                                value={updatedUser?.firstName}
+                                onChange={handleInputChange}
                                 InputProps={{
-                                    sx: {
-                                        color: isHovered ? '#0b3948' : 'black',
-                                        borderRadius: '9px',
-                                        '& .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: isHovered ? '#0b3948' : 'transparent',
-                                        },
-                                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#0b3948',
-                                        },
-                                    },
-                                    disableUnderline: true,
-                                    focused: {
-                                        borderColor: 'blue'
-                                    }
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <PersonIcon sx={{ color: "#F72585" }} />
+                                        </InputAdornment>
+                                    ),
                                 }}
-                                disabled
+                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
                             />
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <TextField
                                 id="lastName"
-                                label="Last name"
+                                label="Nom"
                                 variant="outlined"
                                 fullWidth
-                                value={user ? user.lastName : ""}
+                                value={updatedUser?.lastName}
+                                onChange={handleInputChange}
                                 InputProps={{
-                                    sx: {
-                                        color: isHovered ? '#0b3948' : 'black',
-                                        borderRadius: '8px',
-                                        '& .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: isHovered ? '#0b3948' : 'transparent',
-                                        },
-                                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#0b3948',
-                                        },
-                                    },
-                                    disableUnderline: true,
-                                    focused: {
-                                        borderColor: 'blue'
-                                    }
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <PersonIcon sx={{ color:"#F72585"}} />
+                                        </InputAdornment>
+                                    ),
                                 }}
-                                disabled
+                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
                             />
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <TextField
                                 id="phone"
-                                label="Phone number"
+                                label="Téléphone"
                                 variant="outlined"
                                 fullWidth
-                                value={user ? user.phone : ""}
+                                value={updatedUser?.phone}
+                                onChange={handleInputChange}
                                 InputProps={{
-                                    sx: {
-                                        color: isHovered ? '#0b3948' : 'black',
-                                        borderRadius: '8px',
-                                        '& .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: isHovered ? '#0b3948' : 'transparent',
-                                        },
-                                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#0b3948',
-                                        },
-                                    },
-                                    disableUnderline: true,
-                                    focused: {
-                                        borderColor: 'blue'
-                                    }
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <PhoneIcon sx={{ color: "#F72585" }} />
+                                        </InputAdornment>
+                                    ),
                                 }}
-                                
-                                disabled
+                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
                             />
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <TextField
+                                id="dateOfBirth"
+                                label="Date de Naissance"
+                                type="String"
+                                fullWidth
+                                value={updatedUser?.dateOfBirth}
+                                onChange={handleInputChange}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <CalendarTodayIcon sx={{ color: "#F72585" }} />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
+                            />
+                        </Grid>
+                        
+                        <Grid item xs={12} md={6}>
+                            <TextField
                                 id="address"
-                                label="Address"
+                                label="Adresse"
                                 variant="outlined"
                                 fullWidth
-                                value={user ? user.address : ""}
+                                value={updatedUser?.address}
+                                onChange={handleInputChange}
                                 InputProps={{
-                                    sx: {
-                                        color: isHovered ? '#0b3948' : 'black',
-                                        borderRadius: '8px',
-                                        '& .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: isHovered ? '#0b3948' : 'transparent',
-                                        },
-                                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: '#0b3948',
-                                        },
-                                    },
-                                    disableUnderline: true,
-                                    focused: {
-                                        borderColor: 'blue'
-                                    }
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <HomeIcon sx={{ color: "#F72585"}} />
+                                        </InputAdornment>
+                                    ),
                                 }}
-                                disabled
+                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
                             />
                         </Grid>
                     </Grid>
-                    <Typography style={{ marginTop: '16px', color: "grey" }} color="text.secondary">
-                        Status: {user ? (user.role === 0 ? "Regular user" : "Admin") : ""}
-                    </Typography>
-                    <Button onClick={handleSubmit}>Submit</Button>
+
+                    
+
+                    <Button
+                        onClick={handleSubmit}
+                      //  disabled={!file}
+                        sx={{
+                            marginTop: '10px',
+                            background: buttonColor,
+                            color: '#fff',
+                            '&:hover': {
+                              background: buttonColor,
+                            },
+                            borderRadius: '10px',
+                            transition: 'transform 0.3s ease',
+                            '&:disabled': {
+                              background: "#F72585",
+                              color: '#e9ecef'
+                            }
+                        }}
+                    >
+                        Soumettre 
+                    </Button>
                 </CardContent>
+                <img
+  src={freeImage}
+  alt="Free Image"
+  className="moving-image"
+  style={{ 
+    maxWidth: '100%', 
+    objectFit: 'cover',
+    marginTop: '-140px' // Ajustez cette valeur pour déplacer l'image plus haut
+  }}
+/>
             </Card>
+        
+
         </Box>
     );
 };
 
-
-
-
-
-
-
-// //wiemsa
-// //const handleUpload  =async () => {
-  
-
-//  const [file,setFile] = useState(null)
-// const [url,setUrl] = useState("");
- 
-// // objectif teena nebaath tswira taay ll cloud ye9belha menha yebaathli un api pch ensteemlo w afficheler taswira te3y
-// //fct hedhy pch taaml une requete poste aala adrresse api w pech tebaath meeha fichier wel peset eli taswira taay en7ebha tsejel aaleha keelh lezem nestaaml form data
-
-
-
-// const uploadedPhoto = async () => {
-// try {
-//     const form = new FormData()
-//     form.append('file',file)
-//     form.append('upload_preset',"wiemsa");
-//     //axios lezem erejeeli reponse
-//     const response = await axios.post('https://api.cloudinary.com/v2_1/upload' ,form);
-//     response.then (result=>{
-//         console.log(result.data.secure.URL);
-
-// });
-// } catch (error) {
-//     console.error('Error uploading image:', error.message);
-// }
-// };
-
-
-//     return (
-//         <div className='upload'>
-//             <input type ="file" value={file}
-//             onChange={(e)=>setFile(e.target.files[0])} />
-//             <br/>
-//             <button onClick={uploadedPhoto}> upload ! </button>
-//             <img src = {URL}/> 
-//         </div>
-//     );
-
- 
-export default UserInfoDashboard;
+export default UserUpdateDashboard;

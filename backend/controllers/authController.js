@@ -3,6 +3,7 @@ const User = require('../models/userModel');
 const ErrorResponse = require('../utils/errorResponse');
 
 
+// Contrôleur pour créer un nouvel employé
 exports.signup = async (req, res, next) => {
     const { email } = req.body;
     const userExist = await User.findOne({ email });
@@ -10,15 +11,32 @@ exports.signup = async (req, res, next) => {
         return next(new ErrorResponse("E-mail already registred", 400));
     }
     try {
+        // Création du profil de l'employé dans la base de données
         const user = await User.create(req.body);
-        res.status(201).json({
-            success: true,
-            user
-        })
+
+        // Attente de la réception de l'ID d'empreinte de l'employé via WebSocket
+        req.socket.on('idEmpreinte', async (idEmpreinte) => {
+            try {
+                // Mise à jour de l'empreinte de l'utilisateur
+                user.idEmpreinte = idEmpreinte;
+                await user.save();
+
+                // Réponse à la requête d'inscription avec succès
+                res.status(201).json({
+                    success: true,
+                    message: "Profil d'employé créé avec succès",
+                    user
+                });
+            } catch (error) {
+                next(error);
+            }
+        });
     } catch (error) {
         next(error);
     }
 }
+
+
 
 
 exports.signin = async (req, res, next) => {
@@ -77,12 +95,13 @@ exports.logout = (req, res, next) => {
 exports.userProfile = async (req, res, next) => {
 
     const user = await User.findById(req.user.id).select('-password');
-    console.log('user',user)
+    console.log('user', user)
     res.status(200).json({
         success: true,
         user
     })
 }
+
 
 
 

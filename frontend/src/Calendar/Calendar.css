@@ -1,0 +1,70 @@
+/* Styles for the calendar container */
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5; /* Couleur de fond */
+}
+
+/* Styles for the calendar header */
+.calendar-header {
+  background-color: #4caf50; /* Couleur de l'en-tête */
+  color: #fff; /* Couleur du texte */
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  border-bottom: 2px solid #388e3c; /* Bordure inférieure */
+  border-radius: 10px 10px 0 0; /* Coins arrondis en haut */
+}
+
+/* Styles for the calendar wrapper */
+.calendar-wrapper {
+  width: 90%;
+  max-width: 800px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: #fff; /* Couleur de fond */
+}
+
+/* Styles for the calendar itself */
+.calendar-wrapper .rbc-calendar {
+  border-radius: 10px;
+}
+
+/* Styles for event popups */
+.rbc-overlay {
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.rbc-overlay-header {
+  background-color: #4caf50; /* Couleur de l'en-tête de popup */
+  color: #fff; /* Couleur du texte de l'en-tête de popup */
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.rbc-overlay-content {
+  padding: 10px;
+}
+
+/* Animation pour l'en-tête du calendrier */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.calendar-header {
+  animation: fadeInDown 0.5s ease-in-out;
+}

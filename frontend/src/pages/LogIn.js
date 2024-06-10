@@ -1,36 +1,23 @@
-import { Avatar, Box } from '@mui/material'
-import React, { useEffect } from 'react'
-import Footer from '../component/Footer'
-import Navbar from '../component/Navbar'
-import LockClockOutlined from '@mui/icons-material/LockClockOutlined'
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux'
-import { userSignInAction } from '../redux/actions/userAction'
-import { useNavigate } from 'react-router-dom'
-
-const validationSchema = yup.object({
-    email: yup
-        .string('Enter your email')
-        .email('Enter a valid email')
-        .required('Email is required'),
-    password: yup
-        .string('Enter your password')
-        .min(8, 'Password should be of minimum 8 characters length')
-        .required('Password is required'),
-});
-
-
+import React, { useEffect, useRef } from 'react';
+import Footer from '../component/Footer';
+import Navbar from '../component/Navbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { userSignInAction } from '../redux/actions/userAction';
+import { useNavigate } from 'react-router-dom';
+ 
+import avatarImage from '../images/digitalee.jpeg';
+import waveImage from '../img/wave8.png';
+ import './Login.css';
+ 
+ import PersonIcon from '@mui/icons-material/Person'; 
+ import LockIcon from '@mui/icons-material/Lock'; // Import de l'icône de cadenas
 
 const LogIn = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     const { isAuthenticated, userInfo } = useSelector(state => state.signIn);
-    useEffect(() => {
 
+    useEffect(() => {
         if (isAuthenticated) {
             if (userInfo.role === 1) {
                 navigate('/admin/dashboard');
@@ -38,90 +25,127 @@ const LogIn = () => {
                 navigate('/user/dashboard');
             }
         }
+    }, [isAuthenticated, userInfo, navigate]);
 
-        // if (isAuthenticated) {
-        //     navigate('/user/dashboard');
-        // }
-    }, [isAuthenticated])
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
 
-    const formik = useFormik({
-        initialValues: {
-            email: '',
-            password: ''
-        },
-        validationSchema: validationSchema,
-        onSubmit: (values, actions) => {
-            //  alert(JSON.stringify(values, null, 2));
-            dispatch(userSignInAction(values));
-            actions.resetForm();
+
+
+    /* lorsque vous cliquez sur un champ, la classe focus sera ajoutée à son parent 
+    .input-div et retirée des autres, ce qui arrêtera le mouvement du contour
+     coloré lorsque vous passez d'un champ à l'autre. */
+
+
+    const handleFocus = (event, type) => {
+      const parent = event.target.parentNode.parentNode;
+      const allInputs = document.querySelectorAll('.input-div');
+      allInputs.forEach(input => {
+          input.classList.remove("focus");
+      });
+      parent.classList.add("focus");
+  };
+  
+
+    const handleBlur = (event) => {
+        const parent = event.target.parentNode.parentNode;
+        if (event.target.value === "") {
+            parent.classList.remove("focus");
         }
+    };
 
-    })
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const email = emailRef.current.value;
+        const password = passwordRef.current.value;
+        dispatch(userSignInAction({ email, password }));
+    };
+
+
+
+
+
+
+
+
+    
+
+
     return (
         <>
-            <Navbar />
-            <Box sx={{ minHeight: 'calc(100vh - 140px)', display: "flex", alignItems: "center", justifyContent: "center", bgcolor: "primary.white" }}>
+           
+          <img 
+            className="wave" 
+            src={waveImage} 
+            alt="wave" 
+            style={{ top: '389px', width: '1590px', height: '50vh', right: '0%' }} 
+          />
 
 
-                <Box onSubmit={formik.handleSubmit} component="form" className='form_style border-style' >
-                    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
-                        <Avatar sx={{ m: 1, bgcolor: "primary.main", mb: 3 }}>
-                            <LockClockOutlined sx={{ color: 'white' }} />
-                        </Avatar>
-                        <TextField
-                            sx={{
-                                mb: 3,
-                                "& .MuiInputBase-root": {
-                                    color: 'text.secondary',
-                                },
-                                fieldset: { borderColor: "rgb(231, 235, 240)" }
-                            }}
-                            fullWidth
-                            id="email"
-                            label="E-mail"
-                            name='email'
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
+          
+          <div className="container">
+            <div className="img"></div>
+            <div className="login-content">
+              <form onSubmit={handleSubmit}>
+                <div className="card">
+                <img 
+  className="digital-image" 
+  src={avatarImage} 
+  alt="avatar" 
+  style={{ position: 'absolute', top: '100px', left: '660px', width: '220px', height: 'auto' }} 
+/>
 
-                            placeholder="E-mail"
-                            value={formik.values.email}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.email && Boolean(formik.errors.email)}
-                            helperText={formik.touched.email && formik.errors.email}
-                        />
-                        <TextField
-                            sx={{
-                                mb: 3,
-                                "& .MuiInputBase-root": {
-                                    color: 'text.secondary'
-                                },
-                                fieldset: { borderColor: "rgb(231, 235, 240)" }
-                            }}
-                            fullWidth
-                            id="password"
-                            name="password"
-                            label="Password"
-                            type="password"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            placeholder="Password"
-                            value={formik.values.password}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.password && Boolean(formik.errors.password)}
-                            helperText={formik.touched.password && formik.errors.password}
-                        />
+<div className="input-div pass">
+            <div className="i">
+                <PersonIcon style={{ color: '#F72585' }} /> {/* Icône d'utilisateur */}
+            </div>
+            <div className="div">
+                <h5></h5>
+                <input
+    type="text"
+    className="input"
+    ref={emailRef}
+    onFocus={(event) => handleFocus(event, "username")}
+    onBlur={handleBlur}
+    placeholder="Nom d'utilisateur"
+    style={{ textAlign: 'center', fontSize: '17px' }}
+/>
+            </div>
+        </div>
 
-                        <Button fullWidth variant="contained" type='submit' >Log In</Button>
-                    </Box>
-                </Box>
-            </Box>
-            <Footer />
+
+
+
+
+
+        <div className="input-div pass">
+            <div className="i">
+            <LockIcon style={{ color: '#F72585' }} /> {/* Icône de cadenas */}
+            </div>
+            <div className="div">
+                <h5> </h5>
+                <input
+    type="password"
+    className="input"
+    ref={passwordRef}
+    onFocus={(event) => handleFocus(event, "password")}
+    onBlur={handleBlur}
+    placeholder="Mot de passe"
+    style={{ textAlign: 'center', fontSize: '17px' }}
+/>
+
+            </div>
+        </div>
+
+ 
+        <input type="submit" className="btn" value="Login" style={{ marginTop: '40px' }} />
+                </div>
+              </form>
+            </div>
+          </div>
         </>
-    )
-}
+      );
+    }
 
-export default LogIn
+
+export default LogIn;
