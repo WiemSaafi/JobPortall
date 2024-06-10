@@ -78,7 +78,7 @@ const LogIn = () => {
             className="wave" 
             src={waveImage} 
             alt="wave" 
-            style={{ top: '389px', width: '2000px', height: '60vh', right: '0%' }} 
+            style={{ top: '389px', width: '1590px', height: '50vh', right: '0%' }} 
           />
 
 
@@ -92,7 +92,7 @@ const LogIn = () => {
   className="digital-image" 
   src={avatarImage} 
   alt="avatar" 
-  style={{ position: 'absolute', top: '210px', left: '775px', width: '265px', height: 'auto' }} 
+  style={{ position: 'absolute', top: '100px', left: '660px', width: '220px', height: 'auto' }} 
 />
 
 <div className="input-div pass">
@@ -108,7 +108,7 @@ const LogIn = () => {
     onFocus={(event) => handleFocus(event, "username")}
     onBlur={handleBlur}
     placeholder="Nom d'utilisateur"
-    style={{ textAlign: 'center', fontSize: '20px' }}
+    style={{ textAlign: 'center', fontSize: '17px' }}
 />
             </div>
         </div>
@@ -131,14 +131,14 @@ const LogIn = () => {
     onFocus={(event) => handleFocus(event, "password")}
     onBlur={handleBlur}
     placeholder="Mot de passe"
-    style={{ textAlign: 'center', fontSize: '24px' }}
+    style={{ textAlign: 'center', fontSize: '17px' }}
 />
 
             </div>
         </div>
 
  
-        <input type="submit" className="btn" value="Login" style={{ marginTop: '50px' }} />
+        <input type="submit" className="btn" value="Login" style={{ marginTop: '40px' }} />
                 </div>
               </form>
             </div>

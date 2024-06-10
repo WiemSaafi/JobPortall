@@ -300,7 +300,7 @@ const dataa = [
               series={dataa}
               type="area"
               width="100%"
-              height="397px"
+              height="250px"
             />
           </ChartComponent>
         </Stack>
