@@ -69,8 +69,8 @@ const AdminDashboard = () => {
  const totalUsers = user?.length || 32;
 
 
-  const heuredepartLength = !!data?.length ? data.filter(heure => heure.typeHeure === 'entrée').map(heure => moment(heure.Heure).format('YYYY-MM-DD HH:mm')) : [];
-  const heuresortieLength = !!data?.length ? data.filter(Heure => Heure.typeHeure === 'sortie').map(Heure => moment(Heure.Heure).format('YYYY-MM-DD HH:mm')) : [];
+  const heuredepartLength = !!data?.length ? data.filter(heure => heure.typeHeure === 'entrée') : [];
+  const heuresortieLength = !!data?.length ? data.filter(Heure => Heure.typeHeure === 'sortie') : [];
   //const totalEmployés = !!user?.length ? user.map(use => (use.firstName)) : [];
 console.log("heuredepartLength")
 const convertToMinutes = (time) => {
@@ -78,24 +78,28 @@ const convertToMinutes = (time) => {
   return momentTime.hours() * 60 + momentTime.minutes();
 };
 
-const filterValidData = (data) => {
+const filterValidData = (data, typeHeure) => {
   return data.filter(i => {
-    const timeInMinutes = convertToMinutes(moment(i).format("HH:mm"));
+    const timeInMinutes = convertToMinutes(moment(i?.Heure).format("HH:mm"));
     return !isNaN(timeInMinutes) && timeInMinutes >= 420 && timeInMinutes <= 1080;
-  }).map(i => ({
-    x: moment(i).format("YYYY-MM-DD"),
-    y: convertToMinutes(moment(i).format("HH:mm"))
-  }));
+  }).map(i => {
+    return({
+      x: moment(i?.Heure).format("YYYY-MM-DD"),
+      y: convertToMinutes(moment(i?.Heure).format("HH:mm")),
+      name: `${i?.user?.firstName} ${i?.user?.lastName}`,
+      type: typeHeure,
+    })
+   });
 };
 
 const dataa = [
   {
     name: 'départ',
-    data: filterValidData(heuredepartLength),
+    data: filterValidData(heuredepartLength, "entrée"),
   },
   {
     name: 'sortie',
-    data: filterValidData(heuresortieLength),
+    data: filterValidData(heuresortieLength,"sortie"),
   },
 ];
   
@@ -135,9 +139,24 @@ const dataa = [
       min: 420,  // 7:00 AM in minutes
       max: 1080,  // 6:00 PM in minutes
       tickAmount: 12,
-    },  dataLabels: {
+    },  
+    dataLabels: {
       enabled: false // Disable data labels on the lines
-    }
+    },
+    // tooltip: {
+    //   x: {
+    //     format: 'dd MMM yyyy HH:mm',
+    //   },
+    //   custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+    //     const dataPoint = w.globals.series[seriesIndex][dataPointIndex];
+    //     console.log("dataPoint",series)
+    //     const { name, type, x } = dataPoint;
+    //     const time = moment(x).format('HH:mm');
+    //     return `<div class="apexcharts-tooltip-title">${name}</div>
+    //             <div>Type: ${type}</div>
+    //             <div>Time: ${time}</div>`;
+    //   },
+    // },
   
   });
 

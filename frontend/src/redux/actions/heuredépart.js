@@ -18,10 +18,10 @@ import {
     HEURE_PRESENCE_FAIL,
 } from '../constants/heuredépartconstant';
 
-export const heuredepartjourAction = (selectedDay, selectedMonth, selectedYear) => async (dispatch) => {
+export const heuredepartjourAction = (id,selectedDay, selectedMonth, selectedYear) => async (dispatch) => {
     dispatch({ type: JOUR_DEPART_REQUEST });
     try {
-        const { data } = await axios.get(`/api/jourmois?day=${selectedDay}&month=${selectedMonth}&year=${selectedYear}`);
+        const { data } = await axios.get(`/api/jourmois/${id}?day=${selectedDay}&month=${selectedMonth}&year=${selectedYear}`);
         dispatch({
             type: JOUR_DEPART_SUCCESS,
             payload: data // Assurez-vous que data contient directement les données des heures de départ
@@ -69,7 +69,7 @@ export const userSingleHeureAction  = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: HEURE_SINGLE_FAIL,
-            payload: error.response.user.error
+            payload: error?.response?.user?.error
         });
     }
 }
@@ -83,6 +83,7 @@ export const getDerniereEntreeSortieAction  = (_id) => async (dispatch) => {
             type: HEURE_DERNIER_SUCCESS,
             payload: data
         });
+        return data
         console.log("Données récupérées avec succès :", data); // Ajoutez un console.log pour afficher les données récupérées
     } catch (error) {
         dispatch({

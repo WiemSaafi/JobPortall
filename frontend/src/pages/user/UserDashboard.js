@@ -15,7 +15,7 @@ import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { userSingleAction } from '../../redux/actions/userAction';
-import { heuredepartjourAction, userSingleHeureAction } from '../../redux/actions/heuredépart';
+import { getDerniereEntreeSortieAction, heuredepartjourAction, userSingleHeureAction } from '../../redux/actions/heuredépart';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import DatePicker from '@mui/lab/DatePicker';
@@ -47,7 +47,6 @@ const UserDashboard= () => {
     const [derniereEntree, setderniereheure] = useState(null);
     
     const [ derniereSortie, setderniereSortie] = useState(null);
-  
     const [isHovered] = useState(false);
     const [selectedJour, setSelectedJour] = useState('');
     const [selectedMonth, setSelectedMonth] = useState('');
@@ -55,24 +54,38 @@ const UserDashboard= () => {
     const [heuresDépartJourMois, setheuresDépartJourMois] = useState([]);
     const userProfile = useSelector(state => state.userProfile);
     const getDerniereEntreeSortie = useSelector(state => state.getDerniereEntreeSortie);
-    
+    const [lastTimes, setLastTimes] = useState({entree:"00:00",sortie:"00:00"})
 
     useEffect(() => {
-        dispatch(userSingleHeureAction(id));
-    }, [dispatch, id]);
+        const fetchData = async () => {
+        if(!!userProfile.user?._id){
+            try {
+                const data = await dispatch(getDerniereEntreeSortieAction(userProfile.user?._id));
+                console.log("data",data)         
+                setLastTimes({entree:data?.derniereEntree[0]?.Heure,sortie:data?.derniereSortie[0]?.Heure})      // setheuresDépartJourMois(data);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des heures de départ:', error);
+            }
+           
+        }
+    }
+    fetchData()
+        
+    }, [dispatch, userProfile]);
 
-  
+
     useEffect(() => {
         setUser(userProfile.user);
     }, [userProfile.user]);
+
     useEffect(() => {
         setderniereheure(getDerniereEntreeSortie?.derniereEntree);
         setderniereSortie(getDerniereEntreeSortie?.derniereSortie);
     }, [getDerniereEntreeSortie]);
   ;
-    useEffect(() => {
-        dispatch(userSingleAction(id));
-    }, [dispatch, id]);
+    // useEffect(() => {
+    //     dispatch(userSingleAction(id));
+    // }, [dispatch, id]);
    
 
     const handleChangeJour = (event) => {
@@ -90,7 +103,7 @@ const UserDashboard= () => {
         const fetchData = async () => {
             if (selectedJour && selectedMonth && selectedYear) {
                 try {
-                    const data = await dispatch(heuredepartjourAction(selectedJour, selectedMonth, selectedYear));
+                    const data = await dispatch(heuredepartjourAction(userProfile.user?._id,selectedJour, selectedMonth, selectedYear));
                     setheuresDépartJourMois(data);
                 } catch (error) {
                     console.error('Erreur lors de la récupération des heures de départ:', error);
@@ -135,7 +148,7 @@ return (
                     label="Dernière heure d'entrée"
                     variant="outlined"
                     fullWidth
-                    value={"8:30"}
+                    value={moment(lastTimes?.entree).format("HH:mm:ss")}
                     InputProps={{
                         readOnly: true,
                         startAdornment: <AccessTimeIcon sx={{ color: '#F72585', marginRight: '10px' }} />,
@@ -155,7 +168,7 @@ return (
                     label="Dernière heure de sortie"
                     variant="outlined"
                     fullWidth
-                    value={"5:30"}
+                    value={moment(lastTimes?.sortie).format("HH:mm:ss")}
                     InputProps={{
                         readOnly: true,
                         startAdornment: <AccessTimeIcon sx={{ color: '#F72585', marginRight: '10px' }} />,

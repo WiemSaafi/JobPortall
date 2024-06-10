@@ -49,6 +49,7 @@ const InfoUser = () => {
     const [heuresDépartJourMois, setheuresDépartJourMois] = useState([]);
     const userProfile = useSelector(state => state.userProfile);
     const getDerniereEntreeSortie = useSelector(state => state.getDerniereEntreeSortie);
+    const [lastTimes, setLastTimes] = useState({entree:"00:00",sortie:"00:00"})
     
 
     useEffect(() => {
@@ -66,17 +67,7 @@ const InfoUser = () => {
        setderniereSortie(getDerniereEntreeSortie?.derniereSortie);
       }, [getDerniereEntreeSortie]);
 
-   useEffect(() => {
-        const fetchUserData = async () => {
-          try {
-           dispatch(getDerniereEntreeSortieAction(id));
-         } catch (error) {
-                console.error("Error fetching user data:", error);
-          }
-        };
 
-       fetchUserData();
-  }, [dispatch, id]);
 
     // Éventuellement, vous pouvez écouter les changements de l'état Redux pour mettre à jour votre state local
     useEffect(() => {
@@ -92,7 +83,8 @@ const InfoUser = () => {
         try {
             const data = await dispatch(userSingleAction(id));
             setUser(data?.user)
-            console.log("User Data:", data);
+            const datas = await dispatch(getDerniereEntreeSortieAction(id));
+                setLastTimes({entree:datas?.derniereEntree[0]?.Heure,sortie:datas?.derniereSortie[0]?.Heure})  
         } catch (error) {
             console.error("Error fetching user data:", error);
         }
@@ -120,7 +112,7 @@ const InfoUser = () => {
             if (selectedJour && selectedMonth && selectedYear) {
               ;
                 try {
-                    const data = await dispatch(heuredepartjourAction(selectedJour, selectedMonth, selectedYear,));
+                    const data = await dispatch(heuredepartjourAction(id,selectedJour, selectedMonth, selectedYear,));
                     setheuresDépartJourMois(data);
                 } catch (error) {
                     console.error('Erreur lors de la récupération des heures de départ:', error);
@@ -276,7 +268,8 @@ return (
                     label="Dernière heure d'entrée"
                     variant="outlined"
                     fullWidth
-                    value={derniereEntree ? moment(getDerniereEntreeSortie?.derniereEntree).format('HH:mm') : ''}
+                    value={moment(lastTimes?.entree).format("HH:mm:ss")}
+
                     InputProps={{
                         readOnly: true,
                         startAdornment: <AccessTimeIcon sx={{ color: '#F72585', marginRight: '10px' }} />,
@@ -297,8 +290,7 @@ return (
                     label="Dernière heure de sortie"
                     variant="outlined"
                     fullWidth
-                     value={derniereSortie ? moment(derniereSortie?.Heure).format('HH:mm') : ''}
-                    
+                    value={moment(lastTimes?.sortie).format("HH:mm:ss")}
                      InputProps={{
                         readOnly: true,
                         startAdornment: <AccessTimeIcon sx={{ color: '#F72585', marginRight: '10px' }} />,

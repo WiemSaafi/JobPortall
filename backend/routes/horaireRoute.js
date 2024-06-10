@@ -5,7 +5,7 @@ const { isAuthenticated } = require('../middleware/auth');
 
 //router.post('/heurs', isAuthenticated, createHeure);
 router.get('/heure/:id',singleHeure);
-router.get('/jourmois', isAuthenticated,heuredepartjourmois );
+router.get('/jourmois/:_id', isAuthenticated,heuredepartjourmois );
 router.get('/dept', heureDépart);
 router.get('/dernierentreesortie/:_id', getDerniereEntreeSortie);
 router.get('/pourcentagepresence',calculerPourcentagePresence);

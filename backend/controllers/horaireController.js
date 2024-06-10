@@ -138,7 +138,7 @@ exports.heuredepartjourmois = async (req, res, next) => {
   
     try {
         // Récupérer toutes les heures de départ de la base de données
-        const allHeuresDépart = await HeureDépart.find(req.body); // Vous pouvez ajouter des conditions de recherche si nécessaire
+        const allHeuresDépart = await HeureDépart.find({ user: req.params._id }); // Vous pouvez ajouter des conditions de recherche si nécessaire
         
         // Filtrer les heures de départ pour le jour, le mois et l'année spécifiés
         const heuresDépartJourMois = allHeuresDépart.filter(heure => {
@@ -179,9 +179,9 @@ exports.getDerniereEntreeSortie = async (req, res, next) => {
     try {
         // Recherche de la dernière entrée de l'utilisateur
         const derniereEntree = await HeureDépart.find({ user: req.params._id, typeHeure: 'entrée' })
-             /*.sort({ "Heure": -1 }) // Trie par ordre décroissant de la date/heure
+             .sort({ "Heure": -1 }) // Trie par ordre décroissant de la date/heure
             .limit(1); 
-            */
+            
             console.log("hhhh", req.params._d)
         // Recherche de la dernière sortie de l'utilisateur
         const derniereSortie = await HeureDépart.find({ user: req.params._id, typeHeure: 'sortie' })
