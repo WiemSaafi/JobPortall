@@ -6,7 +6,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { AiFillCalendar } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import  '../admin/Calendrier';
-import { heureDépartAction } from '../../redux/actions/heuredépart';
+import { heureDépartAction, heureDépartByDateAction } from '../../redux/actions/heuredépart';
 import HeaderTop from '../global/HeaderTop';
 import { Sidebar } from 'react-pro-sidebar';
 import freeImage from '../../img/wave8.png';
@@ -20,20 +20,44 @@ function MyCalendar() {
   moment.locale('fr');
   const localizer = momentLocalizer(moment);
   const [isHovered, setIsHovered] = useState(false);
+  const [selectedDateRange, setSelectedDateRange] = useState({ debut: moment().format("YYYY-MM-DD"), fin: moment().format("YYYY-MM-DD") });
 
-  useEffect(() => {
-    dispatch(heureDépartAction());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (heureDépart && heureDépart.user) {
-      setData(heureDépart.user);
+  const handleNavigate = (date, view) => {
+    let debut, fin;
+    if (view === 'week') {
+      debut = moment(date).startOf('week').toDate();
+      fin = moment(date).endOf('week').toDate();
+    } else if (view === 'month') {
+      debut = moment(date).startOf('month').toDate();
+      fin = moment(date).endOf('month').toDate();
+    } else {
+      debut = date;
+      fin = date;
     }
-  }, [heureDépart]);
-  console.log("data",heureDépart)
+
+    setSelectedDateRange({ debut, fin });
+    console.log("Selected date range:", { debut, fin });
+    console.log("Current view:", view);
+  };
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const datas = await dispatch(heureDépartByDateAction(moment(selectedDateRange?.debut).format("YYYY-MM-DD"),moment(selectedDateRange?.fin).format("YYYY-MM-DD")));
+        console.log("erferer",datas)
+        setData(datas?.data || []) 
+      } catch (error) {
+        console.log(error)
+      }
+      
+    }
+    getData()
+  }, [dispatch, selectedDateRange]);
+
+
+  console.log("data",data)
 
   useEffect(() => {
-    const formattedEvents = data.flatMap(event => {
+    const formattedEvents = !!data?.length ? data.flatMap(event => {
       console.log("event",event)
       return [{
         title: `${event?.user?.firstName} ${event?.user?.lastName}`,
@@ -42,7 +66,7 @@ function MyCalendar() {
         type:event?.typeHeure
       }];
       
-    });
+    }) : [];
     setEvents(formattedEvents);
   }, [data]);
   
@@ -111,6 +135,9 @@ function MyCalendar() {
             onSelectEvent={handleEventSelect}
             views={['month', 'week', 'day', 'agenda']}
             toolbar={true}
+            onNavigate={handleNavigate}
+           
+
           />
         </Card>
     <Button onClick={exportToCSV}>Exporter csv</Button>

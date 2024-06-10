@@ -167,9 +167,9 @@ exports.calculerTempsDeTravail = async(req, res, next) => {
         const { user, debut, fin } = req.query;
         const listHeure = await HeureDépart.find({
             user: user,
-            Heure: {
+            Heure:   {
                 $gte: moment(debut).format("YYYY-MM-DD"),
-                $lt:  moment(fin).format("YYYY-MM-DD"),
+                $lte:  moment(fin).format("YYYY-MM-DD"),
             }
         })     
         let nbrHeureGlobal = 0;
@@ -276,6 +276,25 @@ exports.getDerniereEntreeSortie = async (req, res, next) => {
 exports.heureDépart = async (req, res) => {
     try {
         const heures = await HeureDépart.find(req.body).populate('user');
+        console.log("Toutes les heures de départ :", heures);
+        if (!heures) {
+            return res.status(404).json({ success: false, error: "Heures de départ non trouvées" });
+        }
+        res.status(200).json({ success: true, data: heures });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, error: "Erreur serveur lors de la récupération des heures de départ" });
+    }
+};
+
+exports.heureDépartByDate = async (req, res) => {
+    try {
+        const { debut, fin } = req.query;
+        const heures = await HeureDépart.find({
+            Heure: {  
+                $gte: moment(debut).moment("YYYY-MM-DD"),
+                $lte: moment(fin).moment("YYYY-MM-DD"),}
+        }).populate('user') 
         console.log("Toutes les heures de départ :", heures);
         if (!heures) {
             return res.status(404).json({ success: false, error: "Heures de départ non trouvées" });

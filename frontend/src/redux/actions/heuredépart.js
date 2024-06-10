@@ -60,6 +60,28 @@ export const heureDépartAction = () => async (dispatch) => {
        
     }
 };
+export const heureDépartByDateAction = (debut, fin) => async (dispatch) => {
+    dispatch({ type: USER_DEPART_REQUEST });
+    try {
+        // Vous pouvez ajouter ici toute logique de vérification d'authentification et de statut d'administrateur
+        // Par exemple, vous pouvez vérifier si l'utilisateur est connecté et s'il a le statut d'administrateur
+
+        // Ensuite, vous pouvez envoyer la requête GET vers "/heuredep"
+        const { data } = await axios.get(`/api/deptByDate?debut=${debut}&fin=${fin}`);
+
+        dispatch({
+            type: USER_DEPART_SUCCESS,
+            payload: data
+        });
+        return data
+    } catch (error) {
+        dispatch({
+            type: USER_DEPART_FAIL,
+            payload: error.response.data.error
+        });
+       
+    }
+};
 export const calculerTempsDeTravailtAction = (debutjour,finjour ) => async (dispatch) => {
     dispatch({ type: USER_tempstravail_REQUEST });
     try {
