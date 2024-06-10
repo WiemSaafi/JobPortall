@@ -75,7 +75,7 @@ const App = () => {
             const now = new Date();
             console.log("Checking time:", now); // Ajout d'un journal pour déboguer
             if (now.getHours() === 13 && now.getMinutes() === 40) {
-                toast.success("Il est 12h ! C'est l'heure de pausse !");
+                toast.success("Il est 12h ! C'est l'heure de pause !");
             }
         };
 

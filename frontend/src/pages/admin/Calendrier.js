@@ -10,7 +10,8 @@ import { heureDépartAction } from '../../redux/actions/heuredépart';
 import HeaderTop from '../global/HeaderTop';
 import { Sidebar } from 'react-pro-sidebar';
 import freeImage from '../../img/wave8.png';
-import { Card } from '@mui/material';
+import { Button, Card } from '@mui/material';
+import { exportCSV } from '../../component/ExportCSV';
 function MyCalendar() {
   const [events, setEvents] = useState([]);
   const heureDépart = useSelector(state => state.heureDépart);
@@ -33,23 +34,13 @@ function MyCalendar() {
 
   useEffect(() => {
     const formattedEvents = data.flatMap(event => {
-      if (event.typeHeure === 'entrée') {
-        return [{
-          title: `${event.typeHeure} - ${event.typeHeure === 'entrée' ? 'Saafi' : (event.user && event.user.firstName ? event.user.firstName : 'Saafi')}`,
-          start: moment(event.createdAt).toDate(),
-          end: moment(event.createdAt).toDate(),
-        }];
-        
-        
-      } else if (event.typeHeure === 'sortie') {
-        return [{
-          title: event.typeHeure,
-          start: moment(event.createdAt).toDate(),
-          end: moment(event.createdAt).toDate(),
-        }];
-      }
-      
-      return [];
+      console.log("event",event)
+      return [{
+        title: `${event?.user?.firstName} ${event?.user?.lastName}`,
+        start: moment(event.createdAt).toDate(),
+        end: moment(event.createdAt).toDate(),
+        type:event?.typeHeure
+      }];
       
     });
     setEvents(formattedEvents);
@@ -68,6 +59,24 @@ function MyCalendar() {
     console.log(event.title);
   };
 
+  const exportToCSV = () => {
+    const groupedData = data.reduce((acc, curr) => {
+      const userId = curr.user._id;
+      if (!acc[userId]) {
+          acc[userId] = [];
+      }
+      acc[userId].push(curr);
+      return acc;
+  }, {});
+  
+  // Convert the grouped data into the required format
+  const usersData = Object.entries(groupedData).map(([userId, userData]) => {
+      const fileName = `${userData[0].user.firstName}_${userData[0].user.lastName}`;
+      return { fileName, data: userData?.map(i=>({Heure:i?.Heure, typeHeure:i?.typeHeure}))};
+  });
+  // Generate the filename based on the user's first name
+    exportCSV(usersData,`Pointage`)
+};
   return (
     <div>
       
@@ -104,6 +113,8 @@ function MyCalendar() {
             toolbar={true}
           />
         </Card>
+    <Button onClick={exportToCSV}>Exporter csv</Button>
+
       </div>
       <img
         src={freeImage}

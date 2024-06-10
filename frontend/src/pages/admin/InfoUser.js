@@ -25,11 +25,12 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import InputAdornment from '@mui/material/InputAdornment';
 import PersonIcon from '@mui/icons-material/Person';
-import { Fade } from '@mui/material';
+import { Button, Fade } from '@mui/material';
 import {   CalendarToday as CalendarIcon, Event as EventIcon, FlightLand as FlightLandIcon } from '@mui/icons-material';
 import FaceIcon from '@mui/icons-material/Face';
 import { motion } from 'framer-motion';
 import freeImage from '../../img/wave777.png';
+import { exportCSV } from '../../component/ExportCSV';
 
 
 
@@ -125,7 +126,22 @@ const InfoUser = () => {
     const currentYear = new Date().getFullYear();
 
 
+        const exportToCSV = () => {
+            const filteredDataEntrée = heuresDépartJourMois.filter(heure => heure.typeHeure === 'entrée')
+            .map(heure => ({
+              Heure: moment(heure.Heure).format('HH:mm'),
+              typeHeure: "Entree",
+            }));
 
+            const filteredDataSortie = heuresDépartJourMois.filter(heure => heure.typeHeure === 'sortie')
+            .map(heure => ({
+              Heure: moment(heure.Heure).format('HH:mm'),
+              typeHeure: "Sortie"
+            }));
+            const data = [...filteredDataEntrée,...filteredDataSortie];
+          // Generate the filename based on the user's first name
+            exportCSV(data,`Pointage_${user?.firstName}_${user?.lastName}_${selectedJour}_${selectedMonth}_${selectedYear}`)
+        };
 // jw card
 return (
     <Box sx={{  marginTop: '-45px',height: '35vh', backgroundColor: '#f0f2f5' }}>
@@ -317,8 +333,8 @@ return (
 </Typography>
 <div style={{ height: '20px' }}></div>
 
- 
-<Grid container spacing={2} alignItems="center" justifyContent="center" style={{ height: '100%', marginTop: '-60px' }}>
+
+<Grid container spacing={2} alignItems="center" justifyContent="center" style={{ height: '100%', marginTop: '-30px' }}>
     <Grid item xs={7} sm={4}   >
                             <Fade in={true} timeout={"100%"}>
                
@@ -480,6 +496,7 @@ return (
         </Grid>
         </Grid>
     </Grid>
+    <Button onClick={exportToCSV}>Exporter csv</Button>
 </CardContent>
 </Card>
 )}
